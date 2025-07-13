@@ -1,0 +1,48 @@
+## Build results
+bin/
+obj/
+[Bb]uild/
+[Ll]ogs/
+*.log
+
+## Visual Studio
+.vscode/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+*.dbmdl
+
+## Rider
+.idea/
+
+## OS Files
+.DS_Store
+Thumbs.db
+
+## npm / yarn
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+## Others
+.env
+*.sqlite
+*.sqlite3
+*.p12
+*.pem
+*.crt
+*.key
+
+# Publish files
+.publish/
+
+# Azure deployment
+.publishxml
