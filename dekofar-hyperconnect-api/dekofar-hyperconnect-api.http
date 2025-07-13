@@ -1,0 +1,6 @@
+@dekofar_hyperconnect_api_HostAddress = http://localhost:5036
+
+GET {{dekofar_hyperconnect_api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
