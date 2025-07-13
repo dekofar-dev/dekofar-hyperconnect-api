@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api.csproj": {}
+    "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api.csproj": {}
   },
   "projects": {
-    "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api.csproj": {
+    "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api.csproj",
+        "projectUniqueName": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api.csproj",
         "projectName": "dekofar-hyperconnect-api",
-        "projectPath": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api.csproj",
-        "packagesPath": "C:\\Users\\recep\\.nuget\\packages\\",
-        "outputPath": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\obj\\",
+        "projectPath": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api.csproj",
+        "packagesPath": "C:\\Users\\kadir\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\recep\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\kadir\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -32,20 +32,20 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj": {
-                "projectPath": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj"
+              "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj": {
+                "projectPath": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj"
               },
-              "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Domain\\Dekofar.HyperConnect.Domain.csproj": {
-                "projectPath": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Domain\\Dekofar.HyperConnect.Domain.csproj"
+              "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Domain\\Dekofar.HyperConnect.Domain.csproj": {
+                "projectPath": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Domain\\Dekofar.HyperConnect.Domain.csproj"
               },
-              "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj": {
-                "projectPath": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj"
+              "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj"
               },
-              "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj": {
-                "projectPath": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj"
+              "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj": {
+                "projectPath": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj"
               },
-              "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Shared\\Dekofar.HyperConnect.Shared.csproj": {
-                "projectPath": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Shared\\Dekofar.HyperConnect.Shared.csproj"
+              "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Shared\\Dekofar.HyperConnect.Shared.csproj": {
+                "projectPath": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Shared\\Dekofar.HyperConnect.Shared.csproj"
               }
             }
           }
@@ -120,20 +120,20 @@
         }
       }
     },
-    "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj": {
+    "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj",
+        "projectUniqueName": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj",
         "projectName": "Dekofar.HyperConnect.Application",
-        "projectPath": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj",
-        "packagesPath": "C:\\Users\\recep\\.nuget\\packages\\",
-        "outputPath": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\obj\\",
+        "projectPath": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj",
+        "packagesPath": "C:\\Users\\kadir\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\recep\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\kadir\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -211,20 +211,20 @@
         }
       }
     },
-    "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Domain\\Dekofar.HyperConnect.Domain.csproj": {
+    "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Domain\\Dekofar.HyperConnect.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Domain\\Dekofar.HyperConnect.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Domain\\Dekofar.HyperConnect.Domain.csproj",
         "projectName": "Dekofar.HyperConnect.Domain",
-        "projectPath": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Domain\\Dekofar.HyperConnect.Domain.csproj",
-        "packagesPath": "C:\\Users\\recep\\.nuget\\packages\\",
-        "outputPath": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Domain\\obj\\",
+        "projectPath": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Domain\\Dekofar.HyperConnect.Domain.csproj",
+        "packagesPath": "C:\\Users\\kadir\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\recep\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\kadir\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -286,20 +286,20 @@
         }
       }
     },
-    "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj": {
+    "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj",
         "projectName": "Dekofar.HyperConnect.Infrastructure",
-        "projectPath": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\recep\\.nuget\\packages\\",
-        "outputPath": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\obj\\",
+        "projectPath": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\kadir\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\recep\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\kadir\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -314,11 +314,14 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj": {
-                "projectPath": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj"
+              "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj": {
+                "projectPath": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj"
               },
-              "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Domain\\Dekofar.HyperConnect.Domain.csproj": {
-                "projectPath": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Domain\\Dekofar.HyperConnect.Domain.csproj"
+              "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Domain\\Dekofar.HyperConnect.Domain.csproj": {
+                "projectPath": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Domain\\Dekofar.HyperConnect.Domain.csproj"
+              },
+              "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj": {
+                "projectPath": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj"
               }
             }
           }
@@ -392,20 +395,20 @@
         }
       }
     },
-    "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj": {
+    "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj",
+        "projectUniqueName": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj",
         "projectName": "Dekofar.HyperConnect.Integrations",
-        "projectPath": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj",
-        "packagesPath": "C:\\Users\\recep\\.nuget\\packages\\",
-        "outputPath": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\obj\\",
+        "projectPath": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj",
+        "packagesPath": "C:\\Users\\kadir\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\recep\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\kadir\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -420,11 +423,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj": {
-                "projectPath": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj"
+              "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj": {
+                "projectPath": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj"
               },
-              "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Domain\\Dekofar.HyperConnect.Domain.csproj": {
-                "projectPath": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Domain\\Dekofar.HyperConnect.Domain.csproj"
+              "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Domain\\Dekofar.HyperConnect.Domain.csproj": {
+                "projectPath": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Domain\\Dekofar.HyperConnect.Domain.csproj"
               }
             }
           }
@@ -464,20 +467,20 @@
         }
       }
     },
-    "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Shared\\Dekofar.HyperConnect.Shared.csproj": {
+    "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Shared\\Dekofar.HyperConnect.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Shared\\Dekofar.HyperConnect.Shared.csproj",
+        "projectUniqueName": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Shared\\Dekofar.HyperConnect.Shared.csproj",
         "projectName": "Dekofar.HyperConnect.Shared",
-        "projectPath": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Shared\\Dekofar.HyperConnect.Shared.csproj",
-        "packagesPath": "C:\\Users\\recep\\.nuget\\packages\\",
-        "outputPath": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Shared\\obj\\",
+        "projectPath": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Shared\\Dekofar.HyperConnect.Shared.csproj",
+        "packagesPath": "C:\\Users\\kadir\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Shared\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\recep\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\kadir\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

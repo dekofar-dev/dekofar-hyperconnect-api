@@ -10,6 +10,7 @@
         "dependencies": {
           "Dekofar.HyperConnect.Application": "1.0.0",
           "Dekofar.HyperConnect.Domain": "1.0.0",
+          "Dekofar.HyperConnect.Integrations": "1.0.0",
           "MediatR": "13.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.0",
@@ -818,6 +819,18 @@
             "fileVersion": "1.0.0.0"
           }
         }
+      },
+      "Dekofar.HyperConnect.Integrations/1.0.0": {
+        "dependencies": {
+          "Dekofar.HyperConnect.Application": "1.0.0",
+          "Dekofar.HyperConnect.Domain": "1.0.0"
+        },
+        "runtime": {
+          "Dekofar.HyperConnect.Integrations.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
       }
     }
   },
@@ -1281,6 +1294,11 @@
       "sha512": ""
     },
     "Dekofar.HyperConnect.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Dekofar.HyperConnect.Integrations/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

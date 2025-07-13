@@ -2,6 +2,7 @@
 using Dekofar.HyperConnect.Application.Interfaces;
 using Dekofar.HyperConnect.Application.Services;
 using Dekofar.HyperConnect.Infrastructure.Persistence;
+using Dekofar.HyperConnect.Integrations.NetGsm.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -29,8 +30,8 @@ namespace Dekofar.HyperConnect.Infrastructure.ServiceRegistration
                 options.Password.RequireUppercase = false;
                 options.User.RequireUniqueEmail = true;
             })
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
 
             // 🔑 JWT Authentication
             var jwtSettings = configuration.GetSection("Jwt");
@@ -57,6 +58,9 @@ namespace Dekofar.HyperConnect.Infrastructure.ServiceRegistration
 
             // 🧾 Token servisi
             services.AddScoped<ITokenService, TokenService>();
+
+            // ☎️ NetGSM Entegrasyonu
+            services.AddNetGsmIntegration();
 
             return services;
         }
