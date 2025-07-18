@@ -3,10 +3,7 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 🔐 JWT ayarlarını oku (gerekirse AddInfrastructure içinde kullanılacak)
-var jwtSettings = builder.Configuration.GetSection("Jwt");
-
-// 🧱 Altyapı servislerini yükle (DbContext, Identity, TokenService, JWT vs.)
+// 🧱 Altyapı servislerini yükle (DbContext, Identity, JWT, SMS servisi vs.)
 builder.Services.AddInfrastructure(builder.Configuration);
 
 // 🔧 Controller ve Swagger ayarları
@@ -54,12 +51,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Dekofar API v1");
-        c.RoutePrefix = "swagger";
+        c.RoutePrefix = "swagger"; // tarayıcıda /swagger yazınca açılır
     });
 }
 
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
 app.Run();

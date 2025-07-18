@@ -3,6 +3,7 @@ using Dekofar.HyperConnect.Application.Interfaces;
 using Dekofar.HyperConnect.Application.Services;
 using Dekofar.HyperConnect.Infrastructure.Persistence;
 using Dekofar.HyperConnect.Integrations.NetGsm.Extensions;
+using Dekofar.HyperConnect.Integrations.NetGsm.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -59,8 +60,11 @@ namespace Dekofar.HyperConnect.Infrastructure.ServiceRegistration
             // 🧾 Token servisi
             services.AddScoped<ITokenService, TokenService>();
 
-            // ☎️ NetGSM Entegrasyonu
-            services.AddNetGsmIntegration();
+            // ☎️ NetGSM Entegrasyonu (extension varsa)
+            services.AddNetGsmIntegration(); // (isteğe bağlı)
+
+            // 📩 NetGSM SMS Servisi
+            services.AddScoped<NetGsmSmsService>();
 
             return services;
         }

@@ -13,7 +13,7 @@ namespace Dekofar.HyperConnect.Integrations.NetGsm.Extensions
     {
         public static IServiceCollection AddNetGsmIntegration(this IServiceCollection services)
         {
-            services.AddScoped<INetGsmCallService, NetGsmCallService>();
+            //services.AddScoped<INetGsmCallService, NetGsmCallService>();
             return services;
         }
     }

@@ -1,5 +1,4 @@
-﻿using Dekofar.HyperConnect.Integrations.NetGsm.Interfaces;
-using Dekofar.HyperConnect.Integrations.NetGsm.Models;
+﻿using Dekofar.HyperConnect.Integrations.NetGsm.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
@@ -10,28 +9,28 @@ using System.Threading.Tasks;
 
 namespace Dekofar.HyperConnect.Integrations.NetGsm.Services
 {
-    public class NetGsmCallService : INetGsmCallService
+    public class NetGsmSmsService
     {
         private readonly IConfiguration _configuration;
         private readonly HttpClient _httpClient;
-        private readonly ILogger<NetGsmCallService> _logger;
+        private readonly ILogger<NetGsmSmsService> _logger;
 
-        public NetGsmCallService(IConfiguration configuration, ILogger<NetGsmCallService> logger)
+        public NetGsmSmsService(IConfiguration configuration, ILogger<NetGsmSmsService> logger)
         {
             _configuration = configuration;
             _logger = logger;
             _httpClient = new HttpClient();
         }
 
-        public async Task<List<CallLogResponse>> GetCallLogsAsync(CallLogRequest request)
+        public async Task<List<InboxSmsResponse>> GetIncomingSmsAsync()
         {
             var username = _configuration["NetGsm:Username"];
             var password = _configuration["NetGsm:Password"];
-            var baseUrl = "https://api.netgsm.com.tr/cdr/list/json"; // ✅ Doğru endpoint
+            var baseUrl = "https://api.netgsm.com.tr/sms/list/json";
 
-            var url = $"{baseUrl}?usercode={username}&password={password}&startdate={request.StartDate}&stopdate={request.EndDate}";
+            var url = $"{baseUrl}?usercode={username}&password={password}";
 
-            _logger.LogInformation("🔗 NetGSM İsteği: {Url}", url);
+            _logger.LogInformation("🔗 NetGSM SMS İsteği: {Url}", url);
 
             HttpResponseMessage response;
             string content;
@@ -40,33 +39,33 @@ namespace Dekofar.HyperConnect.Integrations.NetGsm.Services
             {
                 response = await _httpClient.GetAsync(url);
                 content = await response.Content.ReadAsStringAsync();
-                _logger.LogInformation("📥 NetGSM Yanıt: {Content}", content);
+                _logger.LogInformation("📥 NetGSM SMS Yanıt: {Content}", content);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "📛 NetGSM'e istek atılamadı.");
-                throw new Exception("NetGSM'e bağlantı kurulamadı.");
+                _logger.LogError(ex, "📛 NetGSM SMS istek hatası");
+                throw new Exception("NetGSM SMS servisine bağlantı kurulamadı.");
             }
 
             if (!response.IsSuccessStatusCode)
             {
-                _logger.LogError("❌ NetGSM çağrı kayıtları alınamadı. StatusCode: {StatusCode}", response.StatusCode);
-                throw new Exception("NetGSM çağrı kayıtları alınamadı.");
+                _logger.LogError("❌ NetGSM SMS alınamadı. StatusCode: {StatusCode}", response.StatusCode);
+                throw new Exception("NetGSM SMS alınamadı.");
             }
 
             try
             {
-                var logs = JsonSerializer.Deserialize<List<CallLogResponse>>(content, new JsonSerializerOptions
+                var smsList = JsonSerializer.Deserialize<List<InboxSmsResponse>>(content, new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true
                 });
 
-                return logs ?? new List<CallLogResponse>();
+                return smsList ?? new List<InboxSmsResponse>();
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "❌ JSON deserialize hatası");
-                throw new Exception("NetGSM yanıtı beklenen formatta değil.");
+                _logger.LogError(ex, "❌ NetGSM SMS JSON parse hatası");
+                throw new Exception("NetGSM SMS yanıtı beklenen formatta değil.");
             }
         }
     }

@@ -1,62 +1,10 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\",
+  "WorkspaceRootPath": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{69B0CB3B-770E-4C9D-A89F-1B77DF223575}|Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj|c:\\users\\kadir\\downloads\\dekofar-hyperconnect-api\\dekofar.hyperconnect.integrations\\netgsm\\services\\netgsmservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{69B0CB3B-770E-4C9D-A89F-1B77DF223575}|Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj|solutionrelative:dekofar.hyperconnect.integrations\\netgsm\\services\\netgsmservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{69B0CB3B-770E-4C9D-A89F-1B77DF223575}|Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj|c:\\users\\kadir\\downloads\\dekofar-hyperconnect-api\\dekofar.hyperconnect.integrations\\netgsm\\models\\smsrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{69B0CB3B-770E-4C9D-A89F-1B77DF223575}|Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj|solutionrelative:dekofar.hyperconnect.integrations\\netgsm\\models\\smsrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{69B0CB3B-770E-4C9D-A89F-1B77DF223575}|Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj|c:\\users\\kadir\\downloads\\dekofar-hyperconnect-api\\dekofar.hyperconnect.integrations\\netgsm\\interfaces\\inetgsmservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{69B0CB3B-770E-4C9D-A89F-1B77DF223575}|Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj|solutionrelative:dekofar.hyperconnect.integrations\\netgsm\\interfaces\\inetgsmservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{127A694C-1628-45ED-8387-FF201192F184}|Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj|c:\\users\\kadir\\downloads\\dekofar-hyperconnect-api\\dekofar.hyperconnect.infrastructure\\netgsm\\inetgsmservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{127A694C-1628-45ED-8387-FF201192F184}|Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj|solutionrelative:dekofar.hyperconnect.infrastructure\\netgsm\\inetgsmservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{127A694C-1628-45ED-8387-FF201192F184}|Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj|c:\\users\\kadir\\downloads\\dekofar-hyperconnect-api\\dekofar.hyperconnect.infrastructure\\serviceregistration\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{127A694C-1628-45ED-8387-FF201192F184}|Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj|solutionrelative:dekofar.hyperconnect.infrastructure\\serviceregistration\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{69B0CB3B-770E-4C9D-A89F-1B77DF223575}|Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj|c:\\users\\kadir\\downloads\\dekofar-hyperconnect-api\\dekofar.hyperconnect.integrations\\netgsm\\extensions\\servicecollectionextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{69B0CB3B-770E-4C9D-A89F-1B77DF223575}|Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj|solutionrelative:dekofar.hyperconnect.integrations\\netgsm\\extensions\\servicecollectionextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0843F085-2AEE-4CAA-994D-E511A51F16A1}|dekofar-hyperconnect-api\\dekofar-hyperconnect-api.csproj|c:\\users\\kadir\\downloads\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{0843F085-2AEE-4CAA-994D-E511A51F16A1}|dekofar-hyperconnect-api\\dekofar-hyperconnect-api.csproj|solutionrelative:dekofar-hyperconnect-api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{127A694C-1628-45ED-8387-FF201192F184}|Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj|c:\\users\\kadir\\downloads\\dekofar-hyperconnect-api\\dekofar.hyperconnect.infrastructure\\netgsm\\models\\calllogresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{127A694C-1628-45ED-8387-FF201192F184}|Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj|solutionrelative:dekofar.hyperconnect.infrastructure\\netgsm\\models\\calllogresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{127A694C-1628-45ED-8387-FF201192F184}|Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj|c:\\users\\kadir\\downloads\\dekofar-hyperconnect-api\\dekofar.hyperconnect.infrastructure\\netgsm\\models\\makecallrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{127A694C-1628-45ED-8387-FF201192F184}|Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj|solutionrelative:dekofar.hyperconnect.infrastructure\\netgsm\\models\\makecallrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{127A694C-1628-45ED-8387-FF201192F184}|Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj|c:\\users\\kadir\\downloads\\dekofar-hyperconnect-api\\dekofar.hyperconnect.infrastructure\\netgsm\\models\\sendsmsresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{127A694C-1628-45ED-8387-FF201192F184}|Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj|solutionrelative:dekofar.hyperconnect.infrastructure\\netgsm\\models\\sendsmsresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{127A694C-1628-45ED-8387-FF201192F184}|Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj|c:\\users\\kadir\\downloads\\dekofar-hyperconnect-api\\dekofar.hyperconnect.infrastructure\\netgsm\\models\\sendsmsrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{127A694C-1628-45ED-8387-FF201192F184}|Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj|solutionrelative:dekofar.hyperconnect.infrastructure\\netgsm\\models\\sendsmsrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{127A694C-1628-45ED-8387-FF201192F184}|Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj|c:\\users\\kadir\\downloads\\dekofar-hyperconnect-api\\dekofar.hyperconnect.infrastructure\\netgsm\\netgsmservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{127A694C-1628-45ED-8387-FF201192F184}|Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj|solutionrelative:dekofar.hyperconnect.infrastructure\\netgsm\\netgsmservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{127A694C-1628-45ED-8387-FF201192F184}|Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj|c:\\users\\kadir\\downloads\\dekofar-hyperconnect-api\\dekofar.hyperconnect.infrastructure\\dekofar.hyperconnect.infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{127A694C-1628-45ED-8387-FF201192F184}|Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj|solutionrelative:dekofar.hyperconnect.infrastructure\\dekofar.hyperconnect.infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{69B0CB3B-770E-4C9D-A89F-1B77DF223575}|Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj|c:\\users\\kadir\\downloads\\dekofar-hyperconnect-api\\dekofar.hyperconnect.integrations\\dekofar.hyperconnect.integrations.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{69B0CB3B-770E-4C9D-A89F-1B77DF223575}|Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj|solutionrelative:dekofar.hyperconnect.integrations\\dekofar.hyperconnect.integrations.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{69B0CB3B-770E-4C9D-A89F-1B77DF223575}|Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj|d:\\dekofarhyperconnect\\dekofar-hyperconnect-api\\dekofar.hyperconnect.integrations\\netgsm\\extensions\\netgsmservicecollectionextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{69B0CB3B-770E-4C9D-A89F-1B77DF223575}|Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj|solutionrelative:dekofar.hyperconnect.integrations\\netgsm\\extensions\\netgsmservicecollectionextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -66,188 +14,27 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 2,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "DependencyInjection.cs",
-              "DocumentMoniker": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\ServiceRegistration\\DependencyInjection.cs",
-              "RelativeDocumentMoniker": "Dekofar.HyperConnect.Infrastructure\\ServiceRegistration\\DependencyInjection.cs",
-              "ToolTip": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\ServiceRegistration\\DependencyInjection.cs",
-              "RelativeToolTip": "Dekofar.HyperConnect.Infrastructure\\ServiceRegistration\\DependencyInjection.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-13T22:32:01.849Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ServiceCollectionExtensions.cs",
-              "DocumentMoniker": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\NetGsm\\Extensions\\ServiceCollectionExtensions.cs",
-              "RelativeDocumentMoniker": "Dekofar.HyperConnect.Integrations\\NetGsm\\Extensions\\ServiceCollectionExtensions.cs",
-              "ToolTip": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\NetGsm\\Extensions\\ServiceCollectionExtensions.cs",
-              "RelativeToolTip": "Dekofar.HyperConnect.Integrations\\NetGsm\\Extensions\\ServiceCollectionExtensions.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-13T22:31:33.293Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "SmsRequest.cs",
-              "DocumentMoniker": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\NetGsm\\Models\\SmsRequest.cs",
-              "RelativeDocumentMoniker": "Dekofar.HyperConnect.Integrations\\NetGsm\\Models\\SmsRequest.cs",
-              "ToolTip": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\NetGsm\\Models\\SmsRequest.cs",
-              "RelativeToolTip": "Dekofar.HyperConnect.Integrations\\NetGsm\\Models\\SmsRequest.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-13T22:30:30.644Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\appsettings.json",
-              "RelativeDocumentMoniker": "dekofar-hyperconnect-api\\appsettings.json",
-              "ToolTip": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\appsettings.json",
-              "RelativeToolTip": "dekofar-hyperconnect-api\\appsettings.json",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAwB0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-07-13T22:23:24.04Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "INetGsmService.cs",
-              "DocumentMoniker": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\NetGsm\\INetGsmService.cs",
-              "RelativeDocumentMoniker": "Dekofar.HyperConnect.Infrastructure\\NetGsm\\INetGsmService.cs",
-              "ToolTip": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\NetGsm\\INetGsmService.cs",
-              "RelativeToolTip": "Dekofar.HyperConnect.Infrastructure\\NetGsm\\INetGsmService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-13T22:24:57.446Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "INetGsmService.cs",
-              "DocumentMoniker": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\NetGsm\\Interfaces\\INetGsmService.cs",
-              "RelativeDocumentMoniker": "Dekofar.HyperConnect.Integrations\\NetGsm\\Interfaces\\INetGsmService.cs",
-              "ToolTip": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\NetGsm\\Interfaces\\INetGsmService.cs",
-              "RelativeToolTip": "Dekofar.HyperConnect.Integrations\\NetGsm\\Interfaces\\INetGsmService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-13T21:56:19.071Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "NetGsmService.cs",
-              "DocumentMoniker": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\NetGsm\\Services\\NetGsmService.cs",
-              "RelativeDocumentMoniker": "Dekofar.HyperConnect.Integrations\\NetGsm\\Services\\NetGsmService.cs",
-              "ToolTip": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\NetGsm\\Services\\NetGsmService.cs",
-              "RelativeToolTip": "Dekofar.HyperConnect.Integrations\\NetGsm\\Services\\NetGsmService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA3AAAAAAAAAA==",
+              "Title": "NetGsmServiceCollectionExtensions.cs",
+              "DocumentMoniker": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\NetGsm\\Extensions\\NetGsmServiceCollectionExtensions.cs",
+              "RelativeDocumentMoniker": "Dekofar.HyperConnect.Integrations\\NetGsm\\Extensions\\NetGsmServiceCollectionExtensions.cs",
+              "ToolTip": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\NetGsm\\Extensions\\NetGsmServiceCollectionExtensions.cs",
+              "RelativeToolTip": "Dekofar.HyperConnect.Integrations\\NetGsm\\Extensions\\NetGsmServiceCollectionExtensions.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAUwBMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-13T21:55:29.941Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "CallLogResponse.cs",
-              "DocumentMoniker": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\NetGsm\\Models\\CallLogResponse.cs",
-              "RelativeDocumentMoniker": "Dekofar.HyperConnect.Infrastructure\\NetGsm\\Models\\CallLogResponse.cs",
-              "ToolTip": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\NetGsm\\Models\\CallLogResponse.cs",
-              "RelativeToolTip": "Dekofar.HyperConnect.Infrastructure\\NetGsm\\Models\\CallLogResponse.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-13T22:25:47.935Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "MakeCallRequest.cs",
-              "DocumentMoniker": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\NetGsm\\Models\\MakeCallRequest.cs",
-              "RelativeDocumentMoniker": "Dekofar.HyperConnect.Infrastructure\\NetGsm\\Models\\MakeCallRequest.cs",
-              "ToolTip": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\NetGsm\\Models\\MakeCallRequest.cs",
-              "RelativeToolTip": "Dekofar.HyperConnect.Infrastructure\\NetGsm\\Models\\MakeCallRequest.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-13T22:25:38.719Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "SendSmsResponse.cs",
-              "DocumentMoniker": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\NetGsm\\Models\\SendSmsResponse.cs",
-              "RelativeDocumentMoniker": "Dekofar.HyperConnect.Infrastructure\\NetGsm\\Models\\SendSmsResponse.cs",
-              "ToolTip": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\NetGsm\\Models\\SendSmsResponse.cs",
-              "RelativeToolTip": "Dekofar.HyperConnect.Infrastructure\\NetGsm\\Models\\SendSmsResponse.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-13T22:25:27.479Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "SendSmsRequest.cs",
-              "DocumentMoniker": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\NetGsm\\Models\\SendSmsRequest.cs",
-              "RelativeDocumentMoniker": "Dekofar.HyperConnect.Infrastructure\\NetGsm\\Models\\SendSmsRequest.cs",
-              "ToolTip": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\NetGsm\\Models\\SendSmsRequest.cs",
-              "RelativeToolTip": "Dekofar.HyperConnect.Infrastructure\\NetGsm\\Models\\SendSmsRequest.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-13T22:25:18.679Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "NetGsmService.cs",
-              "DocumentMoniker": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\NetGsm\\NetGsmService.cs",
-              "RelativeDocumentMoniker": "Dekofar.HyperConnect.Infrastructure\\NetGsm\\NetGsmService.cs",
-              "ToolTip": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\NetGsm\\NetGsmService.cs",
-              "RelativeToolTip": "Dekofar.HyperConnect.Infrastructure\\NetGsm\\NetGsmService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-13T22:25:06.691Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Dekofar.HyperConnect.Infrastructure",
-              "DocumentMoniker": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj",
-              "RelativeDocumentMoniker": "Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj",
-              "ToolTip": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj",
-              "RelativeToolTip": "Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-07-13T22:24:26.564Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "Dekofar.HyperConnect.Integrations",
-              "DocumentMoniker": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj",
-              "RelativeDocumentMoniker": "Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj",
-              "ToolTip": "C:\\Users\\kadir\\Downloads\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj",
-              "RelativeToolTip": "Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-07-13T21:54:16.386Z",
+              "WhenOpened": "2025-07-14T10:59:06.453Z",
               "EditorCaption": ""
             }
           ]
