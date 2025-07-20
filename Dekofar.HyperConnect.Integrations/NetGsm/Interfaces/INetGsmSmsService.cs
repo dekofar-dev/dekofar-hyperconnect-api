@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Dekofar.HyperConnect.Integrations.NetGsm.Interfaces
 {
-    public interface INetGsmCallService
+    public interface INetGsmSmsService
     {
-        Task<List<CallLogResponse>> GetCallLogsAsync(CallLogRequest request);
+        Task<List<SmsInboxResponse>> GetInboxMessagesAsync(SmsInboxRequest request);
     }
 }
