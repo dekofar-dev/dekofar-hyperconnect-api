@@ -11,7 +11,7 @@ namespace Dekofar.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Roles = "ADMIN")] // Sadece admin erişsin
+    //[Authorize(Roles = "admin")] // Sadece admin erişsin
     public class UsersController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;

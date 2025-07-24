@@ -23,11 +23,20 @@ namespace Dekofar.API.Controllers.Integrations
             var result = await _shopifyService.TestConnectionAsync();
             return Ok(result);
         }
+        [HttpGet("order-detail/{orderId}")]
+        public async Task<IActionResult> GetOrderDetail(long orderId)
+        {
+            var order = await _shopifyService.GetOrderDetailWithImagesAsync(orderId);
+            if (order == null)
+                return NotFound(new { message = "Sipariş detayı bulunamadı" });
+
+            return Ok(order); // ✅ DTO: ShopifyOrderDetailDto içinde Note + NoteAttributes var
+        }
 
         [HttpGet("order/{orderId}")]
         public async Task<IActionResult> GetOrderById(long orderId)
         {
-            var order = await _shopifyService.GetOrderByIdAsync(orderId);
+            var order = await _shopifyService.GetOrderDetailWithImagesAsync(orderId);
             if (order == null)
                 return NotFound(new { message = "Sipariş bulunamadı" });
 

@@ -1,16 +1,22 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 public class LineItem
 {
-    [JsonPropertyName("product_id")]
-    public long ProductId { get; set; }
+    [JsonProperty("title")]
+    public string Title { get; set; }
 
-    [JsonPropertyName("title")]
-    public string? Title { get; set; }
-
-    [JsonPropertyName("variant_title")]
+    [JsonProperty("variant_title")]
     public string? VariantTitle { get; set; }
 
-    [JsonPropertyName("quantity")]
+    [JsonProperty("quantity")]
     public int Quantity { get; set; }
+
+    [JsonProperty("product_id")]
+    public long ProductId { get; set; }
+
+    [JsonProperty("variant_id")]
+    public long? VariantId { get; set; }
+
+    [JsonProperty("image_id")]
+    public long? ImageId { get; set; }
 }

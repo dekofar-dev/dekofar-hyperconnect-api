@@ -1,16 +1,32 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 public class BillingAddress
 {
-    [JsonPropertyName("address1")]
+    [JsonProperty("first_name")]
+    public string? FirstName { get; set; }
+
+    [JsonProperty("last_name")]
+    public string? LastName { get; set; }
+
+    [JsonProperty("address1")]
     public string? Address1 { get; set; }
 
-    [JsonPropertyName("city")]
+    [JsonProperty("address2")]
+    public string? Address2 { get; set; }
+
+    [JsonProperty("city")]
     public string? City { get; set; }
 
-    [JsonPropertyName("province")]
+    [JsonProperty("province")]
     public string? Province { get; set; }
 
-    [JsonPropertyName("phone")]
+    [JsonProperty("country")]
+    public string? Country { get; set; }
+
+    [JsonProperty("zip")]
+    public string? Zip { get; set; }
+
+    [JsonProperty("phone")]
     public string? Phone { get; set; }
 }

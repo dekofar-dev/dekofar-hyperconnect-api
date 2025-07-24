@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Dekofar.HyperConnect.Integrations.Shopify.Models;
+using Newtonsoft.Json;
+using System.Net;
 
 public class Order
 {
@@ -23,6 +25,23 @@ public class Order
     [JsonProperty("fulfillment_status")]
     public string FulfillmentStatus { get; set; }
 
+    [JsonProperty("note")]
+    public string? Note { get; set; }
+
+    [JsonProperty("tags")]
+    public string? Tags { get; set; }
+
     [JsonProperty("customer")]
     public Customer? Customer { get; set; }
+
+    [JsonProperty("billing_address")]
+    public Address? BillingAddress { get; set; }
+
+    [JsonProperty("note_attributes")]
+    public List<NoteAttribute>? NoteAttributes { get; set; }
+
+
+    [JsonProperty("line_items")]
+    public List<LineItem> LineItems { get; set; } = new(); // 👈 Ürünler
+    public string Name { get; internal set; }
 }

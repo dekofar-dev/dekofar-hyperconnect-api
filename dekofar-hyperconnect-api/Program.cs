@@ -1,16 +1,19 @@
-﻿using Dekofar.Domain.Entities;
+﻿using System.Text;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
+using Dekofar.Domain.Entities;
+using Dekofar.HyperConnect.Domain.Entities;
+using Dekofar.HyperConnect.Infrastructure.Persistence;
 using Dekofar.HyperConnect.Infrastructure.ServiceRegistration;
 using Dekofar.HyperConnect.Integrations.NetGsm.Interfaces;
 using Dekofar.HyperConnect.Integrations.NetGsm.Services;
 using Dekofar.HyperConnect.Integrations.Shopify.Interfaces;
 using Dekofar.HyperConnect.Integrations.Shopify.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using Newtonsoft.Json;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,48 +21,28 @@ var builder = WebApplication.CreateBuilder(args);
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-        policy =>
-        {
-            policy.WithOrigins(
-                "http://localhost:4200",
-                "http://192.168.1.100:4200"
-            // "https://hyperconnect.dekofar.com"
-            )
-            .AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowCredentials();
-        });
+    options.AddPolicy(name: MyAllowSpecificOrigins, policy =>
+    {
+        policy.WithOrigins(
+            "http://localhost:4200",
+            "http://192.168.1.100:4200",
+            "https://hyperconnect.dekofar.com"
+        )
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials();
+    });
 });
 
-// 🧱 Altyapı servisleri
+// 📦 Altyapı servisleri (Identity, DbContext, Application servisleri, ...)
 builder.Services.AddInfrastructure(builder.Configuration);
 
-// ✅ Sadece burada ekleniyor, başka yerde tekrar etme
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        var jwtSettings = builder.Configuration.GetSection("Jwt");
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = jwtSettings["Issuer"],
-            ValidAudience = jwtSettings["Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"]))
-        };
-    });
 
-builder.Services.AddAuthorization();
-
-
-// 📦 Özel servisler
+// 📨 NetGSM & Shopify servisleri
 builder.Services.AddScoped<INetGsmSmsService, NetGsmSmsService>();
 builder.Services.AddHttpClient<IShopifyService, ShopifyService>();
 
-// 📡 Controller + JSON (Newtonsoft desteği)
+// 📡 JSON ve Controller
 builder.Services.AddControllers()
     .AddNewtonsoftJson(options =>
     {
@@ -67,38 +50,38 @@ builder.Services.AddControllers()
         options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
     });
 
-// 📘 Swagger
+// 📘 Swagger + JWT
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Dekofar API", Version = "v1" });
 
-    var securityScheme = new OpenApiSecurityScheme
+    var jwtSecurityScheme = new OpenApiSecurityScheme
     {
-        Name = "Authorization",
-        Type = SecuritySchemeType.Http,
         Scheme = "bearer",
         BearerFormat = "JWT",
+        Name = "JWT Authentication",
         In = ParameterLocation.Header,
-        Description = "JWT Bearer token girin",
+        Type = SecuritySchemeType.Http,
+        Description = "JWT Bearer Token için `Bearer {token}` formatında giriniz",
         Reference = new OpenApiReference
         {
-            Type = ReferenceType.SecurityScheme,
-            Id = "Bearer"
+            Id = "Bearer",
+            Type = ReferenceType.SecurityScheme
         }
     };
 
-    c.AddSecurityDefinition("Bearer", securityScheme);
+    c.AddSecurityDefinition("Bearer", jwtSecurityScheme);
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
-        { securityScheme, Array.Empty<string>() }
+        { jwtSecurityScheme, Array.Empty<string>() }
     });
 });
-
-// ✅ Uygulama başlatılıyor
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 var app = builder.Build();
 
-// 🌍 Swagger (sadece dev'de)
+// 🧪 Swagger UI
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -109,19 +92,17 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-// ✅ Middleware sırası önemli
 app.UseCors(MyAllowSpecificOrigins);
 app.UseHttpsRedirection();
-app.UseAuthentication();
+app.UseAuthentication(); // JWT buradan aktif olur
 app.UseAuthorization();
-
 app.MapControllers();
 
-// 🚀 Rolleri otomatik oluştur
+// 🚀 Roller otomatik oluşturulsun
 using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
-    string[] roles = new[] { "ADMIN", "PERSONEL", "DEPO", "IADE", "MUSTERI_TEM" };
+    string[] roles = new[] { "Admin", "PERSONEL", "DEPO", "IADE", "MUSTERI_TEM" };
 
     foreach (var role in roles)
     {
@@ -131,5 +112,6 @@ using (var scope = app.Services.CreateScope())
         }
     }
 }
+
 
 app.Run();

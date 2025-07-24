@@ -7,7 +7,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="MediatR" Version="13.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
@@ -27,6 +26,11 @@
 		<ProjectReference Include="..\Dekofar.HyperConnect.Application\Dekofar.HyperConnect.Application.csproj" />
 		<ProjectReference Include="..\Dekofar.HyperConnect.Domain\Dekofar.HyperConnect.Domain.csproj" />
 		<ProjectReference Include="..\Dekofar.HyperConnect.Integrations\Dekofar.HyperConnect.Integrations.csproj" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <Folder Include="Dekofar\" />
 	</ItemGroup>
 
 </Project>

@@ -10,5 +10,6 @@ namespace Dekofar.HyperConnect.Integrations.NetGsm.Interfaces
     public interface INetGsmSmsService
     {
         Task<List<SmsInboxResponse>> GetInboxMessagesAsync(SmsInboxRequest request);
+
     }
 }

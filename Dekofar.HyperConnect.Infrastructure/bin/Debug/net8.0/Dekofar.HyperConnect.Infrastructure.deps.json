@@ -11,7 +11,6 @@
           "Dekofar.HyperConnect.Application": "1.0.0",
           "Dekofar.HyperConnect.Domain": "1.0.0",
           "Dekofar.HyperConnect.Integrations": "1.0.0",
-          "MediatR": "13.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.0",
           "Microsoft.EntityFrameworkCore": "8.0.4",
@@ -430,7 +429,7 @@
       "Microsoft.EntityFrameworkCore.Relational/8.0.4": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "8.0.4",
-          "Microsoft.Extensions.Configuration.Abstractions": "9.0.7"
+          "Microsoft.Extensions.Configuration.Abstractions": "8.0.0"
         },
         "runtime": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.Relational.dll": {
@@ -464,15 +463,9 @@
           "Microsoft.Extensions.Primitives": "9.0.7"
         }
       },
-      "Microsoft.Extensions.Configuration.Abstractions/9.0.7": {
+      "Microsoft.Extensions.Configuration.Abstractions/8.0.0": {
         "dependencies": {
           "Microsoft.Extensions.Primitives": "9.0.7"
-        },
-        "runtime": {
-          "lib/net8.0/Microsoft.Extensions.Configuration.Abstractions.dll": {
-            "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.725.31616"
-          }
         }
       },
       "Microsoft.Extensions.DependencyInjection/9.0.7": {
@@ -643,6 +636,17 @@
           }
         }
       },
+      "Microsoft.Owin/4.2.3": {
+        "dependencies": {
+          "Owin": "1.0.0"
+        },
+        "runtime": {
+          "lib/net45/Microsoft.Owin.dll": {
+            "assemblyVersion": "4.2.3.0",
+            "fileVersion": "4.200.325.35202"
+          }
+        }
+      },
       "Mono.TextTemplating/2.2.1": {
         "dependencies": {
           "System.CodeDom": "4.4.0"
@@ -684,6 +688,14 @@
           "lib/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll": {
             "assemblyVersion": "8.0.4.0",
             "fileVersion": "8.0.4.0"
+          }
+        }
+      },
+      "Owin/1.0.0": {
+        "runtime": {
+          "lib/net40/Owin.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
           }
         }
       },
@@ -806,7 +818,7 @@
           "FluentValidation": "12.0.0",
           "MediatR": "13.0.0",
           "MediatR.Extensions.Microsoft.DependencyInjection": "11.1.0",
-          "Microsoft.Extensions.Configuration.Abstractions": "9.0.7",
+          "Microsoft.Extensions.Configuration.Abstractions": "8.0.0",
           "System.IdentityModel.Tokens.Jwt": "7.1.2"
         },
         "runtime": {
@@ -832,6 +844,7 @@
         "dependencies": {
           "Dekofar.HyperConnect.Application": "1.0.0",
           "Dekofar.HyperConnect.Domain": "1.0.0",
+          "Microsoft.Owin": "4.2.3",
           "Newtonsoft.Json": "13.0.3"
         },
         "runtime": {
@@ -1038,12 +1051,12 @@
       "path": "microsoft.extensions.caching.memory/8.0.0",
       "hashPath": "microsoft.extensions.caching.memory.8.0.0.nupkg.sha512"
     },
-    "Microsoft.Extensions.Configuration.Abstractions/9.0.7": {
+    "Microsoft.Extensions.Configuration.Abstractions/8.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-lut/kiVvNsQ120VERMUYSFhpXPpKjjql+giy03LesASPBBcC0o6+aoFdzJH9GaYpFTQ3fGVhVjKjvJDoAW5/IQ==",
-      "path": "microsoft.extensions.configuration.abstractions/9.0.7",
-      "hashPath": "microsoft.extensions.configuration.abstractions.9.0.7.nupkg.sha512"
+      "sha512": "sha512-3lE/iLSutpgX1CC0NOW70FJoGARRHbyKmG7dc0klnUZ9Dd9hS6N/POPWhKhMLCEuNN5nXEY5agmlFtH562vqhQ==",
+      "path": "microsoft.extensions.configuration.abstractions/8.0.0",
+      "hashPath": "microsoft.extensions.configuration.abstractions.8.0.0.nupkg.sha512"
     },
     "Microsoft.Extensions.DependencyInjection/9.0.7": {
       "type": "package",
@@ -1150,6 +1163,13 @@
       "path": "microsoft.identitymodel.tokens/8.0.1",
       "hashPath": "microsoft.identitymodel.tokens.8.0.1.nupkg.sha512"
     },
+    "Microsoft.Owin/4.2.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-uoOKm7Ouj06+ULS7Ss60tRM2E5t0ku7rQ7cJk864jArtE35WTJKMzUxgHxs7gdiqHZYnC3ddZSr9zj8yRjguEA==",
+      "path": "microsoft.owin/4.2.3",
+      "hashPath": "microsoft.owin.4.2.3.nupkg.sha512"
+    },
     "Mono.TextTemplating/2.2.1": {
       "type": "package",
       "serviceable": true,
@@ -1177,6 +1197,13 @@
       "sha512": "sha512-/hHd9MqTRVDgIpsToCcxMDxZqla0HAQACiITkq1+L9J2hmHKV6lBAPlauF+dlNSfHpus7rrljWx4nAanKD6qAw==",
       "path": "npgsql.entityframeworkcore.postgresql/8.0.4",
       "hashPath": "npgsql.entityframeworkcore.postgresql.8.0.4.nupkg.sha512"
+    },
+    "Owin/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OseTFniKmyp76mEzOBwIKGBRS5eMoYNkMKaMXOpxx9jv88+b6mh1rSaw43vjBOItNhaLFG3d0a20PfHyibH5sw==",
+      "path": "owin/1.0.0",
+      "hashPath": "owin.1.0.0.nupkg.sha512"
     },
     "System.CodeDom/4.4.0": {
       "type": "package",

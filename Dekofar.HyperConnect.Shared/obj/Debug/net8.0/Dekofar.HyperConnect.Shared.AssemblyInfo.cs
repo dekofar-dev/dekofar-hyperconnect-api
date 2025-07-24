@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Dekofar.HyperConnect.Shared")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+be255c982bc0d7a728ad89a54e2e8767933515c1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+636bb0b4c17c5fe094f068db28a6b2d43381ce8e")]
 [assembly: System.Reflection.AssemblyProductAttribute("Dekofar.HyperConnect.Shared")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Dekofar.HyperConnect.Shared")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

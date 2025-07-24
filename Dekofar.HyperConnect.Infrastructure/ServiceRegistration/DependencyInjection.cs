@@ -1,14 +1,16 @@
-﻿using Dekofar.Domain.Entities;
-using Dekofar.HyperConnect.Application.Interfaces;
-using Dekofar.HyperConnect.Application.Services;
+﻿using Dekofar.HyperConnect.Application.Interfaces;
+using Dekofar.HyperConnect.Domain.Entities;
 using Dekofar.HyperConnect.Infrastructure.Persistence;
+using Dekofar.HyperConnect.Integrations.NetGsm.Interfaces;
 using Dekofar.HyperConnect.Integrations.NetGsm.Services;
+using Dekofar.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 using System.Text;
 
 namespace Dekofar.HyperConnect.Infrastructure.ServiceRegistration
@@ -17,12 +19,12 @@ namespace Dekofar.HyperConnect.Infrastructure.ServiceRegistration
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            // 🔌 PostgreSQL bağlantısı
+            // 📦 PostgreSQL DbContext yapılandırması
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
-            // 🔐 Identity (Guid destekli kullanıcı ve rol)
-            services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
+            // 🔐 Identity yapılandırması (AppUser + Role<Guid>)
+            services.AddIdentity<AppUser, IdentityRole<Guid>>(options =>
             {
                 options.Password.RequireDigit = true;
                 options.Password.RequiredLength = 6;
@@ -33,7 +35,7 @@ namespace Dekofar.HyperConnect.Infrastructure.ServiceRegistration
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
-            // 🔑 JWT Authentication
+            // 🔐 JWT Authentication yapılandırması
             var jwtSettings = configuration.GetSection("Jwt");
             var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]!);
 
@@ -44,6 +46,8 @@ namespace Dekofar.HyperConnect.Infrastructure.ServiceRegistration
             })
             .AddJwtBearer(options =>
             {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
@@ -52,16 +56,19 @@ namespace Dekofar.HyperConnect.Infrastructure.ServiceRegistration
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = jwtSettings["Issuer"],
                     ValidAudience = jwtSettings["Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(key)
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ClockSkew = TimeSpan.Zero,
+
+                    // 🔑 Bu satır çok kritik: [Authorize(Roles = "Admin")] için şart
+                    RoleClaimType = ClaimTypes.Role
                 };
             });
 
-            // 🧾 Token servisi
+            // 🎫 Uygulama Servisleri
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<ISupportTicketService, SupportTicketService>();
+            services.AddScoped<INetGsmCallService, NetGsmCallService>();
 
-            // ☎️ NetGSM Entegrasyonu (extension varsa)
-
-            // 📩 NetGSM SMS Servisi
 
             return services;
         }

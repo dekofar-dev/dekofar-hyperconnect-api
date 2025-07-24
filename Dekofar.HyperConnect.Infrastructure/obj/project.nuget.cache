@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "hGaVKOsdFdk=",
+  "dgSpecHash": "7lcq0GEaAlM=",
   "success": true,
   "projectFilePath": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj",
   "expectedPackageFiles": [
@@ -31,7 +31,7 @@
     "C:\\Users\\recep\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\8.0.4\\microsoft.entityframeworkcore.tools.8.0.4.nupkg.sha512",
     "C:\\Users\\recep\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\9.0.7\\microsoft.extensions.caching.abstractions.9.0.7.nupkg.sha512",
     "C:\\Users\\recep\\.nuget\\packages\\microsoft.extensions.caching.memory\\8.0.0\\microsoft.extensions.caching.memory.8.0.0.nupkg.sha512",
-    "C:\\Users\\recep\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\9.0.7\\microsoft.extensions.configuration.abstractions.9.0.7.nupkg.sha512",
+    "C:\\Users\\recep\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\8.0.0\\microsoft.extensions.configuration.abstractions.8.0.0.nupkg.sha512",
     "C:\\Users\\recep\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\9.0.7\\microsoft.extensions.dependencyinjection.9.0.7.nupkg.sha512",
     "C:\\Users\\recep\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\9.0.7\\microsoft.extensions.dependencyinjection.abstractions.9.0.7.nupkg.sha512",
     "C:\\Users\\recep\\.nuget\\packages\\microsoft.extensions.dependencymodel\\8.0.0\\microsoft.extensions.dependencymodel.8.0.0.nupkg.sha512",
@@ -47,10 +47,12 @@
     "C:\\Users\\recep\\.nuget\\packages\\microsoft.identitymodel.protocols\\7.0.3\\microsoft.identitymodel.protocols.7.0.3.nupkg.sha512",
     "C:\\Users\\recep\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\7.0.3\\microsoft.identitymodel.protocols.openidconnect.7.0.3.nupkg.sha512",
     "C:\\Users\\recep\\.nuget\\packages\\microsoft.identitymodel.tokens\\8.0.1\\microsoft.identitymodel.tokens.8.0.1.nupkg.sha512",
+    "C:\\Users\\recep\\.nuget\\packages\\microsoft.owin\\4.2.3\\microsoft.owin.4.2.3.nupkg.sha512",
     "C:\\Users\\recep\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
     "C:\\Users\\recep\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\recep\\.nuget\\packages\\npgsql\\8.0.3\\npgsql.8.0.3.nupkg.sha512",
     "C:\\Users\\recep\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\8.0.4\\npgsql.entityframeworkcore.postgresql.8.0.4.nupkg.sha512",
+    "C:\\Users\\recep\\.nuget\\packages\\owin\\1.0.0\\owin.1.0.0.nupkg.sha512",
     "C:\\Users\\recep\\.nuget\\packages\\system.codedom\\4.4.0\\system.codedom.4.4.0.nupkg.sha512",
     "C:\\Users\\recep\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
     "C:\\Users\\recep\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512",
@@ -115,6 +117,30 @@
       "warningLevel": 1,
       "filePath": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj",
       "libraryId": "Microsoft.AspNet.Identity.EntityFramework",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "message": "Package 'Microsoft.Owin 4.2.3' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
+      "projectPath": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj",
+      "warningLevel": 1,
+      "filePath": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj",
+      "libraryId": "Microsoft.Owin",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "message": "Package 'Owin 1.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
+      "projectPath": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj",
+      "warningLevel": 1,
+      "filePath": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj",
+      "libraryId": "Owin",
       "targetGraphs": [
         "net8.0"
       ]

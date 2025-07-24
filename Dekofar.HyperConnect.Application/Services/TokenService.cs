@@ -1,53 +1,45 @@
-﻿using AutoMapper.Configuration;
-using Dekofar.HyperConnect.Application.Interfaces;
+﻿using Dekofar.HyperConnect.Application.Interfaces;
 using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace Dekofar.HyperConnect.Application.Services
+public class TokenService : ITokenService
 {
-    public class TokenService : ITokenService
+    private readonly IConfiguration _config;
+
+    public TokenService(IConfiguration config)
     {
-        private readonly IConfiguration _configuration;
+        _config = config;
+    }
 
-        public TokenService(IConfiguration configuration)
+    public string GenerateToken(string userId, string email, string role)
+    {
+        var jwtSettings = _config.GetSection("Jwt");
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"]!));
+        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+        var claims = new[]
         {
-            _configuration = configuration;
-        }
-        public string GenerateToken(string userId, string email, string role)
-        {
-            var key = _configuration["Jwt:Key"];
-            var issuer = _configuration["Jwt:Issuer"];
-            var audience = _configuration["Jwt:Audience"];
-            var expireMinutes = int.Parse(_configuration["Jwt:ExpireMinutes"]);
+            new Claim(JwtRegisteredClaimNames.Sub, userId),
+            new Claim(JwtRegisteredClaimNames.Email, email),
 
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-            var claims = new[]
-            {
-            new Claim(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Sub, userId),
-            new Claim(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Email, email),
+            // ✅ Role claim — ToLower() YOK! (BÜYÜK/KÜÇÜK duyarlıdır!)
             new Claim(ClaimTypes.Role, role),
-            new Claim(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
 
-            var token = new JwtSecurityToken(
-                issuer,
-                audience,
-                claims,
-                expires: DateTime.UtcNow.AddMinutes(expireMinutes),
-                signingCredentials: credentials
-            );
+        var token = new JwtSecurityToken(
+            issuer: jwtSettings["Issuer"],
+            audience: jwtSettings["Audience"],
+            claims: claims,
+            expires: DateTime.UtcNow.AddMinutes(int.Parse(jwtSettings["ExpireMinutes"]!)),
+            signingCredentials: creds
+        );
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
+        return new JwtSecurityTokenHandler().WriteToken(token);
     }
 }
