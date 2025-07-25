@@ -1,4 +1,4 @@
-﻿namespace Dekofar.HyperConnect.Integrations.Shopify.Models
+﻿namespace Dekofar.HyperConnect.Integrations.Shopify.Models.Shopify.Dto
 {
     public class CustomerDto
     {

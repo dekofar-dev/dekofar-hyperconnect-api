@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dekofar.HyperConnect.Integrations.NetGsm.Models
+namespace Dekofar.HyperConnect.Integrations.NetGsm.Models.Dto
 {
     public class SmsInboxResponse
     {
@@ -12,4 +12,5 @@ namespace Dekofar.HyperConnect.Integrations.NetGsm.Models
         public string Message { get; set; }
         public string Date { get; set; }
     }
+
 }

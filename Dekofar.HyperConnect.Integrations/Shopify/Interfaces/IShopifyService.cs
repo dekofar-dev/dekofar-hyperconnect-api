@@ -1,4 +1,6 @@
-﻿using Dekofar.HyperConnect.Integrations.Shopify.Models;
+﻿using Dekofar.HyperConnect.Domain.Entities;
+using Dekofar.HyperConnect.Integrations.Shopify.Models.Shopify;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -25,5 +27,43 @@ namespace Dekofar.HyperConnect.Integrations.Shopify.Interfaces
         /// Sipariş ID'sine göre sadeleştirilmiş sipariş detayını (ürün görselleri dahil) getirir
         /// </summary>
         Task<ShopifyOrderDetailDto?> GetOrderDetailWithImagesAsync(long orderId, CancellationToken ct = default);
+
+        /// <summary>
+        /// Tüm ürünleri getirir
+        /// </summary>
+        Task<List<ShopifyProduct>> GetAllProductsAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Ürün ID'sine göre tekil ürün detayını getirir (görseller dahil)
+        /// </summary>
+        Task<ShopifyProduct?> GetProductByIdAsync(long productId, CancellationToken ct = default);
+
+        /// <summary>
+        /// Ürün adı veya handle'a göre arama yapar
+        /// </summary>
+        Task<List<ShopifyProduct>> SearchProductsAsync(string query, CancellationToken ct = default);
+
+        /// <summary>
+        /// Varyant ID'sine göre varyant bilgisini getirir
+        /// </summary>
+        Task<ShopifyVariant?> GetVariantByIdAsync(long variantId, CancellationToken ct = default);
+
+        /// <summary>
+        /// Bir ürüne ait tüm varyantları getirir
+        /// </summary>
+        Task<List<ShopifyVariant>> GetVariantsByProductIdAsync(long productId, CancellationToken ct = default);
+
+        /// <summary>
+        /// Belirtilen stok eşiğinin altında kalan ürünleri getirir
+        /// </summary>
+        /// <param name="threshold">Stok alt limiti (örn: 5)</param>
+        Task<List<ShopifyProduct>> GetLowStockProductsAsync(int threshold, CancellationToken ct = default);
+
+        /// <summary>
+        /// Shopify ürününün etiketlerini (tags) günceller veya yenilerini ekler
+        /// </summary>
+        /// <param name="productId">Shopify ürün ID'si</param>
+        /// <param name="tags">Virgül ile ayrılmış yeni etiketler</param>
+        Task<bool> AddOrUpdateProductTagsAsync(long productId, string tags, CancellationToken ct = default);
     }
 }

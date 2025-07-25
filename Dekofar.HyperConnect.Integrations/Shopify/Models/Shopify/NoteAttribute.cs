@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dekofar.HyperConnect.Integrations.Shopify.Models
+namespace Dekofar.HyperConnect.Integrations.Shopify.Models.Shopify
 {
     public class NoteAttribute
     {

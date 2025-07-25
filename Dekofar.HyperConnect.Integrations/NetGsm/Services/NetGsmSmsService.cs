@@ -1,11 +1,14 @@
 ﻿using Dekofar.HyperConnect.Integrations.NetGsm.Interfaces;
-using Dekofar.HyperConnect.Integrations.NetGsm.Models;
+using Dekofar.HyperConnect.Integrations.NetGsm.Models.Dto;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
-using System.Text.Json;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+using System.Linq;
+using System;
 
 namespace Dekofar.HyperConnect.Integrations.NetGsm.Services
 {
@@ -24,42 +27,54 @@ namespace Dekofar.HyperConnect.Integrations.NetGsm.Services
 
         public async Task<List<SmsInboxResponse>> GetInboxMessagesAsync(SmsInboxRequest request)
         {
-            var username = _configuration["NetGsm:Username"];
+            var usercode = _configuration["NetGsm:Usercode"];
             var password = _configuration["NetGsm:Password"];
-            var baseUrl = "https://api.netgsm.com.tr/sms/rest/v2/inbox";
+            var baseUrl = _configuration["NetGsm:ReceiveSmsBaseUrl"];
 
-            // Basic Auth header
-            var byteArray = Encoding.ASCII.GetBytes($"{username}:{password}");
-            _httpClient.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
+            var xmlBody = new StringBuilder();
+            xmlBody.AppendLine("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+            xmlBody.AppendLine("<mainbody>");
+            xmlBody.AppendLine("  <header>");
+            xmlBody.AppendLine($"    <usercode>{usercode}</usercode>");
+            xmlBody.AppendLine($"    <password>{password}</password>");
+            xmlBody.AppendLine($"    <startdate>{request.StartDate}</startdate>");
+            xmlBody.AppendLine($"    <stopdate>{request.StopDate}</stopdate>");
+            xmlBody.AppendLine("    <type>0</type>");
+            xmlBody.AppendLine("    <appkey>DekofarHyperConnect</appkey>");
+            xmlBody.AppendLine("  </header>");
+            xmlBody.AppendLine("</mainbody>");
 
-            // x-www-form-urlencoded content
-            var formData = new FormUrlEncodedContent(new[]
-            {
-                new KeyValuePair<string, string>("startdate", request.StartDate),
-                new KeyValuePair<string, string>("stopdate", request.StopDate)
-            });
+            var content = new StringContent(xmlBody.ToString(), Encoding.UTF8, "application/xml");
 
             try
             {
-                _logger.LogInformation("📥 NetGSM Gelen SMS isteği: {Url}", baseUrl);
+                _logger.LogInformation("📤 NetGSM XML SMS isteği gönderiliyor: {Url}", baseUrl);
 
-                var response = await _httpClient.PostAsync(baseUrl, formData);
-                var content = await response.Content.ReadAsStringAsync();
+                var response = await _httpClient.PostAsync(baseUrl, content);
+                var responseContent = await response.Content.ReadAsStringAsync();
 
-                _logger.LogInformation("📥 NetGSM Yanıt: {Content}", content);
+                _logger.LogInformation("📥 XML Yanıt: {Xml}", responseContent);
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    throw new Exception($"NetGSM SMS inbox hatası: {response.StatusCode}");
+                    throw new Exception($"NetGSM isteği başarısız: {response.StatusCode}");
                 }
 
-                var json = JsonSerializer.Deserialize<Dictionary<string, List<SmsInboxResponse>>>(content);
-                return json != null && json.TryGetValue("inbox", out var inboxList) ? inboxList : new List<SmsInboxResponse>();
+                var xml = XDocument.Parse(responseContent);
+                var inboxElements = xml.Descendants("inbox");
+
+                var smsList = inboxElements.Select(x => new SmsInboxResponse
+                {
+                    Orjinator = x.Element("gsmno")?.Value,
+                    Message = x.Element("msg")?.Value,
+                    Date = x.Element("date")?.Value
+                }).ToList();
+
+                return smsList;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "❌ NetGSM SMS inbox çekme hatası");
+                _logger.LogError(ex, "❌ NetGSM SMS çekme hatası");
                 throw;
             }
         }

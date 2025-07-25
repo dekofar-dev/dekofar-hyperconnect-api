@@ -1,4 +1,4 @@
-﻿using Dekofar.HyperConnect.Integrations.Shopify.Models;
+﻿using Dekofar.HyperConnect.Integrations.Shopify.Models.Shopify;
 using Newtonsoft.Json;
 using System.Net;
 

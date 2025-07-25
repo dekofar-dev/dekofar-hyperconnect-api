@@ -1,5 +1,6 @@
-﻿using Dekofar.HyperConnect.Integrations.NetGsm.Models;
-using Dekofar.HyperConnect.Integrations.NetGsm.Interfaces;
+﻿using Dekofar.HyperConnect.Integrations.NetGsm.Interfaces;
+using Dekofar.HyperConnect.Integrations.NetGsm.Models;
+using Dekofar.HyperConnect.Integrations.NetGsm.Models.Dto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dekofar_hyperconnect_api.Controllers.Integrations.NetGsm
@@ -33,6 +34,9 @@ namespace dekofar_hyperconnect_api.Controllers.Integrations.NetGsm
                 return BadRequest(new { error = ex.Message });
             }
         }
+
+
+
 
         /// <summary>
         /// Belirtilen tarih ve yöne göre çağrı kayıtlarını getirir (NetGSM voice report)

@@ -1,4 +1,5 @@
-﻿using Dekofar.HyperConnect.Integrations.Shopify.Models;
+﻿using Dekofar.HyperConnect.Integrations.Shopify.Models.Shopify;
+using Dekofar.HyperConnect.Integrations.Shopify.Models.Shopify.Dto;
 
 public class ShopifyOrderDetailDto
 {

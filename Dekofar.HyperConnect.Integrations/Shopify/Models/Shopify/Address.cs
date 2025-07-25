@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Dekofar.HyperConnect.Integrations.Shopify.Models
+namespace Dekofar.HyperConnect.Integrations.Shopify.Models.Shopify
 {
     public class Address
     {
