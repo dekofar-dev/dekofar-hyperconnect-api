@@ -44,15 +44,9 @@ namespace dekofar_hyperconnect_api.Controllers.Integrations.NetGsm
         [HttpPost("call-logs")]
         public async Task<IActionResult> GetCallLogs([FromBody] CallLogRequest request)
         {
-            try
-            {
-                var result = await _callService.GetCallLogsAsync(request);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { error = ex.Message });
-            }
+            var result = await _callService.GetCallLogsAsync(request);
+            return Content(result, "application/xml");
         }
     }
 }
+

@@ -14,10 +14,12 @@ using Dekofar.HyperConnect.Integrations.NetGsm.Interfaces;
 using Dekofar.HyperConnect.Integrations.NetGsm.Services;
 using Dekofar.HyperConnect.Integrations.Shopify.Interfaces;
 using Dekofar.HyperConnect.Integrations.Shopify.Services;
+using Dekofar.HyperConnect.Application; // Application servis kayıtları
+using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 🌐 CORS
+// 🌐 CORS Politikası
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Services.AddCors(options =>
 {
@@ -34,15 +36,17 @@ builder.Services.AddCors(options =>
     });
 });
 
-// 📦 Altyapı servisleri (Identity, DbContext, Application servisleri, ...)
+// 📦 Altyapı Servisleri (DbContext, Identity, JWT vs.)
 builder.Services.AddInfrastructure(builder.Configuration);
 
 
-// 📨 NetGSM & Shopify servisleri
+builder.Services.AddApplication();
+
+// 📬 Entegrasyon Servisleri
 builder.Services.AddScoped<INetGsmSmsService, NetGsmSmsService>();
 builder.Services.AddHttpClient<IShopifyService, ShopifyService>();
 
-// 📡 JSON ve Controller
+// 📡 Controller & JSON Ayarları
 builder.Services.AddControllers()
     .AddNewtonsoftJson(options =>
     {
@@ -50,7 +54,7 @@ builder.Services.AddControllers()
         options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
     });
 
-// 📘 Swagger + JWT
+// 📘 Swagger + JWT Destekli Dokümantasyon
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -77,11 +81,14 @@ builder.Services.AddSwaggerGen(c =>
         { jwtSecurityScheme, Array.Empty<string>() }
     });
 });
+
+// 📋 Logging
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
+
 var app = builder.Build();
 
-// 🧪 Swagger UI
+// 🧪 Swagger Arayüzü
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -92,13 +99,14 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+// 🌐 Orta Katmanlar
 app.UseCors(MyAllowSpecificOrigins);
 app.UseHttpsRedirection();
-app.UseAuthentication(); // JWT buradan aktif olur
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 
-// 🚀 Roller otomatik oluşturulsun
+// 🚀 Uygulama Başlarken Roller Oluştur
 using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
@@ -112,6 +120,5 @@ using (var scope = app.Services.CreateScope())
         }
     }
 }
-
 
 app.Run();

@@ -3,6 +3,7 @@ using Dekofar.HyperConnect.Integrations.Shopify.Models.Shopify.Dto;
 
 public class ShopifyOrderDetailDto
 {
+
     public long OrderId { get; set; }
     public string OrderNumber { get; set; }
     public DateTime CreatedAt { get; set; }

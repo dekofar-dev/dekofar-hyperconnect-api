@@ -27,7 +27,7 @@ namespace Dekofar.HyperConnect.Integrations.NetGsm.Services
 
         public async Task<List<SmsInboxResponse>> GetInboxMessagesAsync(SmsInboxRequest request)
         {
-            var usercode = _configuration["NetGsm:Usercode"];
+            var usercode = _configuration["NetGsm:Username"];
             var password = _configuration["NetGsm:Password"];
             var baseUrl = _configuration["NetGsm:ReceiveSmsBaseUrl"];
 
@@ -35,7 +35,7 @@ namespace Dekofar.HyperConnect.Integrations.NetGsm.Services
             xmlBody.AppendLine("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
             xmlBody.AppendLine("<mainbody>");
             xmlBody.AppendLine("  <header>");
-            xmlBody.AppendLine($"    <usercode>{usercode}</usercode>");
+            xmlBody.AppendLine($"    <Username>{usercode}</Username>");
             xmlBody.AppendLine($"    <password>{password}</password>");
             xmlBody.AppendLine($"    <startdate>{request.StartDate}</startdate>");
             xmlBody.AppendLine($"    <stopdate>{request.StopDate}</stopdate>");

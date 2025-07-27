@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dekofar.HyperConnect.Infrastructure.Persistence.Configurations
+namespace Dekofar.HyperConnect.Application
 {
-    internal class TicketNoteConfiguration
+    public static class AssemblyReference
     {
     }
 }

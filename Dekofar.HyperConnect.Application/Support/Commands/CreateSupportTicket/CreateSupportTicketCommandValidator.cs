@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dekofar.HyperConnect.Infrastructure.Persistence.Configurations
+namespace Dekofar.HyperConnect.Application.Support.Commands.CreateSupportTicket
 {
-    internal class SupportTicketConfiguration
+    internal class CreateSupportTicketCommandValidator
     {
     }
 }

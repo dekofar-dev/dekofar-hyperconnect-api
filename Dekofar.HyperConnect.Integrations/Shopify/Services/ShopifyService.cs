@@ -282,7 +282,7 @@ namespace Dekofar.HyperConnect.Integrations.Shopify.Services
             return new ShopifyOrderDetailDto
             {
                 OrderId = order.Id,
-                OrderNumber = order.Name,
+                OrderNumber = order.OrderNumber,
                 CreatedAt = DateTime.Parse(order.CreatedAt),
                 Currency = order.Currency,
                 TotalPrice = order.TotalPrice,
