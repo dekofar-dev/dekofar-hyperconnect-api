@@ -1,39 +1,43 @@
-﻿using Dekofar.Domain.Entities;
+﻿using Dekofar.HyperConnect.Domain.Entities;
+using Dekofar.HyperConnect.Domain.DTOs;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Dekofar.HyperConnect.Domain.DTOs;
 
 namespace Dekofar.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    //[Authorize(Roles = "admin")] // Sadece admin erişsin
+    //[Authorize(Roles = "Admin")] // isteğe bağlı aktif edebilirsin
     public class UsersController : ControllerBase
     {
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly UserManager<AppUser> _userManager;
 
-        public UsersController(UserManager<ApplicationUser> userManager)
+        public UsersController(UserManager<AppUser> userManager)
         {
             _userManager = userManager;
         }
 
         [HttpGet]
-        public IActionResult GetAllUsers()
+        public async Task<IActionResult> GetAllUsers()
         {
-            var users = _userManager.Users.Select(u => new
-            {
-                u.Id,
-                u.FullName,
-                u.Email,
-                u.UserName
-            }).ToList();
+            var users = await _userManager.Users
+                .Select(u => new
+                {
+                    u.Id,
+                    u.FullName,
+                    u.Email,
+                    u.UserName
+                })
+                .ToListAsync();
 
             return Ok(users);
         }
+
         [HttpPost("change-role")]
         public async Task<IActionResult> ChangeUserRole([FromBody] ChangeUserRoleRequest request)
         {
@@ -53,5 +57,31 @@ namespace Dekofar.API.Controllers
             return Ok("Rol başarıyla güncellendi");
         }
 
+        [HttpGet("assignable")]
+        public async Task<IActionResult> GetAssignableUsers()
+        {
+            var assignableRoles = new[] { "Admin", "PERSONEL", "DEPO", "IADE", "MUSTERI_TEM" };
+
+
+            var allUsers = await _userManager.Users.ToListAsync();
+            var result = new List<object>();
+
+            foreach (var user in allUsers)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+                if (roles.Any(r => assignableRoles.Contains(r)))
+                {
+                    result.Add(new
+                    {
+                        user.Id,
+                        user.FullName,
+                        user.Email,
+                        Role = roles.FirstOrDefault()
+                    });
+                }
+            }
+
+            return Ok(result);
+        }
     }
 }

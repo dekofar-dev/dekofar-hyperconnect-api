@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Dekofar.Domain.Entities;
+using Dekofar.HyperConnect.Domain.Entities.support;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dekofar.HyperConnect.Domain.Entities.Support
 {
@@ -8,65 +11,38 @@ namespace Dekofar.HyperConnect.Domain.Entities.Support
     /// </summary>
     public class SupportTicket
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public int Id { get; set; }
+
+        public string TicketNumber { get; set; } = string.Empty;
 
         public string Subject { get; set; } = null!;
-
         public string Description { get; set; } = null!;
 
         public SupportCategory Category { get; set; }
-
         public SupportPriority Priority { get; set; } = SupportPriority.Orta;
 
-        public string? ShopifyOrderId { get; set; }
-
+        public string ShopifyOrderId { get; set; } = string.Empty;
         public string? CustomerPhone { get; set; }
-
         public string? CustomerEmail { get; set; }
+        public DateTime? DueDate { get; set; }
+        public DateTime? ResolvedAt { get; set; }
 
         public string? Tags { get; set; }
 
         public Guid CreatedBy { get; set; }
-
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        public string? AssignedToUserId { get; set; }
+        public Guid? AssignedToUserId { get; set; }
+
+        [ForeignKey(nameof(AssignedToUserId))] // ✅ Eklenen kısım: ilişkiyi net belirtiyoruz
+        public ApplicationUser? AssignedToUser { get; set; }
 
         public SupportStatus Status { get; set; } = SupportStatus.Bekliyor;
 
         public ICollection<TicketNote> Notes { get; set; } = new List<TicketNote>();
-
         public ICollection<TicketLog> Logs { get; set; } = new List<TicketLog>();
-    }
-
-    public class TicketNote
-    {
-        public Guid Id { get; set; } = Guid.NewGuid();
-
-        public Guid TicketId { get; set; }
-
-        public string Message { get; set; } = null!;
-
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-        public Guid CreatedBy { get; set; }
-
-        public SupportTicket Ticket { get; set; } = null!;
-    }
-
-    public class TicketLog
-    {
-        public Guid Id { get; set; } = Guid.NewGuid();
-
-        public Guid TicketId { get; set; }
-
-        public string Action { get; set; } = null!;
-
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-        public Guid CreatedBy { get; set; }
-
-        public SupportTicket Ticket { get; set; } = null!;
+        public ICollection<SupportTicketHistory> History { get; set; } = new List<SupportTicketHistory>();
+        public ICollection<TicketAttachment> Attachments { get; set; } = new List<TicketAttachment>();
     }
 
     public enum SupportCategory
@@ -94,6 +70,8 @@ namespace Dekofar.HyperConnect.Domain.Entities.Support
         Atandi = 1,
         DevamEdiyor = 2,
         Cozuldu = 3,
-        IptalEdildi = 4
+        IptalEdildi = 4,
+        Kapandi = 5
+
     }
 }

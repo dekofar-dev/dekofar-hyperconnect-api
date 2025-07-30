@@ -11,15 +11,15 @@ namespace Dekofar.HyperConnect.Domain.Entities.support
     {
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        public Guid TicketId { get; set; }
+        public int TicketId { get; set; } // FK → SupportTicket.Id
+
+        public string Action { get; set; } = null!;
 
         public Guid CreatedBy { get; set; }
 
-        public string Action { get; set; }  // örn: "Durum değiştirildi", "Not eklendi", "Kullanıcı atandı"
-
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        // Navigation property (isteğe bağlı)
-        public SupportTicket Ticket { get; set; }
+        public SupportTicket Ticket { get; set; } = null!;
     }
+
 }

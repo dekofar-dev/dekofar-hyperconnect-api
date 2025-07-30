@@ -68,7 +68,7 @@ namespace Dekofar.HyperConnect.Integrations.Shopify.Services
         /// <returns>PagedResult tipinde sipariş listesi ve varsa bir sonraki sayfa bilgisi</returns>
         public async Task<PagedResult<Order>> GetOrdersPagedAsync(string? pageInfo = null, int limit = 10, CancellationToken ct = default)
         {
-            var url = $"/admin/api/2024-04/orders.json?status=open&limit={limit}";
+            var url = $"/admin/api/2024-04/orders.json?status=open&fulfillment_status=unfulfilled&limit={limit}";
 
             // Eğer page_info varsa ekle
             if (!string.IsNullOrEmpty(pageInfo))

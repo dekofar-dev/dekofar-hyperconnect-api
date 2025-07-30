@@ -1,4 +1,4 @@
-﻿using Dekofar.HyperConnect.Application.DTOs.Requests;
+﻿using Dekofar.HyperConnect.Application.Users.Commands.AssignRole;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

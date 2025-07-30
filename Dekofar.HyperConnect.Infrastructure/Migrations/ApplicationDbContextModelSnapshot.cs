@@ -17,10 +17,66 @@ namespace Dekofar.HyperConnect.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("ProductVersion", "9.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("Dekofar.Domain.Entities.ApplicationUser", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
 
             modelBuilder.Entity("Dekofar.HyperConnect.Domain.Entities.AppUser", b =>
                 {
@@ -91,15 +147,69 @@ namespace Dekofar.HyperConnect.Infrastructure.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("Dekofar.HyperConnect.Domain.Entities.Orders.OrderTag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedByUserId")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("ManualOrderId")
+                        .HasColumnType("integer");
+
+                    b.Property<long?>("ShopifyOrderId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("OrderTags");
+                });
+
+            modelBuilder.Entity("Dekofar.HyperConnect.Domain.Entities.Orders.Tag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ColorHex")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tags");
+                });
+
             modelBuilder.Entity("Dekofar.HyperConnect.Domain.Entities.Support.SupportTicket", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
 
-                    b.Property<string>("AssignedToUserId")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<Guid?>("AssignedToUserId")
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Category")
                         .HasColumnType("integer");
@@ -108,7 +218,6 @@ namespace Dekofar.HyperConnect.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("CreatedBy")
-                        .HasMaxLength(100)
                         .HasColumnType("uuid");
 
                     b.Property<string>("CustomerEmail")
@@ -123,10 +232,17 @@ namespace Dekofar.HyperConnect.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<DateTime?>("DueDate")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<int>("Priority")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime?>("ResolvedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("ShopifyOrderId")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("Status")
@@ -138,14 +254,119 @@ namespace Dekofar.HyperConnect.Infrastructure.Migrations
                         .HasColumnType("character varying(200)");
 
                     b.Property<string>("Tags")
-                        .HasColumnType("text");
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<string>("TicketNumber")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AssignedToUserId");
 
                     b.ToTable("SupportTickets", (string)null);
                 });
 
-            modelBuilder.Entity("Dekofar.HyperConnect.Domain.Entities.Support.TicketLog", b =>
+            modelBuilder.Entity("Dekofar.HyperConnect.Domain.Entities.Support.TicketAttachment", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("ContentType")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<byte[]>("Data")
+                        .IsRequired()
+                        .HasColumnType("bytea");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<int>("TicketId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TicketId");
+
+                    b.ToTable("TicketAttachments", (string)null);
+                });
+
+            modelBuilder.Entity("Dekofar.HyperConnect.Domain.Entities.support.AppNotification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppNotifications", (string)null);
+                });
+
+            modelBuilder.Entity("Dekofar.HyperConnect.Domain.Entities.support.SupportTicketHistory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("ChangedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("ChangedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("FieldChanged")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("NewValue")
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<string>("OldValue")
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<int>("TicketId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TicketId");
+
+                    b.ToTable("SupportTicketHistories", (string)null);
+                });
+
+            modelBuilder.Entity("Dekofar.HyperConnect.Domain.Entities.support.TicketLog", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -159,25 +380,19 @@ namespace Dekofar.HyperConnect.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("CreatedBy")
-                        .HasMaxLength(100)
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("TicketId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("TicketId1")
-                        .HasColumnType("uuid");
+                    b.Property<int>("TicketId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.HasIndex("TicketId");
 
-                    b.HasIndex("TicketId1");
-
                     b.ToTable("TicketLogs", (string)null);
                 });
 
-            modelBuilder.Entity("Dekofar.HyperConnect.Domain.Entities.Support.TicketNote", b =>
+            modelBuilder.Entity("Dekofar.HyperConnect.Domain.Entities.support.TicketNote", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -187,24 +402,18 @@ namespace Dekofar.HyperConnect.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("CreatedBy")
-                        .HasMaxLength(100)
                         .HasColumnType("uuid");
 
                     b.Property<string>("Message")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("TicketId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("TicketId1")
-                        .HasColumnType("uuid");
+                    b.Property<int>("TicketId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.HasIndex("TicketId");
-
-                    b.HasIndex("TicketId1");
 
                     b.ToTable("TicketNotes", (string)null);
                 });
@@ -339,34 +548,65 @@ namespace Dekofar.HyperConnect.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Dekofar.HyperConnect.Domain.Entities.Support.TicketLog", b =>
+            modelBuilder.Entity("Dekofar.HyperConnect.Domain.Entities.Orders.OrderTag", b =>
                 {
-                    b.HasOne("Dekofar.HyperConnect.Domain.Entities.Support.SupportTicket", null)
-                        .WithMany("Logs")
-                        .HasForeignKey("TicketId")
+                    b.HasOne("Dekofar.HyperConnect.Domain.Entities.Orders.Tag", "Tag")
+                        .WithMany("OrderTags")
+                        .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dekofar.HyperConnect.Domain.Entities.Support.SupportTicket", "Ticket")
+                    b.Navigation("Tag");
+                });
+
+            modelBuilder.Entity("Dekofar.HyperConnect.Domain.Entities.Support.SupportTicket", b =>
+                {
+                    b.HasOne("Dekofar.Domain.Entities.ApplicationUser", "AssignedToUser")
                         .WithMany()
-                        .HasForeignKey("TicketId1")
+                        .HasForeignKey("AssignedToUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("AssignedToUser");
+                });
+
+            modelBuilder.Entity("Dekofar.HyperConnect.Domain.Entities.Support.TicketAttachment", b =>
+                {
+                    b.HasOne("Dekofar.HyperConnect.Domain.Entities.Support.SupportTicket", "Ticket")
+                        .WithMany("Attachments")
+                        .HasForeignKey("TicketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Ticket");
                 });
 
-            modelBuilder.Entity("Dekofar.HyperConnect.Domain.Entities.Support.TicketNote", b =>
+            modelBuilder.Entity("Dekofar.HyperConnect.Domain.Entities.support.SupportTicketHistory", b =>
                 {
-                    b.HasOne("Dekofar.HyperConnect.Domain.Entities.Support.SupportTicket", null)
-                        .WithMany("Notes")
+                    b.HasOne("Dekofar.HyperConnect.Domain.Entities.Support.SupportTicket", "Ticket")
+                        .WithMany("History")
                         .HasForeignKey("TicketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Ticket");
+                });
+
+            modelBuilder.Entity("Dekofar.HyperConnect.Domain.Entities.support.TicketLog", b =>
+                {
                     b.HasOne("Dekofar.HyperConnect.Domain.Entities.Support.SupportTicket", "Ticket")
-                        .WithMany()
-                        .HasForeignKey("TicketId1")
+                        .WithMany("Logs")
+                        .HasForeignKey("TicketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ticket");
+                });
+
+            modelBuilder.Entity("Dekofar.HyperConnect.Domain.Entities.support.TicketNote", b =>
+                {
+                    b.HasOne("Dekofar.HyperConnect.Domain.Entities.Support.SupportTicket", "Ticket")
+                        .WithMany("Notes")
+                        .HasForeignKey("TicketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -424,8 +664,17 @@ namespace Dekofar.HyperConnect.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Dekofar.HyperConnect.Domain.Entities.Orders.Tag", b =>
+                {
+                    b.Navigation("OrderTags");
+                });
+
             modelBuilder.Entity("Dekofar.HyperConnect.Domain.Entities.Support.SupportTicket", b =>
                 {
+                    b.Navigation("Attachments");
+
+                    b.Navigation("History");
+
                     b.Navigation("Logs");
 
                     b.Navigation("Notes");

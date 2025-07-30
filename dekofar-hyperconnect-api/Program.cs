@@ -9,13 +9,13 @@ using Newtonsoft.Json;
 using Dekofar.Domain.Entities;
 using Dekofar.HyperConnect.Domain.Entities;
 using Dekofar.HyperConnect.Infrastructure.Persistence;
-using Dekofar.HyperConnect.Infrastructure.ServiceRegistration;
 using Dekofar.HyperConnect.Integrations.NetGsm.Interfaces;
 using Dekofar.HyperConnect.Integrations.NetGsm.Services;
 using Dekofar.HyperConnect.Integrations.Shopify.Interfaces;
 using Dekofar.HyperConnect.Integrations.Shopify.Services;
 using Dekofar.HyperConnect.Application; // Application servis kayıtları
 using MediatR;
+using Dekofar.HyperConnect.Infrastructure.ServiceRegistration;
 
 var builder = WebApplication.CreateBuilder(args);
 

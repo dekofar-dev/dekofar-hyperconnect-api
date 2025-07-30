@@ -27,6 +27,57 @@ namespace Dekofar.API.Controllers
             _signInManager = signInManager;
             _tokenService = tokenService;
         }
+        [HttpPost("register-multiple")]
+        public async Task<IActionResult> RegisterMultiple(
+    [FromBody] List<RegisterRequest> requests,
+    [FromServices] RoleManager<IdentityRole<Guid>> roleManager)
+        {
+            var createdUsers = new List<object>();
+            var errors = new List<object>();
+
+            foreach (var request in requests)
+            {
+                var user = new AppUser
+                {
+                    UserName = request.Email,
+                    Email = request.Email,
+                    FullName = request.FullName
+                };
+
+                var result = await _userManager.CreateAsync(user, request.Password);
+                if (!result.Succeeded)
+                {
+                    errors.Add(new
+                    {
+                        request.Email,
+                        Errors = result.Errors.Select(e => e.Description).ToList()
+                    });
+                    continue;
+                }
+
+                var roleName = string.IsNullOrWhiteSpace(request.Role) ? "Personel" : request.Role;
+
+                if (!await roleManager.RoleExistsAsync(roleName))
+                    await roleManager.CreateAsync(new IdentityRole<Guid>(roleName));
+
+                await _userManager.AddToRoleAsync(user, roleName);
+
+                createdUsers.Add(new
+                {
+                    user.Id,
+                    user.Email,
+                    user.FullName,
+                    Role = roleName
+                });
+            }
+
+            return Ok(new
+            {
+                Message = "İşlem tamamlandı.",
+                Created = createdUsers,
+                Failed = errors
+            });
+        }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request,
@@ -59,7 +110,9 @@ namespace Dekofar.API.Controllers
             public string FullName { get; set; } = "";
             public string Email { get; set; } = "";
             public string Password { get; set; } = "";
+            public string? Role { get; set; } // Opsiyonel
         }
+
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginRequest request)

@@ -42,6 +42,7 @@ namespace Dekofar.HyperConnect.Infrastructure.ServiceRegistration
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
+
             // 🔐 JWT
             var jwtSettings = configuration.GetSection("Jwt");
             var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]!);

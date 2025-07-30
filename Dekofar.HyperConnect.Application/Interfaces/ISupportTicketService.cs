@@ -1,4 +1,5 @@
-﻿using Dekofar.HyperConnect.Application.DTOs;
+﻿using Dekofar.HyperConnect.Application.DTOs.Support;
+using Dekofar.HyperConnect.Application.Support.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;

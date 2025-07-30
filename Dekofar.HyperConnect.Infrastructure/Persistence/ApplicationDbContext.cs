@@ -1,5 +1,8 @@
-﻿using Dekofar.HyperConnect.Application.Common.Interfaces;
+﻿using Dekofar.Domain.Entities;
+using Dekofar.HyperConnect.Application.Common.Interfaces;
 using Dekofar.HyperConnect.Domain.Entities;
+using Dekofar.HyperConnect.Domain.Entities.Orders;
+using Dekofar.HyperConnect.Domain.Entities.support;
 using Dekofar.HyperConnect.Domain.Entities.Support;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -12,10 +15,19 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) { }
 
-        // Destek sistemi tabloları
         public DbSet<SupportTicket> SupportTickets => Set<SupportTicket>();
         public DbSet<TicketNote> TicketNotes => Set<TicketNote>();
         public DbSet<TicketLog> TicketLogs => Set<TicketLog>();
+        public DbSet<TicketAttachment> TicketAttachments => Set<TicketAttachment>();
+        public DbSet<SupportTicketHistory> SupportTicketHistories => Set<SupportTicketHistory>();
+        public DbSet<AppNotification> AppNotifications => Set<AppNotification>();
+        public DbSet<ApplicationUser> Users => Set<ApplicationUser>();
+        public DbSet<IdentityUserRole<Guid>> UserRoles => Set<IdentityUserRole<Guid>>();
+        public DbSet<IdentityRole<Guid>> Roles => Set<IdentityRole<Guid>>();
+
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<OrderTag> OrderTags => Set<OrderTag>();
+
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
             => await base.SaveChangesAsync(cancellationToken);
@@ -33,15 +45,28 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence
                 entity.Property(e => e.Subject).IsRequired().HasMaxLength(200);
                 entity.Property(e => e.Description).IsRequired();
                 entity.Property(e => e.Category).IsRequired();
-                entity.Property(e => e.Priority);
-                entity.Property(e => e.Tags);
+                entity.Property(e => e.Priority).IsRequired();
+                entity.Property(e => e.Status).IsRequired();
+                entity.Property(e => e.TicketNumber).IsRequired().HasMaxLength(50);
+                entity.Property(e => e.Tags).HasMaxLength(255);
                 entity.Property(e => e.CustomerPhone).HasMaxLength(50);
                 entity.Property(e => e.CustomerEmail).HasMaxLength(100);
                 entity.Property(e => e.CreatedAt).IsRequired();
-                entity.Property(e => e.CreatedBy).HasMaxLength(100);
-                entity.Property(e => e.AssignedToUserId).HasMaxLength(100);
-                entity.Property(e => e.Status).IsRequired();
+                entity.Property(e => e.CreatedBy).IsRequired();
+                entity.Property(e => e.AssignedToUserId);
+                entity.Property(e => e.DueDate);
+                entity.Property(e => e.ResolvedAt);
+
+                // 🔧 İlişki düzeltmesi (string FK → Guid PK)
+                entity.HasOne(e => e.AssignedToUser)
+                      .WithMany()
+                      .HasForeignKey(e => e.AssignedToUserId)
+                      .OnDelete(DeleteBehavior.Restrict);
+
             });
+
+
+
 
             // TicketNote
             builder.Entity<TicketNote>(entity =>
@@ -52,9 +77,9 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence
                 entity.Property(e => e.TicketId).IsRequired();
                 entity.Property(e => e.Message).IsRequired();
                 entity.Property(e => e.CreatedAt).IsRequired();
-                entity.Property(e => e.CreatedBy).HasMaxLength(100);
+                entity.Property(e => e.CreatedBy).IsRequired();
 
-                entity.HasOne<SupportTicket>()
+                entity.HasOne(n => n.Ticket)
                       .WithMany(t => t.Notes)
                       .HasForeignKey(n => n.TicketId)
                       .OnDelete(DeleteBehavior.Cascade);
@@ -69,12 +94,62 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence
                 entity.Property(e => e.TicketId).IsRequired();
                 entity.Property(e => e.Action).IsRequired();
                 entity.Property(e => e.CreatedAt).IsRequired();
-                entity.Property(e => e.CreatedBy).HasMaxLength(100);
+                entity.Property(e => e.CreatedBy).IsRequired();
 
-                entity.HasOne<SupportTicket>()
+                entity.HasOne(l => l.Ticket)
                       .WithMany(t => t.Logs)
                       .HasForeignKey(l => l.TicketId)
                       .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            // TicketAttachment
+            builder.Entity<TicketAttachment>(entity =>
+            {
+                entity.ToTable("TicketAttachments");
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.TicketId).IsRequired();
+                entity.Property(e => e.FileName).IsRequired().HasMaxLength(255);
+                entity.Property(e => e.ContentType).HasMaxLength(100);
+                entity.Property(e => e.Data).IsRequired(); // byte[] içerik
+                entity.Property(e => e.CreatedAt).IsRequired();
+                entity.Property(e => e.CreatedBy).IsRequired();
+
+                entity.HasOne(a => a.Ticket)
+                      .WithMany(t => t.Attachments)
+                      .HasForeignKey(a => a.TicketId)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            // SupportTicketHistory
+            builder.Entity<SupportTicketHistory>(entity =>
+            {
+                entity.ToTable("SupportTicketHistories");
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.TicketId).IsRequired();
+                entity.Property(e => e.FieldChanged).IsRequired().HasMaxLength(100);
+                entity.Property(e => e.OldValue).HasMaxLength(255);
+                entity.Property(e => e.NewValue).HasMaxLength(255);
+                entity.Property(e => e.ChangedAt).IsRequired();
+                entity.Property(e => e.ChangedBy).IsRequired();
+
+                entity.HasOne(h => h.Ticket)
+                      .WithMany(t => t.History)
+                      .HasForeignKey(h => h.TicketId)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            // AppNotification
+            builder.Entity<AppNotification>(entity =>
+            {
+                entity.ToTable("AppNotifications");
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.UserId).IsRequired();
+                entity.Property(e => e.Message).IsRequired().HasMaxLength(500);
+                entity.Property(e => e.IsRead).IsRequired();
+                entity.Property(e => e.CreatedAt).IsRequired();
             });
         }
     }

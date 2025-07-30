@@ -1,12 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{127A694C-1628-45ED-8387-FF201192F184}|Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj|d:\\dekofarhyperconnect\\dekofar-hyperconnect-api\\dekofar.hyperconnect.infrastructure\\persistence\\designtimedbcontextfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{127A694C-1628-45ED-8387-FF201192F184}|Dekofar.HyperConnect.Infrastructure\\Dekofar.HyperConnect.Infrastructure.csproj|solutionrelative:dekofar.hyperconnect.infrastructure\\persistence\\designtimedbcontextfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -14,7 +9,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -23,19 +18,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "DesignTimeDbContextFactory.cs",
-              "DocumentMoniker": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\Persistence\\DesignTimeDbContextFactory.cs",
-              "RelativeDocumentMoniker": "Dekofar.HyperConnect.Infrastructure\\Persistence\\DesignTimeDbContextFactory.cs",
-              "ToolTip": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Infrastructure\\Persistence\\DesignTimeDbContextFactory.cs",
-              "RelativeToolTip": "Dekofar.HyperConnect.Infrastructure\\Persistence\\DesignTimeDbContextFactory.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-27T08:35:10.806Z",
-              "EditorCaption": ""
             }
           ]
         }
