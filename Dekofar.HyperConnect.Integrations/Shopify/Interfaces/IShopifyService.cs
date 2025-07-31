@@ -65,5 +65,14 @@ namespace Dekofar.HyperConnect.Integrations.Shopify.Interfaces
         /// <param name="productId">Shopify ürün ID'si</param>
         /// <param name="tags">Virgül ile ayrılmış yeni etiketler</param>
         Task<bool> AddOrUpdateProductTagsAsync(long productId, string tags, CancellationToken ct = default);
+
+        Task<List<Order>> SearchOrdersAsync(string query, CancellationToken ct = default);
+
+
+
+        Task<PagedResult<Order>> GetOpenOrdersWithCursorAsync(string? pageInfo, int limit, CancellationToken ct);
+
+
+
     }
 }

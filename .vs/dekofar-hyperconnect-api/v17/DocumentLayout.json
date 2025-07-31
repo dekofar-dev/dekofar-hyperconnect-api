@@ -1,58 +1,38 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\",
+  "WorkspaceRootPath": "C:\\Users\\recep\\OneDrive\\Masa\u00FCst\u00FC\\DekofarHyperConnect\\dekofar-hyperconnect-api\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0843F085-2AEE-4CAA-994D-E511A51F16A1}|dekofar-hyperconnect-api\\dekofar-hyperconnect-api.csproj|d:\\dekofarhyperconnect\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0843F085-2AEE-4CAA-994D-E511A51F16A1}|dekofar-hyperconnect-api\\dekofar-hyperconnect-api.csproj|c:\\users\\recep\\onedrive\\masa\u00FCst\u00FC\\dekofarhyperconnect\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\controllers\\integrations\\shopify\\shopifycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0843F085-2AEE-4CAA-994D-E511A51F16A1}|dekofar-hyperconnect-api\\dekofar-hyperconnect-api.csproj|solutionrelative:dekofar-hyperconnect-api\\controllers\\integrations\\shopify\\shopifycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{69B0CB3B-770E-4C9D-A89F-1B77DF223575}|Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj|c:\\users\\recep\\onedrive\\masa\u00FCst\u00FC\\dekofarhyperconnect\\dekofar-hyperconnect-api\\dekofar.hyperconnect.integrations\\shopify\\services\\shopifyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{69B0CB3B-770E-4C9D-A89F-1B77DF223575}|Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj|solutionrelative:dekofar.hyperconnect.integrations\\shopify\\services\\shopifyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0843F085-2AEE-4CAA-994D-E511A51F16A1}|dekofar-hyperconnect-api\\dekofar-hyperconnect-api.csproj|c:\\users\\recep\\onedrive\\masa\u00FCst\u00FC\\dekofarhyperconnect\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0843F085-2AEE-4CAA-994D-E511A51F16A1}|dekofar-hyperconnect-api\\dekofar-hyperconnect-api.csproj|solutionrelative:dekofar-hyperconnect-api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0843F085-2AEE-4CAA-994D-E511A51F16A1}|dekofar-hyperconnect-api\\dekofar-hyperconnect-api.csproj|d:\\dekofarhyperconnect\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0843F085-2AEE-4CAA-994D-E511A51F16A1}|dekofar-hyperconnect-api\\dekofar-hyperconnect-api.csproj|solutionrelative:dekofar-hyperconnect-api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{69B0CB3B-770E-4C9D-A89F-1B77DF223575}|Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj|c:\\users\\recep\\onedrive\\masa\u00FCst\u00FC\\dekofarhyperconnect\\dekofar-hyperconnect-api\\dekofar.hyperconnect.integrations\\shopify\\interfaces\\ishopifyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{69B0CB3B-770E-4C9D-A89F-1B77DF223575}|Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj|solutionrelative:dekofar.hyperconnect.integrations\\shopify\\interfaces\\ishopifyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0843F085-2AEE-4CAA-994D-E511A51F16A1}|dekofar-hyperconnect-api\\dekofar-hyperconnect-api.csproj|d:\\dekofarhyperconnect\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\controllers\\rolescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0843F085-2AEE-4CAA-994D-E511A51F16A1}|dekofar-hyperconnect-api\\dekofar-hyperconnect-api.csproj|solutionrelative:dekofar-hyperconnect-api\\controllers\\rolescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{69B0CB3B-770E-4C9D-A89F-1B77DF223575}|Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj|c:\\users\\recep\\onedrive\\masa\u00FCst\u00FC\\dekofarhyperconnect\\dekofar-hyperconnect-api\\dekofar.hyperconnect.integrations\\shopify\\models\\shopify\\pagedresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{69B0CB3B-770E-4C9D-A89F-1B77DF223575}|Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj|solutionrelative:dekofar.hyperconnect.integrations\\shopify\\models\\shopify\\pagedresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0843F085-2AEE-4CAA-994D-E511A51F16A1}|dekofar-hyperconnect-api\\dekofar-hyperconnect-api.csproj|d:\\dekofarhyperconnect\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\controllers\\pingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0843F085-2AEE-4CAA-994D-E511A51F16A1}|dekofar-hyperconnect-api\\dekofar-hyperconnect-api.csproj|solutionrelative:dekofar-hyperconnect-api\\controllers\\pingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{69B0CB3B-770E-4C9D-A89F-1B77DF223575}|Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj|c:\\users\\recep\\onedrive\\masa\u00FCst\u00FC\\dekofarhyperconnect\\dekofar-hyperconnect-api\\dekofar.hyperconnect.integrations\\shopify\\models\\shopify\\shopifyordersresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{69B0CB3B-770E-4C9D-A89F-1B77DF223575}|Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj|solutionrelative:dekofar.hyperconnect.integrations\\shopify\\models\\shopify\\shopifyordersresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0843F085-2AEE-4CAA-994D-E511A51F16A1}|dekofar-hyperconnect-api\\dekofar-hyperconnect-api.csproj|d:\\dekofarhyperconnect\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0843F085-2AEE-4CAA-994D-E511A51F16A1}|dekofar-hyperconnect-api\\dekofar-hyperconnect-api.csproj|solutionrelative:dekofar-hyperconnect-api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{69B0CB3B-770E-4C9D-A89F-1B77DF223575}|Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj|c:\\users\\recep\\onedrive\\masa\u00FCst\u00FC\\dekofarhyperconnect\\dekofar-hyperconnect-api\\dekofar.hyperconnect.integrations\\shopify\\models\\shopifypagedresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{69B0CB3B-770E-4C9D-A89F-1B77DF223575}|Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj|solutionrelative:dekofar.hyperconnect.integrations\\shopify\\models\\shopifypagedresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C15EB1CD-69E0-4580-AC56-4B52D4A55351}|Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj|d:\\dekofarhyperconnect\\dekofar-hyperconnect-api\\dekofar.hyperconnect.application\\users\\commands\\assignrole\\rolerequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C15EB1CD-69E0-4580-AC56-4B52D4A55351}|Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj|solutionrelative:dekofar.hyperconnect.application\\users\\commands\\assignrole\\rolerequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C15EB1CD-69E0-4580-AC56-4B52D4A55351}|Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj|d:\\dekofarhyperconnect\\dekofar-hyperconnect-api\\dekofar.hyperconnect.application\\assemblyreference.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C15EB1CD-69E0-4580-AC56-4B52D4A55351}|Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj|solutionrelative:dekofar.hyperconnect.application\\assemblyreference.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C15EB1CD-69E0-4580-AC56-4B52D4A55351}|Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj|d:\\dekofarhyperconnect\\dekofar-hyperconnect-api\\dekofar.hyperconnect.application\\features\\common\\handlers\\genericcommandhandlers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C15EB1CD-69E0-4580-AC56-4B52D4A55351}|Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj|solutionrelative:dekofar.hyperconnect.application\\features\\common\\handlers\\genericcommandhandlers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C15EB1CD-69E0-4580-AC56-4B52D4A55351}|Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj|d:\\dekofarhyperconnect\\dekofar-hyperconnect-api\\dekofar.hyperconnect.application\\common\\interfaces\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C15EB1CD-69E0-4580-AC56-4B52D4A55351}|Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj|solutionrelative:dekofar.hyperconnect.application\\common\\interfaces\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C15EB1CD-69E0-4580-AC56-4B52D4A55351}|Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj|d:\\dekofarhyperconnect\\dekofar-hyperconnect-api\\dekofar.hyperconnect.application\\common\\interfaces\\icurrentuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C15EB1CD-69E0-4580-AC56-4B52D4A55351}|Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj|solutionrelative:dekofar.hyperconnect.application\\common\\interfaces\\icurrentuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C15EB1CD-69E0-4580-AC56-4B52D4A55351}|Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj|d:\\dekofarhyperconnect\\dekofar-hyperconnect-api\\dekofar.hyperconnect.application\\common\\interfaces\\iapplicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C15EB1CD-69E0-4580-AC56-4B52D4A55351}|Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj|solutionrelative:dekofar.hyperconnect.application\\common\\interfaces\\iapplicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C15EB1CD-69E0-4580-AC56-4B52D4A55351}|Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj|d:\\dekofarhyperconnect\\dekofar-hyperconnect-api\\dekofar.hyperconnect.application\\auth\\registerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C15EB1CD-69E0-4580-AC56-4B52D4A55351}|Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj|solutionrelative:dekofar.hyperconnect.application\\auth\\registerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C15EB1CD-69E0-4580-AC56-4B52D4A55351}|Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj|d:\\dekofarhyperconnect\\dekofar-hyperconnect-api\\dekofar.hyperconnect.application\\auth\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C15EB1CD-69E0-4580-AC56-4B52D4A55351}|Dekofar.HyperConnect.Application\\Dekofar.HyperConnect.Application.csproj|solutionrelative:dekofar.hyperconnect.application\\auth\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{69B0CB3B-770E-4C9D-A89F-1B77DF223575}|Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj|c:\\users\\recep\\onedrive\\masa\u00FCst\u00FC\\dekofarhyperconnect\\dekofar-hyperconnect-api\\dekofar.hyperconnect.integrations\\shopify\\models\\shopify\\dto\\shopifygraphqlpagedresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{69B0CB3B-770E-4C9D-A89F-1B77DF223575}|Dekofar.HyperConnect.Integrations\\Dekofar.HyperConnect.Integrations.csproj|solutionrelative:dekofar.hyperconnect.integrations\\shopify\\models\\shopify\\dto\\shopifygraphqlpagedresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -62,7 +42,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -74,171 +54,106 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\Program.cs",
-              "RelativeDocumentMoniker": "dekofar-hyperconnect-api\\Program.cs",
-              "ToolTip": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\Program.cs",
-              "RelativeToolTip": "dekofar-hyperconnect-api\\Program.cs",
-              "ViewState": "AgIAAF0AAAAAAAAAAAAQwHQAAAA1AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-30T14:12:25.559Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UsersController.cs",
-              "DocumentMoniker": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\Controllers\\UsersController.cs",
-              "RelativeDocumentMoniker": "dekofar-hyperconnect-api\\Controllers\\UsersController.cs",
-              "ToolTip": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\Controllers\\UsersController.cs",
-              "RelativeToolTip": "dekofar-hyperconnect-api\\Controllers\\UsersController.cs",
-              "ViewState": "AgIAADkAAAAAAAAAAAAAAFcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-30T14:12:22.6Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "RolesController.cs",
-              "DocumentMoniker": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\Controllers\\RolesController.cs",
-              "RelativeDocumentMoniker": "dekofar-hyperconnect-api\\Controllers\\RolesController.cs",
-              "ToolTip": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\Controllers\\RolesController.cs",
-              "RelativeToolTip": "dekofar-hyperconnect-api\\Controllers\\RolesController.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAiwCcAAAAAAAAAAAAAAA==",
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\recep\\OneDrive\\Masa\u00FCst\u00FC\\DekofarHyperConnect\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\Program.cs",
+              "RelativeDocumentMoniker": "dekofar-hyperconnect-api\\Program.cs",
+              "ToolTip": "C:\\Users\\recep\\OneDrive\\Masa\u00FCst\u00FC\\DekofarHyperConnect\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\Program.cs",
+              "RelativeToolTip": "dekofar-hyperconnect-api\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-30T14:12:18.696Z",
+              "WhenOpened": "2025-07-31T15:29:14.584Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "PingController.cs",
-              "DocumentMoniker": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\Controllers\\PingController.cs",
-              "RelativeDocumentMoniker": "dekofar-hyperconnect-api\\Controllers\\PingController.cs",
-              "ToolTip": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\Controllers\\PingController.cs",
-              "RelativeToolTip": "dekofar-hyperconnect-api\\Controllers\\PingController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "IShopifyService.cs",
+              "DocumentMoniker": "C:\\Users\\recep\\OneDrive\\Masa\u00FCst\u00FC\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\Shopify\\Interfaces\\IShopifyService.cs",
+              "RelativeDocumentMoniker": "Dekofar.HyperConnect.Integrations\\Shopify\\Interfaces\\IShopifyService.cs",
+              "ToolTip": "C:\\Users\\recep\\OneDrive\\Masa\u00FCst\u00FC\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\Shopify\\Interfaces\\IShopifyService.cs",
+              "RelativeToolTip": "Dekofar.HyperConnect.Integrations\\Shopify\\Interfaces\\IShopifyService.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAiwBwAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-30T14:12:17.72Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "dekofar-hyperconnect-api\\Controllers\\AuthController.cs",
-              "ToolTip": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\Controllers\\AuthController.cs",
-              "RelativeToolTip": "dekofar-hyperconnect-api\\Controllers\\AuthController.cs",
-              "ViewState": "AgIAAIgAAAAAAAAAAAAAAKYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-30T14:12:15.296Z",
+              "WhenOpened": "2025-07-31T08:48:34.096Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "RoleRequest.cs",
-              "DocumentMoniker": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Users\\Commands\\AssignRole\\RoleRequest.cs",
-              "RelativeDocumentMoniker": "Dekofar.HyperConnect.Application\\Users\\Commands\\AssignRole\\RoleRequest.cs",
-              "ToolTip": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Users\\Commands\\AssignRole\\RoleRequest.cs",
-              "RelativeToolTip": "Dekofar.HyperConnect.Application\\Users\\Commands\\AssignRole\\RoleRequest.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Title": "ShopifyOrdersResponse.cs",
+              "DocumentMoniker": "C:\\Users\\recep\\OneDrive\\Masa\u00FCst\u00FC\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\Shopify\\Models\\Shopify\\ShopifyOrdersResponse.cs",
+              "RelativeDocumentMoniker": "Dekofar.HyperConnect.Integrations\\Shopify\\Models\\Shopify\\ShopifyOrdersResponse.cs",
+              "ToolTip": "C:\\Users\\recep\\OneDrive\\Masa\u00FCst\u00FC\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\Shopify\\Models\\Shopify\\ShopifyOrdersResponse.cs",
+              "RelativeToolTip": "Dekofar.HyperConnect.Integrations\\Shopify\\Models\\Shopify\\ShopifyOrdersResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-30T14:12:09.776Z",
+              "WhenOpened": "2025-07-31T08:36:43.148Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "AssemblyReference.cs",
-              "DocumentMoniker": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\AssemblyReference.cs",
-              "RelativeDocumentMoniker": "Dekofar.HyperConnect.Application\\AssemblyReference.cs",
-              "ToolTip": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\AssemblyReference.cs",
-              "RelativeToolTip": "Dekofar.HyperConnect.Application\\AssemblyReference.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "PagedResult.cs",
+              "DocumentMoniker": "C:\\Users\\recep\\OneDrive\\Masa\u00FCst\u00FC\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\Shopify\\Models\\Shopify\\PagedResult.cs",
+              "RelativeDocumentMoniker": "Dekofar.HyperConnect.Integrations\\Shopify\\Models\\Shopify\\PagedResult.cs",
+              "ToolTip": "C:\\Users\\recep\\OneDrive\\Masa\u00FCst\u00FC\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\Shopify\\Models\\Shopify\\PagedResult.cs",
+              "RelativeToolTip": "Dekofar.HyperConnect.Integrations\\Shopify\\Models\\Shopify\\PagedResult.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-30T14:12:05.815Z",
+              "WhenOpened": "2025-07-31T08:27:15.187Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "GenericCommandHandlers.cs",
-              "DocumentMoniker": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Features\\Common\\Handlers\\GenericCommandHandlers.cs",
-              "RelativeDocumentMoniker": "Dekofar.HyperConnect.Application\\Features\\Common\\Handlers\\GenericCommandHandlers.cs",
-              "ToolTip": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Features\\Common\\Handlers\\GenericCommandHandlers.cs",
-              "RelativeToolTip": "Dekofar.HyperConnect.Application\\Features\\Common\\Handlers\\GenericCommandHandlers.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
+              "Title": "ShopifyGraphQlPagedResult.cs",
+              "DocumentMoniker": "C:\\Users\\recep\\OneDrive\\Masa\u00FCst\u00FC\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\Shopify\\Models\\Shopify\\Dto\\ShopifyGraphQlPagedResult.cs",
+              "RelativeDocumentMoniker": "Dekofar.HyperConnect.Integrations\\Shopify\\Models\\Shopify\\Dto\\ShopifyGraphQlPagedResult.cs",
+              "ToolTip": "C:\\Users\\recep\\OneDrive\\Masa\u00FCst\u00FC\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\Shopify\\Models\\Shopify\\Dto\\ShopifyGraphQlPagedResult.cs",
+              "RelativeToolTip": "Dekofar.HyperConnect.Integrations\\Shopify\\Models\\Shopify\\Dto\\ShopifyGraphQlPagedResult.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAQwDwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-30T14:12:00.503Z",
+              "WhenOpened": "2025-07-31T08:24:12.813Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "IRepository.cs",
-              "DocumentMoniker": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Common\\Interfaces\\IRepository.cs",
-              "RelativeDocumentMoniker": "Dekofar.HyperConnect.Application\\Common\\Interfaces\\IRepository.cs",
-              "ToolTip": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Common\\Interfaces\\IRepository.cs",
-              "RelativeToolTip": "Dekofar.HyperConnect.Application\\Common\\Interfaces\\IRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 6,
+              "Title": "ShopifyPagedResponse.cs",
+              "DocumentMoniker": "C:\\Users\\recep\\OneDrive\\Masa\u00FCst\u00FC\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\Shopify\\Models\\ShopifyPagedResponse.cs",
+              "RelativeDocumentMoniker": "Dekofar.HyperConnect.Integrations\\Shopify\\Models\\ShopifyPagedResponse.cs",
+              "ToolTip": "C:\\Users\\recep\\OneDrive\\Masa\u00FCst\u00FC\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\Shopify\\Models\\ShopifyPagedResponse.cs",
+              "RelativeToolTip": "Dekofar.HyperConnect.Integrations\\Shopify\\Models\\ShopifyPagedResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-30T14:11:53.48Z",
+              "WhenOpened": "2025-07-31T08:21:27.552Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "ICurrentUserService.cs",
-              "DocumentMoniker": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Common\\Interfaces\\ICurrentUserService.cs",
-              "RelativeDocumentMoniker": "Dekofar.HyperConnect.Application\\Common\\Interfaces\\ICurrentUserService.cs",
-              "ToolTip": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Common\\Interfaces\\ICurrentUserService.cs",
-              "RelativeToolTip": "Dekofar.HyperConnect.Application\\Common\\Interfaces\\ICurrentUserService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "ShopifyController.cs",
+              "DocumentMoniker": "C:\\Users\\recep\\OneDrive\\Masa\u00FCst\u00FC\\DekofarHyperConnect\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\Controllers\\Integrations\\Shopify\\ShopifyController.cs",
+              "RelativeDocumentMoniker": "dekofar-hyperconnect-api\\Controllers\\Integrations\\Shopify\\ShopifyController.cs",
+              "ToolTip": "C:\\Users\\recep\\OneDrive\\Masa\u00FCst\u00FC\\DekofarHyperConnect\\dekofar-hyperconnect-api\\dekofar-hyperconnect-api\\Controllers\\Integrations\\Shopify\\ShopifyController.cs",
+              "RelativeToolTip": "dekofar-hyperconnect-api\\Controllers\\Integrations\\Shopify\\ShopifyController.cs",
+              "ViewState": "AgIAAGEAAAAAAAAAAAAiwH4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-30T14:11:51.032Z",
+              "WhenOpened": "2025-07-31T08:15:21.034Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "IApplicationDbContext.cs",
-              "DocumentMoniker": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Common\\Interfaces\\IApplicationDbContext.cs",
-              "RelativeDocumentMoniker": "Dekofar.HyperConnect.Application\\Common\\Interfaces\\IApplicationDbContext.cs",
-              "ToolTip": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Common\\Interfaces\\IApplicationDbContext.cs",
-              "RelativeToolTip": "Dekofar.HyperConnect.Application\\Common\\Interfaces\\IApplicationDbContext.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAmwB4AAAAAAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "ShopifyService.cs",
+              "DocumentMoniker": "C:\\Users\\recep\\OneDrive\\Masa\u00FCst\u00FC\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\Shopify\\Services\\ShopifyService.cs",
+              "RelativeDocumentMoniker": "Dekofar.HyperConnect.Integrations\\Shopify\\Services\\ShopifyService.cs",
+              "ToolTip": "C:\\Users\\recep\\OneDrive\\Masa\u00FCst\u00FC\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Integrations\\Shopify\\Services\\ShopifyService.cs",
+              "RelativeToolTip": "Dekofar.HyperConnect.Integrations\\Shopify\\Services\\ShopifyService.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAAAC4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-30T14:11:48.448Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "RegisterRequest.cs",
-              "DocumentMoniker": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Auth\\RegisterRequest.cs",
-              "RelativeDocumentMoniker": "Dekofar.HyperConnect.Application\\Auth\\RegisterRequest.cs",
-              "ToolTip": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Auth\\RegisterRequest.cs",
-              "RelativeToolTip": "Dekofar.HyperConnect.Application\\Auth\\RegisterRequest.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-30T14:11:42.954Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "LoginRequest.cs",
-              "DocumentMoniker": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Auth\\LoginRequest.cs",
-              "RelativeDocumentMoniker": "Dekofar.HyperConnect.Application\\Auth\\LoginRequest.cs",
-              "ToolTip": "D:\\DekofarHyperConnect\\dekofar-hyperconnect-api\\Dekofar.HyperConnect.Application\\Auth\\LoginRequest.cs",
-              "RelativeToolTip": "Dekofar.HyperConnect.Application\\Auth\\LoginRequest.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-30T14:11:39.22Z",
+              "WhenOpened": "2025-07-31T08:04:21.439Z",
               "EditorCaption": ""
             }
           ]

@@ -38,6 +38,7 @@ builder.Services.AddCors(options =>
 
 // 📦 Altyapı Servisleri (DbContext, Identity, JWT vs.)
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddMemoryCache();
 
 
 builder.Services.AddApplication();

@@ -3,6 +3,7 @@ using Dekofar.HyperConnect.Integrations.Shopify.Interfaces;
 using Dekofar.HyperConnect.Integrations.Shopify.Models;
 using Dekofar.HyperConnect.Integrations.Shopify.Models.Shopify;
 using Dekofar.HyperConnect.Integrations.Shopify.Models.Shopify.Dto;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -16,20 +17,24 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Dekofar.HyperConnect.Integrations.Shopify.Services
 {
     public class ShopifyService : IShopifyService
     {
+        private readonly IMemoryCache _memoryCache;
         private readonly HttpClient _httpClient;
         private readonly ILogger<ShopifyService> _logger;
         private readonly string _baseUrl;
         private readonly string _accessToken;
 
-        public ShopifyService(HttpClient httpClient, IConfiguration configuration, ILogger<ShopifyService> logger)
+        public ShopifyService(HttpClient httpClient, IConfiguration configuration, ILogger<ShopifyService> logger, IMemoryCache memoryCache)
         {
             _httpClient = httpClient;
             _logger = logger;
+            _memoryCache = memoryCache;
+
             _baseUrl = configuration["Shopify:BaseUrl"];
             _accessToken = configuration["Shopify:AccessToken"];
 
@@ -38,6 +43,62 @@ namespace Dekofar.HyperConnect.Integrations.Shopify.Services
             _httpClient.DefaultRequestHeaders.Add("X-Shopify-Access-Token", _accessToken);
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
+
+        private async Task<List<Order>> GetAllOrdersCachedAsync(CancellationToken ct = default)
+        {
+            const string cacheKey = "shopify_orders_cache";
+
+            if (_memoryCache.TryGetValue(cacheKey, out List<Order> cachedOrders))
+                return cachedOrders;
+
+            var allOrders = new List<Order>();
+            string? nextPageInfo = null;
+            bool isFirstPage = true;
+            int pageCounter = 0;
+            int maxPages = 4; // 4 x 250 = 1000 sipariş
+
+            do
+            {
+                string url = isFirstPage
+                    ? "/admin/api/2024-04/orders.json?status=any&limit=250"
+                    : $"/admin/api/2024-04/orders.json?limit=250&page_info={WebUtility.UrlEncode(nextPageInfo)}";
+
+                isFirstPage = false;
+
+                var response = await _httpClient.GetAsync(url, ct);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    var error = await response.Content.ReadAsStringAsync(ct);
+                    _logger.LogError("❌ Shopify API hatası: {StatusCode} - {Error}", response.StatusCode, error);
+                    throw new Exception($"Shopify API hatası: {response.StatusCode} - {error}");
+                }
+
+                var content = await response.Content.ReadAsStringAsync(ct);
+                var result = JsonConvert.DeserializeObject<OrdersResponse>(content);
+
+                if (result?.Orders != null)
+                    allOrders.AddRange(result.Orders);
+
+                nextPageInfo = null;
+                if (response.Headers.TryGetValues("Link", out var linkHeaders))
+                {
+                    var linkHeader = linkHeaders.FirstOrDefault();
+                    var match = Regex.Match(linkHeader ?? "", @"<[^>]+page_info=([^&>]+)[^>]*>; rel=""next""");
+                    if (match.Success)
+                        nextPageInfo = match.Groups[1].Value;
+                }
+
+                pageCounter++;
+                if (pageCounter >= maxPages) break;
+
+            } while (!string.IsNullOrEmpty(nextPageInfo));
+
+            _memoryCache.Set(cacheKey, allOrders, TimeSpan.FromMinutes(5)); // 5 dakikalık cache
+
+            return allOrders;
+        }
+
         /// <summary>
         /// Shopify mağazasıyla bağlantıyı test eder.
         /// /shop.json endpointine GET isteği atar ve mağaza bilgilerini döner.
@@ -58,6 +119,7 @@ namespace Dekofar.HyperConnect.Integrations.Shopify.Services
 
             return content;
         }
+
         /// <summary>
         /// Sayfalama destekli olarak açık (open) siparişleri çeker.
         /// Shopify'dan gelen Link header üzerinden next page bilgisi de ayrıştırılır.
@@ -66,41 +128,57 @@ namespace Dekofar.HyperConnect.Integrations.Shopify.Services
         /// <param name="limit">Sayfa başına kaç sipariş getirileceği</param>
         /// <param name="ct">İptal token'ı</param>
         /// <returns>PagedResult tipinde sipariş listesi ve varsa bir sonraki sayfa bilgisi</returns>
-        public async Task<PagedResult<Order>> GetOrdersPagedAsync(string? pageInfo = null, int limit = 10, CancellationToken ct = default)
+        public async Task<PagedResult<Order>> GetOrdersPagedAsync(string? pageInfo, int limit, CancellationToken ct)
         {
-            var url = $"/admin/api/2024-04/orders.json?status=open&fulfillment_status=unfulfilled&limit={limit}";
+            var url = $"{_baseUrl}/admin/api/2023-04/orders.json?limit={limit}";
 
-            // Eğer page_info varsa ekle
-            if (!string.IsNullOrEmpty(pageInfo))
-                url += $"&page_info={WebUtility.UrlEncode(pageInfo)}";
-
-            // API isteği gönder
-            var resp = await _httpClient.GetAsync(url, ct);
-            resp.EnsureSuccessStatusCode();
-
-            // Yanıt içeriğini al
-            var content = await resp.Content.ReadAsStringAsync();
-            _logger.LogInformation("📦 Shopify sayfalı sipariş yanıtı: {Content}", content);
-
-            // JSON parse
-            var result = JsonConvert.DeserializeObject<OrdersResponse>(content);
-
-            // Link header üzerinden next page_info çıkarılır
-            string? nextPageInfo = null;
-            if (resp.Headers.TryGetValues("Link", out var linkHeaders))
+            // ⛔ Eğer page_info varsa, başka parametre geçme
+            if (!string.IsNullOrWhiteSpace(pageInfo))
             {
-                var linkHeader = linkHeaders.FirstOrDefault();
-                var match = Regex.Match(linkHeader ?? "", @"page_info=([^&>]+)");
-                if (match.Success)
-                    nextPageInfo = match.Groups[1].Value;
+                url += $"&page_info={WebUtility.UrlEncode(pageInfo)}";
             }
+            else
+            {
+                // ✅ İlk istek ise, filtrelemeyi burada yap
+                url += "&status=open&order=created_at+desc";
+            }
+
+            _httpClient.DefaultRequestHeaders.Clear();
+            _httpClient.DefaultRequestHeaders.Add("X-Shopify-Access-Token", _accessToken);
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var response = await _httpClient.GetAsync(url, ct);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Shopify API hatası: {(int)response.StatusCode} - {errorContent}");
+            }
+
+            var content = await response.Content.ReadAsStringAsync();
+            var ordersWrapper = JsonConvert.DeserializeObject<ShopifyOrdersResponse>(content);
+
+            var linkHeader = response.Headers.TryGetValues("Link", out var values) ? values.FirstOrDefault() : null;
+            var nextPageInfo = ExtractNextPageInfoFromLinkHeader(linkHeader);
 
             return new PagedResult<Order>
             {
-                Items = result?.Orders ?? new(),
+                Items = ordersWrapper?.Orders ?? new(),
                 NextPageInfo = nextPageInfo
             };
         }
+
+        private string? ExtractNextPageInfoFromLinkHeader(string? linkHeader)
+        {
+            if (string.IsNullOrWhiteSpace(linkHeader)) return null;
+
+            // Örnek header:
+            // <https://your-shop.myshopify.com/admin/api/2023-04/orders.json?page_info=xxx&limit=10>; rel="next"
+            var match = Regex.Match(linkHeader, @"<[^>]*[?&]page_info=([^&>]*)[^>]*>; rel=""next""");
+
+            return match.Success ? match.Groups[1].Value : null;
+        }
+
         /// <summary>
         /// Belirli bir sipariş ID'sine göre Shopify sipariş detayını çeker.
         /// </summary>
@@ -501,5 +579,71 @@ namespace Dekofar.HyperConnect.Integrations.Shopify.Services
             _logger.LogWarning($"⚠️ Ürün etiketleri güncellenemedi (ID: {productId}) - StatusCode: {response.StatusCode}");
             return false;
         }
+        public async Task<List<Order>> SearchOrdersAsync(string query, CancellationToken ct = default)
+        {
+            if (string.IsNullOrWhiteSpace(query) || query.Length < 2)
+                return new List<Order>();
+
+            var allOrders = await GetAllOrdersCachedAsync(ct);
+
+            var filtered = allOrders
+                .Where(o =>
+                    (!string.IsNullOrEmpty(o.Name) && o.Name.Contains(query, StringComparison.OrdinalIgnoreCase)) ||
+                    (o.Customer != null && (
+                        (!string.IsNullOrEmpty(o.Customer.FirstName) && o.Customer.FirstName.Contains(query, StringComparison.OrdinalIgnoreCase)) ||
+                        (!string.IsNullOrEmpty(o.Customer.LastName) && o.Customer.LastName.Contains(query, StringComparison.OrdinalIgnoreCase)) ||
+                        (!string.IsNullOrEmpty(o.Customer.Email) && o.Customer.Email.Contains(query, StringComparison.OrdinalIgnoreCase)) ||
+                        (!string.IsNullOrEmpty(o.Customer.Phone) && o.Customer.Phone.Contains(query, StringComparison.OrdinalIgnoreCase))
+                    ))
+                )
+                .ToList();
+
+            return filtered;
+        }
+
+
+
+        public async Task<PagedResult<Order>> GetOpenOrdersWithCursorAsync(string? pageInfo, int limit, CancellationToken ct)
+        {
+            var url = $"{_baseUrl}/admin/api/2023-04/orders.json?limit={limit}";
+
+            if (!string.IsNullOrWhiteSpace(pageInfo))
+            {
+                // Sayfalamada status filtresi KULLANILMAZ!
+                url += $"&page_info={WebUtility.UrlEncode(pageInfo)}";
+            }
+            else
+            {
+                // İlk sayfa sorgusu — filtre sadece burada geçerli
+                url += "&status=open&order=created_at+desc";
+            }
+
+            _httpClient.DefaultRequestHeaders.Clear();
+            _httpClient.DefaultRequestHeaders.Add("X-Shopify-Access-Token", _accessToken);
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var response = await _httpClient.GetAsync(url, ct);
+            if (!response.IsSuccessStatusCode)
+            {
+                var err = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Shopify API hatası: {(int)response.StatusCode} - {err}");
+            }
+
+            var content = await response.Content.ReadAsStringAsync();
+            var ordersWrapper = JsonConvert.DeserializeObject<ShopifyOrdersResponse>(content);
+
+            var linkHeader = response.Headers.TryGetValues("Link", out var values) ? values.FirstOrDefault() : null;
+            var nextPageInfo = ExtractNextPageInfoFromLinkHeader(linkHeader);
+
+            return new PagedResult<Order>
+            {
+                Items = ordersWrapper?.Orders ?? new(),
+                NextPageInfo = nextPageInfo
+            };
+        }
+
+
+
+
     }
 }

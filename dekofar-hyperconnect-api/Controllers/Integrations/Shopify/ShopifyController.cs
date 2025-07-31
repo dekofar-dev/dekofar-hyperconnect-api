@@ -1,36 +1,130 @@
-﻿using AutoMapper;
-using Dekofar.HyperConnect.Application.Common.Interfaces;
-using Dekofar.HyperConnect.Application.Features.Tags.Commands;
-using Dekofar.HyperConnect.Application.Features.Tags.DTO;
-using Dekofar.HyperConnect.Domain.Entities.Orders;
-using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using Dekofar.HyperConnect.Integrations.Shopify.Interfaces;
+using Dekofar.HyperConnect.Integrations.Shopify.Models;
+using Dekofar.HyperConnect.Integrations.Shopify.Models.Shopify;
+using Dekofar.HyperConnect.Integrations.Shopify.Models.Shopify.Dto;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
-namespace Dekofar.HyperConnect.Application.Tags.Commands
+namespace Dekofar.HyperConnect.API.Controllers.Shopify
 {
-    public class CreateTagCommandHandler : IRequestHandler<CreateTagCommand, TagDto>
+    [ApiController]
+    [Route("api/[controller]")]
+    public class ShopifyController : ControllerBase
     {
-        private readonly IApplicationDbContext _context;
-        private readonly IMapper _mapper;
+        private readonly IShopifyService _shopifyService;
 
-        public CreateTagCommandHandler(IApplicationDbContext context, IMapper mapper)
+        public ShopifyController(IShopifyService shopifyService)
         {
-            _context = context;
-            _mapper = mapper;
+            _shopifyService = shopifyService;
         }
 
-        public async Task<TagDto> Handle(CreateTagCommand request, CancellationToken cancellationToken)
+        [HttpGet("test-connection")]
+        public async Task<IActionResult> TestConnection(CancellationToken ct)
         {
-            var entity = new Tag
-            {
-                Name = request.Name.Trim()
-            };
-
-            _context.Tags.Add(entity);
-            await _context.SaveChangesAsync(cancellationToken);
-
-            return _mapper.Map<TagDto>(entity);
+            var result = await _shopifyService.TestConnectionAsync(ct);
+            return Ok(result);
         }
+
+        [HttpGet("orders-paged")]
+        public async Task<IActionResult> GetOrdersPaged([FromQuery] string? pageInfo, [FromQuery] int limit = 10, CancellationToken ct = default)
+        {
+            var result = await _shopifyService.GetOrdersPagedAsync(pageInfo, limit, ct);
+            return Ok(result);
+        }
+
+        [HttpGet("orders/{orderId:long}")]
+        public async Task<IActionResult> GetOrderById(long orderId, CancellationToken ct)
+        {
+            var order = await _shopifyService.GetOrderByIdAsync(orderId, ct);
+            if (order == null)
+                return NotFound();
+            return Ok(order);
+        }
+
+        [HttpGet("order-detail/{orderId:long}")]
+        public async Task<IActionResult> GetOrderDetailWithImages(long orderId, CancellationToken ct)
+        {
+            var detail = await _shopifyService.GetOrderDetailWithImagesAsync(orderId, ct);
+            if (detail == null)
+                return NotFound();
+            return Ok(detail);
+        }
+
+        [HttpGet("products")]
+        public async Task<IActionResult> GetAllProducts(CancellationToken ct)
+        {
+            var products = await _shopifyService.GetAllProductsAsync(ct);
+            return Ok(products);
+        }
+
+        [HttpGet("products/{productId:long}")]
+        public async Task<IActionResult> GetProductById(long productId, CancellationToken ct)
+        {
+            var product = await _shopifyService.GetProductByIdAsync(productId, ct);
+            if (product == null)
+                return NotFound();
+            return Ok(product);
+        }
+
+        [HttpGet("products/search")]
+        public async Task<IActionResult> SearchProducts([FromQuery] string query, CancellationToken ct)
+        {
+            var result = await _shopifyService.SearchProductsAsync(query, ct);
+            return Ok(result);
+        }
+
+        [HttpGet("variants/{variantId:long}")]
+        public async Task<IActionResult> GetVariantById(long variantId, CancellationToken ct)
+        {
+            var variant = await _shopifyService.GetVariantByIdAsync(variantId, ct);
+            if (variant == null)
+                return NotFound();
+            return Ok(variant);
+        }
+
+        [HttpGet("products/{productId:long}/variants")]
+        public async Task<IActionResult> GetVariantsByProductId(long productId, CancellationToken ct)
+        {
+            var variants = await _shopifyService.GetVariantsByProductIdAsync(productId, ct);
+            return Ok(variants);
+        }
+
+        [HttpGet("products/low-stock")]
+        public async Task<IActionResult> GetLowStockProducts([FromQuery] int threshold = 5, CancellationToken ct = default)
+        {
+            var products = await _shopifyService.GetLowStockProductsAsync(threshold, ct);
+            return Ok(products);
+        }
+
+        [HttpPut("products/{productId:long}/tags")]
+        public async Task<IActionResult> AddOrUpdateProductTags(long productId, [FromQuery] string tags, CancellationToken ct)
+        {
+            var success = await _shopifyService.AddOrUpdateProductTagsAsync(productId, tags, ct);
+            if (success)
+                return Ok(new { message = "Etiketler başarıyla güncellendi." });
+            return BadRequest(new { message = "Etiket güncelleme başarısız oldu." });
+        }
+
+        [HttpGet("orders/search")]
+        public async Task<IActionResult> SearchOrders([FromQuery] string query, CancellationToken ct)
+        {
+            var result = await _shopifyService.SearchOrdersAsync(query, ct);
+            return Ok(result);
+        }
+
+        [HttpGet("orders-open-cursor")]
+        public async Task<IActionResult> GetOpenOrdersWithCursor([FromQuery] string? pageInfo, [FromQuery] int limit = 20, CancellationToken ct = default)
+        {
+            var result = await _shopifyService.GetOpenOrdersWithCursorAsync(pageInfo, limit, ct);
+            return Ok(result);
+        }
+        [HttpPost("orders/clear-cache")]
+        public IActionResult ClearOrderCache([FromServices] IMemoryCache memoryCache)
+        {
+            memoryCache.Remove("shopify_orders_cache");
+            return Ok(new { message = "🧹 Cache temizlendi." });
+        }
+
+
     }
 }
