@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
@@ -39,7 +39,6 @@ builder.Services.AddCors(options =>
 // 📦 Altyapı Servisleri (DbContext, Identity, JWT vs.)
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddMemoryCache();
-
 
 builder.Services.AddApplication();
 
@@ -89,17 +88,13 @@ builder.Logging.AddConsole();
 
 var app = builder.Build();
 
-// 🧪 Swagger Arayüzü
-if (app.Environment.IsDevelopment())
-{
+// 🧪 Swagger Arayüzü - Her ortamda aktif
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Dekofar API v1");
     c.RoutePrefix = "swagger";
 });
-
-}
 
 // 🌐 Orta Katmanlar
 app.UseCors(MyAllowSpecificOrigins);
