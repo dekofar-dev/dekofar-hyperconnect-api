@@ -40,11 +40,14 @@ jobs:
             /p:PublishSingleFile=true \
             --no-restore
 
+      - name: 📦 Zip publish output
+        run: zip -r publish.zip ${{ env.PUBLISH_DIR }}
+
       - name: ⬆️ Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: api-artifact
-          path: ${{ env.PUBLISH_DIR }}
+          path: publish.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -59,6 +62,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: api-artifact
+          path: . # zip dosyası bu klasöre gelsin
 
       - name: 🔐 Login to Azure
         uses: azure/login@v2
@@ -73,4 +77,4 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           slot-name: 'Production'
-          package: ${{ env.PUBLISH_DIR }}
+          package: publish.zip
