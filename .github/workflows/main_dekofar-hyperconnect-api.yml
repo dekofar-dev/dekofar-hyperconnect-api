@@ -53,7 +53,7 @@ jobs:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_A551B4260ACB48F183D3F79D46124047 }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_36F1DF128C72499E8428BA9650CB35AA }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_1E6236A3803E492591D3CCAF1A2B122B }}
-          auth-type: service-principal  # ✅ Bu satır hatayı kesin çözer
+          auth-type: SERVICE_PRINCIPAL    # ✅ Doğru hali bu
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
