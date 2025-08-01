@@ -89,12 +89,11 @@ builder.Logging.AddConsole();
 var app = builder.Build();
 
 // 🧪 Swagger Arayüzü - Her ortamda aktif
-app.UseSwagger();
-app.UseSwaggerUI(c =>
+if (app.Environment.IsDevelopment() || app.Environment.IsStaging() || app.Environment.IsProduction())
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Dekofar API v1");
-    c.RoutePrefix = "swagger";
-});
+    app.UseSwagger();
+    app.UseSwaggerUI(); // <- Bu çok önemli
+}
 
 // 🌐 Orta Katmanlar
 app.UseCors(MyAllowSpecificOrigins);
