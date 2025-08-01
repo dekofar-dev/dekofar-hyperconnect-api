@@ -1,34 +1,53 @@
-name: Build and Deploy API
+name: Deploy to Azure Web App
 
 on:
   push:
     branches:
       - main
 
+env:
+  AZURE_WEBAPP_NAME: dekofar-hyperconnect-api
+  DOTNET_VERSION: '8.0.x'
+  PROJECT_PATH: dekofar-hyperconnect-api/dekofar-hyperconnect-api.csproj
+  PUBLISH_DIR: publish
+
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: ⬇️ Kodu Checkout Et
+        uses: actions/checkout@v3
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '8.0.x'
+      - name: 🟦 .NET Setup
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: Restore dependencies
-      run: dotnet restore dekofar-hyperconnect-api/dekofar-hyperconnect-api.csproj
+      - name: 📦 NuGet Restore
+        run: dotnet restore ${{ env.PROJECT_PATH }}
 
-    - name: Build
-      run: dotnet build dekofar-hyperconnect-api/dekofar-hyperconnect-api.csproj --configuration Release
+      - name: 🛠️ Projeyi Build Et
+        run: dotnet build ${{ env.PROJECT_PATH }} --configuration Release --no-restore
 
-    - name: Publish
-      run: dotnet publish dekofar-hyperconnect-api/dekofar-hyperconnect-api.csproj -c Release -o ./publish --runtime linux-x64 --self-contained false
+      - name: 🚀 Yayın Klasörünü Publish Et
+        run: dotnet publish ${{ env.PROJECT_PATH }} --configuration Release --output ${{ env.PUBLISH_DIR }} --runtime linux-x64 --self-contained false
 
-    - name: Upload artifacts to publish folder
-      uses: actions/upload-artifact@v3
-      with:
-        name: publish
-        path: ./publish
+      - name: 📤 Yayın Dosyalarını Artifact Olarak Yükle
+        uses: actions/upload-artifact@v4
+        with:
+          name: published-app
+          path: ${{ env.PUBLISH_DIR }}
+
+      - name: 📥 Yayın Dosyalarını İndir (deploy için)
+        uses: actions/download-artifact@v4
+        with:
+          name: published-app
+          path: ${{ env.PUBLISH_DIR }}
+
+      - name: 🚢 Azure Web App'e Deploy Et
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          slot-name: Production
+          package: ${{ env.PUBLISH_DIR }}
