@@ -38,6 +38,7 @@ namespace Dekofar.HyperConnect.API.Controllers.Support
         /// Tüm destek taleplerini getirir.
         /// </summary>
         [HttpGet]
+        [Authorize(Roles = "Admin,Support")]
         public async Task<IActionResult> GetAll()
         {
             var result = await _mediator.Send(new GetAllSupportTicketsQuery());
@@ -48,6 +49,7 @@ namespace Dekofar.HyperConnect.API.Controllers.Support
         /// Belirli destek talebini detaylı getirir.
         /// </summary>
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin,Support")]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _mediator.Send(new GetSupportTicketByIdQuery(id));
@@ -59,6 +61,7 @@ namespace Dekofar.HyperConnect.API.Controllers.Support
         /// Destek talebine not ekler.
         /// </summary>
         [HttpPost("{id}/note")]
+        [Authorize(Roles = "Admin,Support")]
         public async Task<IActionResult> AddNote(int id, [FromBody] AddTicketNoteCommand command)
         {
             command.TicketId = id;
@@ -70,6 +73,7 @@ namespace Dekofar.HyperConnect.API.Controllers.Support
         /// Talebi belirli bir kullanıcıya atar.
         /// </summary>
         [HttpPost("{id}/assign")]
+        [Authorize(Roles = "Admin,Support")]
         public async Task<IActionResult> Assign(int id, [FromBody] AssignSupportTicketCommand command)
         {
             if (id != command.TicketId) return BadRequest("ID uyuşmuyor.");
@@ -81,6 +85,7 @@ namespace Dekofar.HyperConnect.API.Controllers.Support
         /// Talep durumunu günceller.
         /// </summary>
         [HttpPost("{id}/status")]
+        [Authorize(Roles = "Admin,Support")]
         public async Task<IActionResult> UpdateStatus(int id, [FromBody] UpdateTicketStatusCommand command)
         {
             if (id != command.TicketId) return BadRequest("ID uyuşmuyor.");

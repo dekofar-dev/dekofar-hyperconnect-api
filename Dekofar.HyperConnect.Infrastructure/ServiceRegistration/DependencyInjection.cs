@@ -2,6 +2,7 @@
 using Dekofar.HyperConnect.Application.Common.Interfaces;
 using Dekofar.HyperConnect.Application.Interfaces;
 using Dekofar.HyperConnect.Domain.Entities;
+using Dekofar.Domain.Entities;
 using Dekofar.HyperConnect.Infrastructure.Persistence;
 using Dekofar.HyperConnect.Infrastructure.Services;
 using Dekofar.HyperConnect.Integrations.NetGsm.Interfaces;
@@ -30,8 +31,8 @@ namespace Dekofar.HyperConnect.Infrastructure.ServiceRegistration
             // 📦 IApplicationDbContext implementasyonu
             services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
 
-            // 🔐 Identity (AppUser + Role<Guid>)
-            services.AddIdentity<AppUser, IdentityRole<Guid>>(options =>
+            // 🔐 Identity (ApplicationUser + Role<Guid>)
+            services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
             {
                 options.Password.RequireDigit = true;
                 options.Password.RequiredLength = 6;
