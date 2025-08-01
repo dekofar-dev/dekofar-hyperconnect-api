@@ -11,10 +11,6 @@ namespace Dekofar.API.Controllers
         [HttpGet("open")]
         public IActionResult OpenPing() => Ok("🌐 Bu endpoint herkese açık.");
 
-        // Herkese açık
-        [HttpGet("hello")]
-        public IActionResult Hello() => Ok("Merhaba Dünya Recep");
-
         // Sadece geçerli JWT token’ı olanlar erişebilir
         [Authorize]
         [HttpGet("secure")]
