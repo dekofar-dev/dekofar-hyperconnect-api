@@ -14,6 +14,7 @@ using Dekofar.HyperConnect.Integrations.NetGsm.Services;
 using Dekofar.HyperConnect.Integrations.Shopify.Interfaces;
 using Dekofar.HyperConnect.Integrations.Shopify.Services;
 using Dekofar.HyperConnect.Application; // Application servis kayıtları
+using Dekofar.HyperConnect.Infrastructure.Services;
 using MediatR;
 using Dekofar.HyperConnect.Infrastructure.ServiceRegistration;
 
@@ -109,15 +110,7 @@ app.MapControllers();
 using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
-    string[] roles = new[] { "Admin", "PERSONEL", "DEPO", "IADE", "MUSTERI_TEM" };
-
-    foreach (var role in roles)
-    {
-        if (!await roleManager.RoleExistsAsync(role))
-        {
-            await roleManager.CreateAsync(new IdentityRole<Guid>(role));
-        }
-    }
+    await RoleSeeder.SeedAsync(roleManager);
 }
 
 app.Run();

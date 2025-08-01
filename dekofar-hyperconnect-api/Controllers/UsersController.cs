@@ -1,4 +1,4 @@
-﻿using Dekofar.HyperConnect.Domain.Entities;
+using Dekofar.Domain.Entities;
 using Dekofar.HyperConnect.Domain.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -15,9 +15,9 @@ namespace Dekofar.API.Controllers
     //[Authorize(Roles = "Admin")] // isteğe bağlı aktif edebilirsin
     public class UsersController : ControllerBase
     {
-        private readonly UserManager<AppUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public UsersController(UserManager<AppUser> userManager)
+        public UsersController(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
         }

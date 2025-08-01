@@ -14,13 +14,13 @@ namespace Dekofar.API.Controllers
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly UserManager<AppUser> _userManager;
-        private readonly SignInManager<AppUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ITokenService _tokenService;
 
         public AuthController(
-            UserManager<AppUser> userManager,
-            SignInManager<AppUser> signInManager,
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
             ITokenService tokenService)
         {
             _userManager = userManager;
@@ -29,7 +29,7 @@ namespace Dekofar.API.Controllers
         }
         [HttpPost("register-multiple")]
         public async Task<IActionResult> RegisterMultiple(
-    [FromBody] List<RegisterRequest> requests,
+    [FromBody] List<RegisterRoleRequest> requests,
     [FromServices] RoleManager<IdentityRole<Guid>> roleManager)
         {
             var createdUsers = new List<object>();
@@ -37,7 +37,7 @@ namespace Dekofar.API.Controllers
 
             foreach (var request in requests)
             {
-                var user = new AppUser
+                var user = new ApplicationUser
                 {
                     UserName = request.Email,
                     Email = request.Email,
@@ -79,12 +79,12 @@ namespace Dekofar.API.Controllers
             });
         }
 
-        [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterRequest request,
-            [FromServices] UserManager<AppUser> userManager,
+        [HttpPost("register-with-role")]
+        public async Task<IActionResult> RegisterWithRole([FromBody] RegisterRoleRequest request,
+            [FromServices] UserManager<ApplicationUser> userManager,
             [FromServices] RoleManager<IdentityRole<Guid>> roleManager)
         {
-            var user = new AppUser
+            var user = new ApplicationUser
             {
                 UserName = request.Email,
                 Email = request.Email,
@@ -105,7 +105,43 @@ namespace Dekofar.API.Controllers
             return Ok(new { message = "Kullanıcı başarıyla oluşturuldu." });
         }
 
-        public class RegisterRequest
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] Dekofar.HyperConnect.Application.Auth.RegisterRequest request,
+            [FromServices] RoleManager<IdentityRole<Guid>> roleManager)
+        {
+            var user = new ApplicationUser
+            {
+                UserName = request.Email,
+                Email = request.Email,
+                FullName = request.FullName
+            };
+
+            var result = await _userManager.CreateAsync(user, request.Password);
+            if (!result.Succeeded)
+                return BadRequest(result.Errors);
+
+            if (!await roleManager.RoleExistsAsync("User"))
+                await roleManager.CreateAsync(new IdentityRole<Guid>("User"));
+
+            await _userManager.AddToRoleAsync(user, "User");
+
+            var roles = await _userManager.GetRolesAsync(user);
+            var token = _tokenService.GenerateToken(user.Id.ToString(), user.Email!, roles);
+
+            return Ok(new
+            {
+                token,
+                user = new
+                {
+                    user.Id,
+                    user.FullName,
+                    user.Email,
+                    Roles = roles
+                }
+            });
+        }
+
+        public class RegisterRoleRequest
         {
             public string FullName { get; set; } = "";
             public string Email { get; set; } = "";
@@ -126,8 +162,7 @@ namespace Dekofar.API.Controllers
                 return Unauthorized("Şifre hatalı.");
 
             var roles = await _userManager.GetRolesAsync(user);
-            var role = roles.FirstOrDefault() ?? "PERSONEL";
-            var token = _tokenService.GenerateToken(user.Id.ToString(), user.Email, role);
+            var token = _tokenService.GenerateToken(user.Id.ToString(), user.Email!, roles);
 
             return Ok(new
             {
@@ -137,7 +172,7 @@ namespace Dekofar.API.Controllers
                     user.Id,
                     user.FullName,
                     user.Email,
-                    Role = role
+                    Roles = roles
                 }
             });
         }
@@ -159,7 +194,7 @@ namespace Dekofar.API.Controllers
                 user.Id,
                 user.Email,
                 user.FullName,
-                Role = roles.FirstOrDefault()
+                Roles = roles
             });
         }
     }
