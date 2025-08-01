@@ -12,13 +12,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up .NET Core
+      - name: Set up .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0'
+          dotnet-version: '8.0.x'
 
-      - name: Publish .NET Core app
-        run: dotnet publish ./Dekofar.API/Dekofar.API.csproj -c Release -o publish
+      - name: Restore dependencies
+        run: dotnet restore dekofar-hyperconnect-api/dekofar-hyperconnect-api.csproj
+
+      - name: Build
+        run: dotnet build dekofar-hyperconnect-api/dekofar-hyperconnect-api.csproj --configuration Release --no-restore
+
+      - name: Publish
+        run: dotnet publish dekofar-hyperconnect-api/dekofar-hyperconnect-api.csproj --configuration Release --output publish --no-build
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -46,4 +52,5 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'dekofar-hyperconnect-api'
+          slot-name: 'Production'
           package: .
