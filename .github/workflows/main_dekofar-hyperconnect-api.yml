@@ -1,4 +1,4 @@
-name: Build and deploy ASP.Net Core app to Azure Web App - dekofar-hyperconnect-api
+name: Build and deploy ASP.NET Core app to Azure Web App - dekofar-hyperconnect-api
 
 on:
   push:
@@ -37,8 +37,7 @@ jobs:
             --output ${{ env.PUBLISH_DIR }} \
             --runtime linux-x64 \
             --self-contained true \
-            /p:PublishSingleFile=false \
-            --no-build
+            /p:PublishSingleFile=false
 
       - name: 📦 Zip publish output
         run: |
