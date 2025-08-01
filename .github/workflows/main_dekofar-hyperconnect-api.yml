@@ -8,7 +8,7 @@ on:
 
 env:
   PROJECT_PATH: dekofar-hyperconnect-api/dekofar-hyperconnect-api.csproj
-  PUBLISH_DIR: ./
+  PUBLISH_DIR: ./publish
   AZURE_WEBAPP_NAME: dekofar-hyperconnect-api
 
 jobs:
