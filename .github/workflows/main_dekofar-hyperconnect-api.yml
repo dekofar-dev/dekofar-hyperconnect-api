@@ -30,10 +30,16 @@ jobs:
       - name: 🏗️ Build
         run: dotnet build ${{ env.PROJECT_PATH }} --configuration Release --no-restore
 
-      - name: 🚀 Publish
-        run: dotnet publish ${{ env.PROJECT_PATH }} --configuration Release --output ${{ env.PUBLISH_DIR }} --no-build
+      - name: 🚀 Publish (self-contained, linux-x64)
+        run: dotnet publish ${{ env.PROJECT_PATH }} \
+               --configuration Release \
+               --output ${{ env.PUBLISH_DIR }} \
+               --runtime linux-x64 \
+               --self-contained true \
+               /p:PublishSingleFile=true \
+               --no-build
 
-      - name: ⬆️ Upload artifact
+      - name: 📦 Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: api-artifact
