@@ -37,8 +37,7 @@ jobs:
             --output ${{ env.PUBLISH_DIR }} \
             --runtime linux-x64 \
             --self-contained true \
-            /p:PublishSingleFile=false \
-            --no-build
+            /p:PublishSingleFile=false
 
       - name: 📦 Zip publish output
         run: |
