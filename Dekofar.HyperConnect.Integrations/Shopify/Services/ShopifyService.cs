@@ -579,26 +579,119 @@ namespace Dekofar.HyperConnect.Integrations.Shopify.Services
             _logger.LogWarning($"⚠️ Ürün etiketleri güncellenemedi (ID: {productId}) - StatusCode: {response.StatusCode}");
             return false;
         }
+
+        /// <summary>
+        /// Update order tags field.
+        /// </summary>
+        public async Task<bool> UpdateOrderTagsAsync(long orderId, string tags, CancellationToken ct = default)
+        {
+            var body = new { order = new { id = orderId, tags } };
+            var json = JsonConvert.SerializeObject(body);
+            var resp = await _httpClient.PutAsync($"/admin/api/2024-04/orders/{orderId}.json", new StringContent(json, Encoding.UTF8, "application/json"), ct);
+            return resp.IsSuccessStatusCode;
+        }
+
+        /// <summary>
+        /// Update order note field.
+        /// </summary>
+        public async Task<bool> UpdateOrderNoteAsync(long orderId, string note, CancellationToken ct = default)
+        {
+            var body = new { order = new { id = orderId, note } };
+            var json = JsonConvert.SerializeObject(body);
+            var resp = await _httpClient.PutAsync($"/admin/api/2024-04/orders/{orderId}.json", new StringContent(json, Encoding.UTF8, "application/json"), ct);
+            return resp.IsSuccessStatusCode;
+        }
+
+        /// <summary>
+        /// Retrieve customer information by ID.
+        /// </summary>
+        public async Task<Customer?> GetCustomerByIdAsync(long customerId, CancellationToken ct = default)
+        {
+            var resp = await _httpClient.GetAsync($"/admin/api/2024-04/customers/{customerId}.json", ct);
+            if (!resp.IsSuccessStatusCode) return null;
+            var content = await resp.Content.ReadAsStringAsync(ct);
+            var parsed = JsonConvert.DeserializeObject<Dictionary<string, Customer>>(content);
+            return parsed != null && parsed.TryGetValue("customer", out var c) ? c : null;
+        }
+
+        /// <summary>
+        /// Create a new order on Shopify.
+        /// </summary>
+        public async Task<Order?> CreateOrderAsync(Order order, CancellationToken ct = default)
+        {
+            var body = new { order };
+            var json = JsonConvert.SerializeObject(body);
+            var resp = await _httpClient.PostAsync("/admin/api/2024-04/orders.json", new StringContent(json, Encoding.UTF8, "application/json"), ct);
+            if (!resp.IsSuccessStatusCode) return null;
+            var content = await resp.Content.ReadAsStringAsync(ct);
+            var parsed = JsonConvert.DeserializeObject<Dictionary<string, Order>>(content);
+            return parsed != null && parsed.TryGetValue("order", out var o) ? o : null;
+        }
+
+        /// <summary>
+        /// Create fulfillment for an order.
+        /// </summary>
+        public async Task<string> CreateFulfillmentAsync(long orderId, FulfillmentCreateRequest request, CancellationToken ct = default)
+        {
+            var body = new { fulfillment = new { location_id = request.LocationId, tracking_number = request.TrackingNumber, tracking_company = request.TrackingCompany } };
+            var json = JsonConvert.SerializeObject(body);
+            var resp = await _httpClient.PostAsync($"/admin/api/2024-04/orders/{orderId}/fulfillments.json", new StringContent(json, Encoding.UTF8, "application/json"), ct);
+            resp.EnsureSuccessStatusCode();
+            return await resp.Content.ReadAsStringAsync(ct);
+        }
+
+        /// <summary>
+        /// Search orders via GraphQL and cache result.
+        /// </summary>
+        public async Task<List<Order>> GetOrdersBySearchQueryAsync(string query, CancellationToken ct = default)
+        {
+            var cacheKey = $"shopify_order_search_{query}";
+            if (_memoryCache.TryGetValue(cacheKey, out List<Order> cached))
+                return cached;
+
+            var gql = $"{{ orders(first: 250, query: \"{query}\") {{ edges {{ node {{ id name createdAt totalPriceSet {{ shopMoney {{ amount currencyCode }} }} customer {{ firstName lastName phone }} }} }} }} }}";
+            var payload = new StringContent(JsonConvert.SerializeObject(new { query = gql }), Encoding.UTF8, "application/json");
+            var resp = await _httpClient.PostAsync("/admin/api/2024-04/graphql.json", payload, ct);
+            resp.EnsureSuccessStatusCode();
+            var content = await resp.Content.ReadAsStringAsync(ct);
+            var result = JsonConvert.DeserializeObject<ShopifyGraphQlPagedResult>(content);
+
+            var orders = new List<Order>();
+            if (result?.data?.orders?.edges != null)
+            {
+                foreach (var edge in result.data.orders.edges)
+                {
+                    var node = edge.node;
+                    var idPart = node.id?.Split('/')?.LastOrDefault();
+                    long.TryParse(idPart, out var id);
+                    orders.Add(new Order
+                    {
+                        Id = id,
+                        OrderNumber = node.name,
+                        CreatedAt = node.createdAt,
+                        TotalPrice = node.totalPriceSet?.shopMoney?.amount,
+                        Currency = node.totalPriceSet?.shopMoney?.currencyCode,
+                        Customer = node.customer == null ? null : new Customer
+                        {
+                            FirstName = node.customer.firstName,
+                            LastName = node.customer.lastName,
+                            Phone = node.customer.phone
+                        }
+                    });
+                }
+            }
+
+            _memoryCache.Set(cacheKey, orders, TimeSpan.FromMinutes(5));
+            return orders;
+        }
         public async Task<List<Order>> SearchOrdersAsync(string query, CancellationToken ct = default)
         {
             if (string.IsNullOrWhiteSpace(query) || query.Length < 2)
                 return new List<Order>();
 
-            var allOrders = await GetAllOrdersCachedAsync(ct);
-
-            var filtered = allOrders
-                .Where(o =>
-                    (!string.IsNullOrEmpty(o.Name) && o.Name.Contains(query, StringComparison.OrdinalIgnoreCase)) ||
-                    (o.Customer != null && (
-                        (!string.IsNullOrEmpty(o.Customer.FirstName) && o.Customer.FirstName.Contains(query, StringComparison.OrdinalIgnoreCase)) ||
-                        (!string.IsNullOrEmpty(o.Customer.LastName) && o.Customer.LastName.Contains(query, StringComparison.OrdinalIgnoreCase)) ||
-                        (!string.IsNullOrEmpty(o.Customer.Email) && o.Customer.Email.Contains(query, StringComparison.OrdinalIgnoreCase)) ||
-                        (!string.IsNullOrEmpty(o.Customer.Phone) && o.Customer.Phone.Contains(query, StringComparison.OrdinalIgnoreCase))
-                    ))
-                )
-                .ToList();
-
-            return filtered;
+            // Prefer GraphQL search which fetches first 250 matching orders.
+            var result = await GetOrdersBySearchQueryAsync(query, ct);
+            return result;
         }
 
 

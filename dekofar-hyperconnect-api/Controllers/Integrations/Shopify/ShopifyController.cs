@@ -105,6 +105,42 @@ namespace Dekofar.HyperConnect.API.Controllers.Shopify
             return BadRequest(new { message = "Etiket güncelleme başarısız oldu." });
         }
 
+        [HttpPost("order/update-tags")]
+        public async Task<IActionResult> UpdateOrderTags([FromBody] UpdateOrderTagsRequest request, CancellationToken ct)
+        {
+            var ok = await _shopifyService.UpdateOrderTagsAsync(request.OrderId, request.Tags, ct);
+            return ok ? Ok() : BadRequest();
+        }
+
+        [HttpPost("order/update-note")]
+        public async Task<IActionResult> UpdateOrderNote([FromBody] UpdateOrderNoteRequest request, CancellationToken ct)
+        {
+            var ok = await _shopifyService.UpdateOrderNoteAsync(request.OrderId, request.Note, ct);
+            return ok ? Ok() : BadRequest();
+        }
+
+        [HttpGet("customer/{customerId:long}")]
+        public async Task<IActionResult> GetCustomer(long customerId, CancellationToken ct)
+        {
+            var customer = await _shopifyService.GetCustomerByIdAsync(customerId, ct);
+            if (customer == null) return NotFound();
+            return Ok(customer);
+        }
+
+        [HttpPost("order")]
+        public async Task<IActionResult> CreateOrder([FromBody] Order order, CancellationToken ct)
+        {
+            var result = await _shopifyService.CreateOrderAsync(order, ct);
+            return result != null ? Ok(result) : BadRequest();
+        }
+
+        [HttpPost("fulfillment")]
+        public async Task<IActionResult> CreateFulfillment([FromBody] FulfillmentCreateRequest request, CancellationToken ct)
+        {
+            var resp = await _shopifyService.CreateFulfillmentAsync(request.OrderId, request, ct);
+            return Ok(resp);
+        }
+
         [HttpGet("orders/search")]
         public async Task<IActionResult> SearchOrders([FromQuery] string query, CancellationToken ct)
         {
