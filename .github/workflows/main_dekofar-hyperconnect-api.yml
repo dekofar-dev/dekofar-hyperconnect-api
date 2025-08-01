@@ -19,7 +19,7 @@ jobs:
       - name: 📥 Checkout source code
         uses: actions/checkout@v4
 
-      - name: 🛠️ Set up .NET
+      - name: 🛠️ Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
@@ -30,26 +30,22 @@ jobs:
       - name: 🏗️ Build
         run: dotnet build ${{ env.PROJECT_PATH }} --configuration Release --no-restore
 
-      - name: 🚀 Publish (self-contained linux-x64)
+      - name: 🚀 Publish
         run: |
           dotnet publish ${{ env.PROJECT_PATH }} \
             --configuration Release \
             --output ${{ env.PUBLISH_DIR }} \
             --runtime linux-x64 \
             --self-contained true \
-            /p:PublishSingleFile=false \
+            /p:PublishSingleFile=true \
+            /p:StaticWebAssetsEnabled=false \
             --no-build
-
-      - name: 📦 Zip publish output
-        run: |
-          cd ${{ env.PUBLISH_DIR }}
-          zip -r ../app.zip ./*
 
       - name: ⬆️ Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: api-artifact
-          path: app.zip
+          path: ${{ env.PUBLISH_DIR }}
 
   deploy:
     runs-on: ubuntu-latest
@@ -78,4 +74,4 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           slot-name: 'Production'
-          package: app.zip
+          package: ${{ env.PUBLISH_DIR }}
