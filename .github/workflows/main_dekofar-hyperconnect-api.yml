@@ -37,17 +37,19 @@ jobs:
             --output ${{ env.PUBLISH_DIR }} \
             --runtime linux-x64 \
             --self-contained true \
-            /p:PublishSingleFile=true \
-            --no-restore
+            /p:PublishSingleFile=false \
+            --no-build
 
       - name: 📦 Zip publish output
-        run: zip -r api-publish.zip ${{ env.PUBLISH_DIR }}/*
+        run: |
+          cd ${{ env.PUBLISH_DIR }}
+          zip -r ../app.zip ./*
 
       - name: ⬆️ Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: api-artifact
-          path: api-publish.zip
+          path: app.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -62,7 +64,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: api-artifact
-          path: .
 
       - name: 🔐 Login to Azure
         uses: azure/login@v2
@@ -77,4 +78,4 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           slot-name: 'Production'
-          package: api-publish.zip
+          package: app.zip
