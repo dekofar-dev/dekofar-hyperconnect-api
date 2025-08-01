@@ -92,12 +92,13 @@ var app = builder.Build();
 // 🧪 Swagger Arayüzü
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Dekofar API v1");
-        c.RoutePrefix = "swagger";
-    });
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Dekofar API v1");
+    c.RoutePrefix = "swagger";
+});
+
 }
 
 // 🌐 Orta Katmanlar
