@@ -40,6 +40,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddMemoryCache();
 
+
 builder.Services.AddApplication();
 
 // 📬 Entegrasyon Servisleri
@@ -88,11 +89,15 @@ builder.Logging.AddConsole();
 
 var app = builder.Build();
 
-// 🧪 Swagger Arayüzü - Her ortamda aktif
-if (app.Environment.IsDevelopment() || app.Environment.IsStaging() || app.Environment.IsProduction())
+// 🧪 Swagger Arayüzü
+if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(); // <- Bu çok önemli
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Dekofar API v1");
+        c.RoutePrefix = "swagger";
+    });
 }
 
 // 🌐 Orta Katmanlar
