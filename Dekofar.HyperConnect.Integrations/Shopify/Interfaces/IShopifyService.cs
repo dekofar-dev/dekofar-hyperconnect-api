@@ -1,5 +1,6 @@
 ﻿using Dekofar.HyperConnect.Domain.Entities;
 using Dekofar.HyperConnect.Integrations.Shopify.Models.Shopify;
+using Dekofar.HyperConnect.Integrations.Shopify.Models.Shopify.Dto;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -67,6 +68,36 @@ namespace Dekofar.HyperConnect.Integrations.Shopify.Interfaces
         Task<bool> AddOrUpdateProductTagsAsync(long productId, string tags, CancellationToken ct = default);
 
         Task<List<Order>> SearchOrdersAsync(string query, CancellationToken ct = default);
+
+        /// <summary>
+        /// Search orders via Shopify GraphQL API.
+        /// </summary>
+        Task<List<Order>> GetOrdersBySearchQueryAsync(string query, CancellationToken ct = default);
+
+        /// <summary>
+        /// Update order tags.
+        /// </summary>
+        Task<bool> UpdateOrderTagsAsync(long orderId, string tags, CancellationToken ct = default);
+
+        /// <summary>
+        /// Update order note field.
+        /// </summary>
+        Task<bool> UpdateOrderNoteAsync(long orderId, string note, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get customer details by ID.
+        /// </summary>
+        Task<Customer?> GetCustomerByIdAsync(long customerId, CancellationToken ct = default);
+
+        /// <summary>
+        /// Create a new order on Shopify.
+        /// </summary>
+        Task<Order?> CreateOrderAsync(Order order, CancellationToken ct = default);
+
+        /// <summary>
+        /// Create a fulfillment for an order.
+        /// </summary>
+        Task<string> CreateFulfillmentAsync(long orderId, FulfillmentCreateRequest request, CancellationToken ct = default);
 
 
 
