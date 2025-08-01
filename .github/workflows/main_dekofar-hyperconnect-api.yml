@@ -1,77 +1,34 @@
-name: Build and deploy ASP.Net Core app to Azure Web App - dekofar-hyperconnect-api
+name: Build and Deploy API
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch:
-
-env:
-  PROJECT_PATH: dekofar-hyperconnect-api/dekofar-hyperconnect-api.csproj
-  PUBLISH_DIR: ./publish
-  AZURE_WEBAPP_NAME: dekofar-hyperconnect-api
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Checkout source code
-        uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-      - name: 🛠️ Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0.x'
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
 
-      - name: 📦 Restore dependencies
-        run: dotnet restore ${{ env.PROJECT_PATH }}
+    - name: Restore dependencies
+      run: dotnet restore dekofar-hyperconnect-api/dekofar-hyperconnect-api.csproj
 
-      - name: 🏗️ Build
-        run: dotnet build ${{ env.PROJECT_PATH }} --configuration Release --no-restore
+    - name: Build
+      run: dotnet build dekofar-hyperconnect-api/dekofar-hyperconnect-api.csproj --configuration Release
 
-      - name: 🚀 Publish
-        run: |
-          dotnet publish ${{ env.PROJECT_PATH }} \
-            --configuration Release \
-            --output ${{ env.PUBLISH_DIR }} \
-            --runtime linux-x64 \
-            --self-contained true \
-            /p:PublishSingleFile=true \
-            /p:StaticWebAssetsEnabled=false \
-            --no-build
+    - name: Publish
+      run: dotnet publish dekofar-hyperconnect-api/dekofar-hyperconnect-api.csproj -c Release -o ./publish --runtime linux-x64 --self-contained false
 
-      - name: ⬆️ Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: api-artifact
-          path: ${{ env.PUBLISH_DIR }}
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-
-    permissions:
-      id-token: write
-      contents: read
-
-    steps:
-      - name: 📥 Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: api-artifact
-
-      - name: 🔐 Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_A551B4260ACB48F183D3F79D46124047 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_36F1DF128C72499E8428BA9650CB35AA }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_1E6236A3803E492591D3CCAF1A2B122B }}
-          auth-type: 'SERVICE_PRINCIPAL'
-
-      - name: 🚀 Deploy to Azure Web App
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          slot-name: 'Production'
-          package: ${{ env.PUBLISH_DIR }}
+    - name: Upload artifacts to publish folder
+      uses: actions/upload-artifact@v3
+      with:
+        name: publish
+        path: ./publish
