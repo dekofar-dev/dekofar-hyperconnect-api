@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
 
-    # ✅ Bu blok hatayı çözüyor
+    # ✅ Bu blok çok kritik: OIDC hatasını çözer
     permissions:
       id-token: write
       contents: read
@@ -53,6 +53,7 @@ jobs:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_A551B4260ACB48F183D3F79D46124047 }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_36F1DF128C72499E8428BA9650CB35AA }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_1E6236A3803E492591D3CCAF1A2B122B }}
+          auth-type: service-principal  # ✅ Bu satır hatayı kesin çözer
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
