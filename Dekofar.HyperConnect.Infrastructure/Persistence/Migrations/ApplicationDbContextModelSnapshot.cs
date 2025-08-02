@@ -90,7 +90,7 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
-                    b.ToTable("AspNetUsers", (string)null);
+                    b.ToTable("AspNetUsers", (string)null, t => t.ExcludeFromMigrations());
                 });
 
             modelBuilder.Entity("Dekofar.HyperConnect.Domain.Entities.AuditLog", b =>
@@ -542,7 +542,7 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence.Migrations
                         .IsUnique()
                         .HasDatabaseName("RoleNameIndex");
 
-                    b.ToTable("AspNetRoles", (string)null);
+                    b.ToTable("AspNetRoles", (string)null, t => t.ExcludeFromMigrations());
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -566,7 +566,7 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims", (string)null);
+                    b.ToTable("AspNetRoleClaims", (string)null, t => t.ExcludeFromMigrations());
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
@@ -590,7 +590,7 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims", (string)null);
+                    b.ToTable("AspNetUserClaims", (string)null, t => t.ExcludeFromMigrations());
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
@@ -611,7 +611,7 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins", (string)null);
+                    b.ToTable("AspNetUserLogins", (string)null, t => t.ExcludeFromMigrations());
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
@@ -626,7 +626,7 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles", (string)null);
+                    b.ToTable("AspNetUserRoles", (string)null, t => t.ExcludeFromMigrations());
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
@@ -645,7 +645,7 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens", (string)null);
+                    b.ToTable("AspNetUserTokens", (string)null, t => t.ExcludeFromMigrations());
                 });
 
             modelBuilder.Entity("Dekofar.HyperConnect.Domain.Entities.ManualOrderItem", b =>
