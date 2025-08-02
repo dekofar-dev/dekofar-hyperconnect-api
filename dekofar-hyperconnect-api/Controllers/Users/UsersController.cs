@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Dekofar.HyperConnect.Application.Users.Commands;
 using Dekofar.HyperConnect.Application.Users.DTOs;
 using Dekofar.HyperConnect.Application.Users.Queries;
+using Dekofar.HyperConnect.Application.Interfaces;
+using Dekofar.API.Authorization;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -19,11 +21,13 @@ namespace Dekofar.API.Controllers
     {
         // MediatR aracısı
         private readonly IMediator _mediator;
+        private readonly IUserService _userService;
 
         // MediatR bağımlılığını alan kurucu
-        public UsersController(IMediator mediator)
+        public UsersController(IMediator mediator, IUserService userService)
         {
             _mediator = mediator;
+            _userService = userService;
         }
 
         // Sistemdeki tüm kullanıcıları döner
@@ -61,6 +65,16 @@ namespace Dekofar.API.Controllers
 
             var url = await _mediator.Send(new UploadProfileImageCommand { UserId = id, File = file });
             return Ok(new { avatarUrl = url });
+        }
+
+        [HttpGet("me/stats")]
+        [Authorize]
+        public async Task<IActionResult> GetMyProfileWithStats()
+        {
+            var userId = User.GetUserId();
+            if (userId == null) return Unauthorized();
+            var profile = await _userService.GetProfileWithStatsAsync(userId.Value);
+            return Ok(profile);
         }
     }
 }

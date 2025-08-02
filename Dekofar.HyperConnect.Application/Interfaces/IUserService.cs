@@ -1,0 +1,11 @@
+using System;
+using System.Threading.Tasks;
+using Dekofar.HyperConnect.Application.Users.DTOs;
+
+namespace Dekofar.HyperConnect.Application.Interfaces
+{
+    public interface IUserService
+    {
+        Task<UserProfileDto?> GetProfileWithStatsAsync(Guid userId);
+    }
+}
