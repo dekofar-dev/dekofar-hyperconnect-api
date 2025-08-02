@@ -21,6 +21,8 @@ using Dekofar.HyperConnect.Infrastructure.Jobs;
 using Microsoft.AspNetCore.Authorization;
 using Dekofar.API.Hubs;
 using Dekofar.API.Services;
+using Dekofar.HyperConnect.Application.Interfaces;
+using Dekofar.HyperConnect.Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -75,6 +77,7 @@ builder.Services.AddHangfireServer();
 builder.Services.AddScoped<INetGsmSmsService, NetGsmSmsService>();
 builder.Services.AddHttpClient<IShopifyService, ShopifyService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
+builder.Services.AddScoped<IDashboardService, DashboardService>();
 
 // 📡 Controller & JSON Ayarları
 builder.Services.AddControllers()
