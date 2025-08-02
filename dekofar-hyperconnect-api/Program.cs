@@ -18,6 +18,7 @@ using Hangfire;
 using Hangfire.MemoryStorage;
 using Dekofar.HyperConnect.Infrastructure.Jobs;
 using Microsoft.AspNetCore.Authorization;
+using Dekofar.API.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -80,6 +81,8 @@ builder.Services.AddControllers()
         options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
     });
 
+builder.Services.AddSignalR();
+
 // 📘 Swagger + JWT Destekli Dokümantasyon
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -132,6 +135,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseHangfireDashboard();
 app.MapControllers();
+app.MapHub<LiveChatHub>("/chatHub");
 
 // 🚀 Seed default roles and admin user
 await SeedData.SeedDefaultsAsync(app.Services);
