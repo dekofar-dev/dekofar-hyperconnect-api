@@ -12,12 +12,17 @@ namespace Dekofar.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    // Kimlik doğrulama ve kullanıcı yönetimi işlemlerini yöneten controller
     public class AuthController : ControllerBase
     {
+        // Kullanıcı yönetimi servisi
         private readonly UserManager<ApplicationUser> _userManager;
+        // Oturum açma işlemlerini yöneten servis
         private readonly SignInManager<ApplicationUser> _signInManager;
+        // JWT token üretimi için servis
         private readonly ITokenService _tokenService;
 
+        // Gerekli bağımlılıkları enjekte eden kurucu metot
         public AuthController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
@@ -27,10 +32,12 @@ namespace Dekofar.API.Controllers
             _signInManager = signInManager;
             _tokenService = tokenService;
         }
+
+        // Birden fazla kullanıcıyı rol bilgisiyle birlikte oluşturur
         [HttpPost("register-multiple")]
         public async Task<IActionResult> RegisterMultiple(
-    [FromBody] List<RegisterRoleRequest> requests,
-    [FromServices] RoleManager<IdentityRole<Guid>> roleManager)
+            [FromBody] List<RegisterRoleRequest> requests,
+            [FromServices] RoleManager<IdentityRole<Guid>> roleManager)
         {
             var createdUsers = new List<object>();
             var errors = new List<object>();
@@ -79,6 +86,7 @@ namespace Dekofar.API.Controllers
             });
         }
 
+        // Belirli bir rol ile kullanıcı oluşturur
         [HttpPost("register-with-role")]
         public async Task<IActionResult> RegisterWithRole([FromBody] RegisterRoleRequest request,
             [FromServices] UserManager<ApplicationUser> userManager,
@@ -96,7 +104,7 @@ namespace Dekofar.API.Controllers
             if (!result.Succeeded)
                 return BadRequest(result.Errors);
 
-            // ✅ Admin rolünü ata
+            // Admin rolünü otomatik ata
             if (!await roleManager.RoleExistsAsync("Admin"))
                 await roleManager.CreateAsync(new IdentityRole<Guid>("Admin"));
 
@@ -105,6 +113,7 @@ namespace Dekofar.API.Controllers
             return Ok(new { message = "Kullanıcı başarıyla oluşturuldu." });
         }
 
+        // Varsayılan kullanıcı rolü ile kayıt işlemi
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] Dekofar.HyperConnect.Application.Auth.RegisterRequest request,
             [FromServices] RoleManager<IdentityRole<Guid>> roleManager)
@@ -141,15 +150,20 @@ namespace Dekofar.API.Controllers
             });
         }
 
+        // Rol bilgisi içeren kayıt isteği modeli
         public class RegisterRoleRequest
         {
+            // Kullanıcının tam adı
             public string FullName { get; set; } = "";
+            // Kullanıcının e-posta adresi
             public string Email { get; set; } = "";
+            // Kullanıcı şifresi
             public string Password { get; set; } = "";
-            public string? Role { get; set; } // Opsiyonel
+            // Opsiyonel atanacak rol
+            public string? Role { get; set; }
         }
 
-
+        // Kullanıcı giriş işlemi yapar
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginRequest request)
         {
@@ -177,6 +191,7 @@ namespace Dekofar.API.Controllers
             });
         }
 
+        // Oturum açmış kullanıcının profil bilgilerini döner
         [Authorize]
         [HttpGet("profile")]
         public async Task<IActionResult> GetProfile()

@@ -14,16 +14,19 @@ namespace Dekofar.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    // Kullanıcı yönetimi ile ilgili işlemleri sağlayan controller
     public class UsersController : ControllerBase
     {
+        // MediatR aracısı
         private readonly IMediator _mediator;
 
+        // MediatR bağımlılığını alan kurucu
         public UsersController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
-        // GET /api/users
+        // Sistemdeki tüm kullanıcıları döner
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<List<UserDto>>> GetAllUsers()
@@ -32,7 +35,7 @@ namespace Dekofar.API.Controllers
             return Ok(users);
         }
 
-        // POST /api/users/{id}/roles
+        // Kullanıcıya rol ataması yapar
         [HttpPost("{id:guid}/roles")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AssignRoles(Guid id, [FromBody] List<string> roles)
@@ -45,7 +48,7 @@ namespace Dekofar.API.Controllers
             return BadRequest(result.Errors);
         }
 
-        // POST /api/users/{id}/avatar
+        // Kullanıcının profil resmini yükler
         [HttpPost("{id:guid}/avatar")]
         [Authorize]
         public async Task<IActionResult> UploadAvatar(Guid id, [FromForm] IFormFile file)

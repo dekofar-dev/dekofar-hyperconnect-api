@@ -5,9 +5,10 @@ namespace Dekofar.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    // Servisin canlılık durumunu kontrol etmek için basit ping controller
     public class PingController : ControllerBase
     {
-        // Herkese açık
+        // Herkese açık ping endpoint'i
         [HttpGet("open")]
         public IActionResult OpenPing() => Ok("🌐 Bu endpoint herkese açık.");
 

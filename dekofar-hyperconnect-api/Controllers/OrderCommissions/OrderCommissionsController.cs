@@ -4,20 +4,24 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace Dekofar.HyperConnect.API.Controllers
+namespace Dekofar.API.Controllers
 {
     [ApiController]
     [Route("api/order-commissions")]
     [Authorize]
+    // Sipariş komisyonlarını yöneten controller
     public class OrderCommissionsController : ControllerBase
     {
+        // MediatR aracısı
         private readonly IMediator _mediator;
 
+        // MediatR bağımlılığını alan kurucu
         public OrderCommissionsController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
+        // Mevcut kullanıcının komisyonlarını listeler
         [HttpGet("user")]
         public async Task<IActionResult> GetForCurrentUser()
         {
@@ -25,6 +29,7 @@ namespace Dekofar.HyperConnect.API.Controllers
             return Ok(commissions);
         }
 
+        // Mevcut kullanıcının toplam komisyon tutarını döner
         [HttpGet("user/total")]
         public async Task<IActionResult> GetTotalForCurrentUser()
         {

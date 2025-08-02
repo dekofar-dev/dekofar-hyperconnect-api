@@ -8,20 +8,24 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Dekofar.HyperConnect.API.Controllers
+namespace Dekofar.API.Controllers
 {
     [ApiController]
     [Route("api/support-categories")]
     [Authorize]
+    // Destek kategori işlemlerini yöneten controller
     public class SupportCategoriesController : ControllerBase
     {
+        // MediatR aracısı
         private readonly IMediator _mediator;
 
+        // MediatR'ı alan kurucu
         public SupportCategoriesController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
+        // Tüm destek kategorilerini listeler
         [HttpGet]
         public async Task<ActionResult<List<SupportCategoryDto>>> GetAll()
         {
@@ -29,6 +33,7 @@ namespace Dekofar.HyperConnect.API.Controllers
             return Ok(categories);
         }
 
+        // Yeni destek kategorisi oluşturur
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] CreateSupportCategoryCommand command)
@@ -37,6 +42,7 @@ namespace Dekofar.HyperConnect.API.Controllers
             return Ok(id);
         }
 
+        // Destek kategorisini günceller
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(Guid id, [FromBody] UpdateSupportCategoryCommand command)
@@ -46,6 +52,7 @@ namespace Dekofar.HyperConnect.API.Controllers
             return Ok();
         }
 
+        // Destek kategorisini siler
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid id)
@@ -54,11 +61,14 @@ namespace Dekofar.HyperConnect.API.Controllers
             return Ok();
         }
 
+        // Rol atama isteğini temsil eden DTO
         public class AssignRolesDto
         {
+            // Kategoriye atanacak roller listesi
             public List<string> Roles { get; set; } = new();
         }
 
+        // Belirtilen kategoriye roller atar
         [HttpPost("{id}/roles")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AssignRoles(Guid id, [FromBody] AssignRolesDto dto)

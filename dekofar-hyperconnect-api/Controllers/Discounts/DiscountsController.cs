@@ -8,19 +8,23 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Dekofar.HyperConnect.API.Controllers
+namespace Dekofar.API.Controllers
 {
     [ApiController]
     [Route("api/discounts")]
+    // İndirim işlemlerini yöneten controller
     public class DiscountsController : ControllerBase
     {
+        // Komut ve sorguları çalıştırmak için MediatR aracı
         private readonly IMediator _mediator;
 
+        // MediatR bağımlılığını alan kurucu
         public DiscountsController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
+        // Tüm indirimleri listeler
         [HttpGet]
         public async Task<ActionResult<List<DiscountDto>>> GetAll()
         {
@@ -28,6 +32,7 @@ namespace Dekofar.HyperConnect.API.Controllers
             return Ok(discounts);
         }
 
+        // Sadece aktif indirimleri listeler
         [HttpGet("active")]
         public async Task<ActionResult<List<DiscountDto>>> GetActive()
         {
@@ -35,30 +40,30 @@ namespace Dekofar.HyperConnect.API.Controllers
             return Ok(discounts);
         }
 
+        // Yeni indirim oluşturur
         [HttpPost]
         [Authorize(Policy = "CanManageDiscounts")]
         public async Task<IActionResult> Create([FromBody] CreateDiscountCommand command)
         {
-            // Only users with the manage discounts permission can create
             var id = await _mediator.Send(command);
             return Ok(id);
         }
 
+        // Mevcut bir indirimi günceller
         [HttpPut("{id}")]
         [Authorize(Policy = "CanManageDiscounts")]
         public async Task<IActionResult> Update(Guid id, [FromBody] UpdateDiscountCommand command)
         {
-            // Policy prevents unauthorized modifications
             if (id != command.Id) return BadRequest();
             await _mediator.Send(command);
             return Ok();
         }
 
+        // İndirimi siler
         [HttpDelete("{id}")]
         [Authorize(Policy = "CanManageDiscounts")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            // Policy ensures only authorized users can delete
             await _mediator.Send(new DeleteDiscountCommand(id));
             return Ok();
         }
