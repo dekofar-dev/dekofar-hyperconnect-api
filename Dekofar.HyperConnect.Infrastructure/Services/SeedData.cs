@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Dekofar.Domain.Entities;
-using Dekofar.HyperConnect.Domain.Entities.Support;
+using Dekofar.HyperConnect.Domain.Entities;
 using Dekofar.HyperConnect.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -51,18 +51,32 @@ namespace Dekofar.HyperConnect.Infrastructure.Services
                 await userManager.AddToRoleAsync(adminUser, "Admin");
             }
 
+            var generalCategory = await context.SupportCategories.FirstOrDefaultAsync();
+            if (generalCategory == null)
+            {
+                generalCategory = new SupportCategory
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "General",
+                    Description = "General support"
+                };
+                context.SupportCategories.Add(generalCategory);
+                await context.SaveChangesAsync();
+            }
+
             if (!await context.SupportTickets.AnyAsync())
             {
                 var ticket = new SupportTicket
                 {
-                    TicketNumber = "TICKET-0001",
-                    Subject = "Test ticket",
+                    Id = Guid.NewGuid(),
+                    Title = "Test ticket",
                     Description = "This is a seeded support ticket",
-                    Category = SupportCategory.GenelBilgi,
-                    Priority = SupportPriority.Orta,
-                    CreatedBy = adminUser.Id,
+                    CreatedByUserId = adminUser.Id,
+                    CategoryId = generalCategory.Id,
+                    Status = SupportTicketStatus.Open,
+                    Priority = SupportTicketPriority.Medium,
                     CreatedAt = DateTime.UtcNow,
-                    Status = SupportStatus.Bekliyor
+                    LastUpdatedAt = DateTime.UtcNow
                 };
 
                 context.SupportTickets.Add(ticket);
