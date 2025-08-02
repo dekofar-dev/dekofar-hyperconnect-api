@@ -96,6 +96,7 @@ namespace Dekofar.HyperConnect.Infrastructure.ServiceRegistration
 
             // 🔑 Token servisi
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IUserService, UserService>();
 
             // ✅ MediatR
             services.AddMediatR(cfg =>
