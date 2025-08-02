@@ -13,5 +13,15 @@ namespace Dekofar.Domain.Entities
         /// </summary>
         public string? AvatarUrl { get; set; }
 
+        public DateTime MembershipDate { get; set; }
+        public bool IsOnline { get; set; }
+        public DateTime? LastSeen { get; set; }
+        public int TotalSalesCount { get; set; }
+        public decimal TotalCommissionAmount { get; set; }
+        public int TotalSupportRequestCount { get; set; }
+        public int UnreadMessageCount { get; set; }
+        public DateTime? LastMessageDate { get; set; }
+        public DateTime? LastSupportActivity { get; set; }
+
     }
 }

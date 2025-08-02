@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Security.Claims;
 
 namespace Dekofar.API.Controllers
@@ -48,7 +49,8 @@ namespace Dekofar.API.Controllers
                 {
                     UserName = request.Email,
                     Email = request.Email,
-                    FullName = request.FullName
+                    FullName = request.FullName,
+                    MembershipDate = DateTime.UtcNow
                 };
 
                 var result = await _userManager.CreateAsync(user, request.Password);
@@ -96,7 +98,8 @@ namespace Dekofar.API.Controllers
             {
                 UserName = request.Email,
                 Email = request.Email,
-                FullName = request.FullName
+                FullName = request.FullName,
+                MembershipDate = DateTime.UtcNow
             };
 
             var result = await userManager.CreateAsync(user, request.Password);
@@ -122,7 +125,8 @@ namespace Dekofar.API.Controllers
             {
                 UserName = request.Email,
                 Email = request.Email,
-                FullName = request.FullName
+                FullName = request.FullName,
+                MembershipDate = DateTime.UtcNow
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);
