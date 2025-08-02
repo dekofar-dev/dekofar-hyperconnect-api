@@ -84,6 +84,7 @@ namespace Dekofar.HyperConnect.Infrastructure.Services
                 await context.SaveChangesAsync();
             }
 
+            // Seed default permissions used by policy-based authorization
             var defaultPermissions = new[]
             {
                 new Permission { Id = Guid.NewGuid(), Name = "CanAssignTicket", Description = "Assign support tickets" },
@@ -103,6 +104,7 @@ namespace Dekofar.HyperConnect.Infrastructure.Services
             var adminRoleName = "Admin";
             var adminPermissions = await context.Permissions.ToListAsync();
 
+            // Ensure the Admin role has all default permissions
             foreach (var perm in adminPermissions)
             {
                 if (!await context.RolePermissions.AnyAsync(rp => rp.RoleName == adminRoleName && rp.PermissionId == perm.Id))

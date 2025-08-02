@@ -47,6 +47,7 @@ namespace Dekofar.HyperConnect.API.Controllers
         [Authorize(Policy = "CanAssignTicket")]
         public async Task<IActionResult> Assign(Guid id, [FromBody] AssignSupportTicketCommand command)
         {
+            // Policy ensures caller has permission to assign tickets
             if (id != command.TicketId) return BadRequest();
             await _mediator.Send(command);
             return Ok();

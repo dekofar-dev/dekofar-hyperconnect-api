@@ -43,16 +43,23 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddMemoryCache();
 builder.Services.AddApplication();
 
+// Register authorization policies backed by our custom requirement
 builder.Services.AddAuthorization(options =>
 {
+    // Users must have the CanAssignTicket permission to access protected endpoints
     options.AddPolicy("CanAssignTicket", policy =>
         policy.Requirements.Add(new PermissionRequirement("CanAssignTicket")));
+
+    // Controls access to discount management endpoints
     options.AddPolicy("CanManageDiscounts", policy =>
         policy.Requirements.Add(new PermissionRequirement("CanManageDiscounts")));
+
+    // Allows editing support ticket due dates
     options.AddPolicy("CanEditDueDate", policy =>
         policy.Requirements.Add(new PermissionRequirement("CanEditDueDate")));
 });
 
+// Authorization handler that checks permission assignments for the current user
 builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
 builder.Services.AddHangfire(config =>
