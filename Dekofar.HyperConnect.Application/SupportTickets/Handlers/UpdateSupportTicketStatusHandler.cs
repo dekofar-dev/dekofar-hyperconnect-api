@@ -1,4 +1,5 @@
 using Dekofar.HyperConnect.Application.Common.Interfaces;
+using Dekofar.HyperConnect.Application.SupportTickets.Commands;
 using Dekofar.HyperConnect.Domain.Entities;
 using MediatR;
 using System;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Dekofar.HyperConnect.Application.SupportTickets.Handlers
 {
-    public class UpdateSupportTicketStatusHandler : IRequestHandler<UpdateSupportTicketStatusCommand>
+    public class UpdateSupportTicketStatusHandler : IRequestHandler<UpdateSupportTicketStatusCommand, Unit>
     {
         private readonly IApplicationDbContext _context;
 

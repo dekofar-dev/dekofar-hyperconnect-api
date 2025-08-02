@@ -1,9 +1,12 @@
 using Dekofar.HyperConnect.Application.Common.Interfaces;
+using Dekofar.HyperConnect.Application.SupportTickets.Commands;
 using Dekofar.HyperConnect.Domain.Entities;
 using MediatR;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,9 +16,9 @@ namespace Dekofar.HyperConnect.Application.SupportTickets.Handlers
     {
         private readonly IApplicationDbContext _context;
         private readonly ICurrentUserService _currentUser;
-        private readonly IWebHostEnvironment _env;
+        private readonly IHostEnvironment _env;
 
-        public CreateSupportTicketHandler(IApplicationDbContext context, ICurrentUserService currentUser, IWebHostEnvironment env)
+        public CreateSupportTicketHandler(IApplicationDbContext context, ICurrentUserService currentUser, IHostEnvironment env)
         {
             _context = context;
             _currentUser = currentUser;
@@ -41,6 +44,41 @@ namespace Dekofar.HyperConnect.Application.SupportTickets.Handlers
                 CreatedAt = DateTime.UtcNow,
                 LastUpdatedAt = DateTime.UtcNow
             };
+
+            if (request.CategoryId.HasValue)
+            {
+                var roleNames = await _context.SupportCategoryRoles
+                    .Where(r => r.SupportCategoryId == request.CategoryId.Value)
+                    .Select(r => r.RoleName)
+                    .ToListAsync(cancellationToken);
+
+                if (roleNames.Any())
+                {
+                    var userIds = await (from u in _context.Users
+                                         join ur in _context.UserRoles on u.Id equals ur.UserId
+                                         join r in _context.Roles on ur.RoleId equals r.Id
+                                         where roleNames.Contains(r.Name!)
+                                         select u.Id)
+                                         .ToListAsync(cancellationToken);
+
+                    if (userIds.Any())
+                    {
+                        var counts = await _context.SupportTickets
+                            .Where(t => t.Status != SupportTicketStatus.Closed && t.AssignedUserId != null && userIds.Contains(t.AssignedUserId.Value))
+                            .GroupBy(t => t.AssignedUserId!.Value)
+                            .Select(g => new { UserId = g.Key, Count = g.Count() })
+                            .ToListAsync(cancellationToken);
+
+                        var selected = userIds
+                            .Select(id => new { Id = id, Count = counts.FirstOrDefault(c => c.UserId == id)?.Count ?? 0 })
+                            .OrderBy(x => x.Count)
+                            .ThenBy(x => x.Id)
+                            .First();
+
+                        ticket.AssignedUserId = selected.Id;
+                    }
+                }
+            }
 
             if (request.File != null)
             {

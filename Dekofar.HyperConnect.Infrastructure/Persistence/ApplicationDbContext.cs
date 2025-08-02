@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Linq;
 
 namespace Dekofar.HyperConnect.Infrastructure.Persistence
 {
@@ -17,6 +16,7 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence
 
         public DbSet<SupportTicket> SupportTickets => Set<SupportTicket>();
         public DbSet<SupportCategory> SupportCategories => Set<SupportCategory>();
+        public DbSet<SupportCategoryRole> SupportCategoryRoles => Set<SupportCategoryRole>();
         public DbSet<ApplicationUser> Users => Set<ApplicationUser>();
         public DbSet<IdentityUserRole<Guid>> UserRoles => Set<IdentityUserRole<Guid>>();
         public DbSet<IdentityRole<Guid>> Roles => Set<IdentityRole<Guid>>();
@@ -38,9 +38,18 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.Description).HasMaxLength(250);
-                entity.Property(e => e.RelatedRoles)
-                      .HasConversion(v => string.Join(',', v),
-                                     v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList());
+                entity.Property(e => e.CreatedAt).IsRequired();
+                entity.HasMany(e => e.Roles)
+                      .WithOne(r => r.Category)
+                      .HasForeignKey(r => r.SupportCategoryId)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            builder.Entity<SupportCategoryRole>(entity =>
+            {
+                entity.ToTable("SupportCategoryRoles");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.RoleName).IsRequired().HasMaxLength(100);
             });
 
             builder.Entity<SupportTicket>(entity =>
