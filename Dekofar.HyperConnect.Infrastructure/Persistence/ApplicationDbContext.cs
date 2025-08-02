@@ -38,6 +38,14 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence
         {
             base.OnModelCreating(builder);
 
+            builder.Entity<ApplicationUser>().ToTable("AspNetUsers", t => t.ExcludeFromMigrations());
+            builder.Entity<IdentityRole<Guid>>().ToTable("AspNetRoles", t => t.ExcludeFromMigrations());
+            builder.Entity<IdentityUserRole<Guid>>().ToTable("AspNetUserRoles", t => t.ExcludeFromMigrations());
+            builder.Entity<IdentityUserClaim<Guid>>().ToTable("AspNetUserClaims", t => t.ExcludeFromMigrations());
+            builder.Entity<IdentityUserLogin<Guid>>().ToTable("AspNetUserLogins", t => t.ExcludeFromMigrations());
+            builder.Entity<IdentityUserToken<Guid>>().ToTable("AspNetUserTokens", t => t.ExcludeFromMigrations());
+            builder.Entity<IdentityRoleClaim<Guid>>().ToTable("AspNetRoleClaims", t => t.ExcludeFromMigrations());
+
             builder.Entity<SupportCategory>(entity =>
             {
                 entity.ToTable("SupportCategories");
