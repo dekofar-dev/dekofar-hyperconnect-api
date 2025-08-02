@@ -16,7 +16,17 @@ namespace Dekofar.HyperConnect.Domain.Entities
         public DateTime? DueDate { get; set; }
         public string? FilePath { get; set; }
         public DateTime CreatedAt { get; set; }
+        /// <summary>
+        /// Represents the last time any activity occurred on the ticket
+        /// (status change, reply etc.). Used by dashboards for recent activity.
+        /// </summary>
         public DateTime LastUpdatedAt { get; set; }
+
+        /// <summary>
+        /// Number of replies that haven't been read by the ticket owner yet.
+        /// Helps surface pending conversations to the user interface.
+        /// </summary>
+        public int UnreadReplyCount { get; set; }
 
         public SupportCategory? Category { get; set; }
     }

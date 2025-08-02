@@ -141,6 +141,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseHangfireDashboard();
 app.MapControllers();
+// Route for the SignalR chat hub used for user-to-user messaging
 app.MapHub<ChatHub>("/hubs/chat");
 app.MapHub<NotificationHub>("/hubs/notifications");
 app.MapHub<SupportHub>("/supportHub");

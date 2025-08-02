@@ -58,6 +58,8 @@ namespace Dekofar.API.Controllers
         {
             var message = await _mediator.Send(command);
 
+            // Broadcast a lightweight notification to the receiver via SignalR.
+            // The full message is persisted through MediatR command above.
             var preview = message.Text ?? string.Empty;
             if (preview.Length > 50)
                 preview = preview.Substring(0, 50);
@@ -70,6 +72,7 @@ namespace Dekofar.API.Controllers
                     timestamp = message.SentAt
                 });
 
+            // Update unread message count badge for the receiver
             var unreadCount = await _context.UserMessages
                 .CountAsync(m => m.ReceiverId == message.ReceiverId && !m.IsRead);
 
@@ -93,9 +96,11 @@ namespace Dekofar.API.Controllers
             var currentUserId = User.GetUserId();
             if (currentUserId != null)
             {
+                // Notify the other participant that their messages were viewed
                 await _hubContext.Clients.User(chatUserId.ToString())
                     .SendAsync("NotifyRead", new { readerId = currentUserId });
 
+                // Refresh unread message counter for the current user
                 var unreadCount = await _context.UserMessages
                     .CountAsync(m => m.ReceiverId == currentUserId && !m.IsRead);
 
