@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using Dekofar.HyperConnect.Domain.Entities;
 
 namespace Dekofar.Domain.Entities
 {
@@ -43,5 +45,8 @@ namespace Dekofar.Domain.Entities
             get => LastSupportActivity;
             set => LastSupportActivity = value;
         }
+
+        public ICollection<Order> Orders { get; set; } = new List<Order>();
+        public ICollection<Commission> Commissions { get; set; } = new List<Commission>();
     }
 }

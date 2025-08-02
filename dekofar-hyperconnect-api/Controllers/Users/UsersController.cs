@@ -87,5 +87,14 @@ namespace Dekofar.API.Controllers
             if (summary == null) return NotFound();
             return Ok(summary);
         }
+
+        [HttpGet("{id:guid}/sales-summary")]
+        [Authorize]
+        public async Task<ActionResult<SalesSummaryDto>> GetSalesSummary(Guid id)
+        {
+            var summary = await _userService.GetSalesSummaryAsync(id);
+            if (summary == null) return NotFound();
+            return Ok(summary);
+        }
     }
 }
