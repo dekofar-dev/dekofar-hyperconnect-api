@@ -8,7 +8,9 @@ namespace Dekofar.HyperConnect.Application.UserMessages.DTOs
         public Guid SenderId { get; set; }
         public Guid ReceiverId { get; set; }
         public string? Text { get; set; }
-        public string? AttachmentUrl { get; set; }
+        public string? FileUrl { get; set; }
+        public string? FileType { get; set; }
+        public long? FileSize { get; set; }
         public DateTime SentAt { get; set; }
         public bool IsRead { get; set; }
         public DateTime? ReadAt { get; set; }

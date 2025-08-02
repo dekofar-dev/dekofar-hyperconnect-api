@@ -15,7 +15,9 @@ namespace Dekofar.HyperConnect.Domain.Entities
 
         public string? Text { get; set; }
 
-        public string? AttachmentUrl { get; set; }
+        public string? FileUrl { get; set; }
+        public string? FileType { get; set; }
+        public long? FileSize { get; set; }
 
         public DateTime SentAt { get; set; }
 

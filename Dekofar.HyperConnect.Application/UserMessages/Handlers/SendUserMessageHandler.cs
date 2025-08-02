@@ -13,13 +13,11 @@ namespace Dekofar.HyperConnect.Application.UserMessages.Handlers
     {
         private readonly IApplicationDbContext _context;
         private readonly ICurrentUserService _currentUserService;
-        private readonly IFileStorageService _fileStorageService;
 
-        public SendUserMessageHandler(IApplicationDbContext context, ICurrentUserService currentUserService, IFileStorageService fileStorageService)
+        public SendUserMessageHandler(IApplicationDbContext context, ICurrentUserService currentUserService)
         {
             _context = context;
             _currentUserService = currentUserService;
-            _fileStorageService = fileStorageService;
         }
 
         public async Task<UserMessageDto> Handle(SendUserMessageCommand request, CancellationToken cancellationToken)
@@ -27,19 +25,15 @@ namespace Dekofar.HyperConnect.Application.UserMessages.Handlers
             if (_currentUserService.UserId == null)
                 throw new UnauthorizedAccessException();
 
-            string? attachmentUrl = null;
-            if (request.File != null)
-            {
-                attachmentUrl = await _fileStorageService.SaveChatAttachmentAsync(request.File, _currentUserService.UserId.Value);
-            }
-
             var message = new UserMessage
             {
                 Id = Guid.NewGuid(),
                 SenderId = _currentUserService.UserId.Value,
                 ReceiverId = request.ReceiverId,
                 Text = request.Text,
-                AttachmentUrl = attachmentUrl,
+                FileUrl = request.FileUrl,
+                FileType = request.FileType,
+                FileSize = request.FileSize,
                 SentAt = DateTime.UtcNow,
                 IsRead = false
             };
@@ -53,7 +47,9 @@ namespace Dekofar.HyperConnect.Application.UserMessages.Handlers
                 SenderId = message.SenderId,
                 ReceiverId = message.ReceiverId,
                 Text = message.Text,
-                AttachmentUrl = message.AttachmentUrl,
+                FileUrl = message.FileUrl,
+                FileType = message.FileType,
+                FileSize = message.FileSize,
                 SentAt = message.SentAt,
                 IsRead = message.IsRead,
                 ReadAt = message.ReadAt
