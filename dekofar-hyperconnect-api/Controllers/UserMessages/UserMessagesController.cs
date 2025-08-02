@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dekofar.API.Controllers
 {
@@ -20,13 +21,15 @@ namespace Dekofar.API.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IFileStorageService _fileStorageService;
-        private readonly IHubContext<LiveChatHub> _hubContext;
+        private readonly IHubContext<ChatHub> _hubContext;
+        private readonly IApplicationDbContext _context;
 
-        public UserMessagesController(IMediator mediator, IFileStorageService fileStorageService, IHubContext<LiveChatHub> hubContext)
+        public UserMessagesController(IMediator mediator, IFileStorageService fileStorageService, IHubContext<ChatHub> hubContext, IApplicationDbContext context)
         {
             _mediator = mediator;
             _fileStorageService = fileStorageService;
             _hubContext = hubContext;
+            _context = context;
         }
 
         [HttpGet("chat/{userId}")]
@@ -54,7 +57,25 @@ namespace Dekofar.API.Controllers
         public async Task<IActionResult> Send([FromBody] SendUserMessageCommand command)
         {
             var message = await _mediator.Send(command);
-            await _hubContext.Clients.User(message.ReceiverId.ToString()).SendAsync("ReceiveMessage", message);
+
+            var preview = message.Text ?? string.Empty;
+            if (preview.Length > 50)
+                preview = preview.Substring(0, 50);
+
+            await _hubContext.Clients.User(message.ReceiverId.ToString())
+                .SendAsync("ReceiveMessage", new
+                {
+                    senderUserId = message.SenderId,
+                    messagePreview = preview,
+                    timestamp = message.SentAt
+                });
+
+            var unreadCount = await _context.UserMessages
+                .CountAsync(m => m.ReceiverId == message.ReceiverId && !m.IsRead);
+
+            await _hubContext.Clients.User(message.ReceiverId.ToString())
+                .SendAsync("ReceiveUnreadCount", unreadCount);
+
             return Ok(message);
         }
 
@@ -72,8 +93,16 @@ namespace Dekofar.API.Controllers
             var currentUserId = User.GetUserId();
             if (currentUserId != null)
             {
-                await _hubContext.Clients.User(chatUserId.ToString()).SendAsync("NotifyRead", new { readerId = currentUserId });
+                await _hubContext.Clients.User(chatUserId.ToString())
+                    .SendAsync("NotifyRead", new { readerId = currentUserId });
+
+                var unreadCount = await _context.UserMessages
+                    .CountAsync(m => m.ReceiverId == currentUserId && !m.IsRead);
+
+                await _hubContext.Clients.User(currentUserId.Value.ToString())
+                    .SendAsync("ReceiveUnreadCount", unreadCount);
             }
+
             return Ok(updated);
         }
     }
