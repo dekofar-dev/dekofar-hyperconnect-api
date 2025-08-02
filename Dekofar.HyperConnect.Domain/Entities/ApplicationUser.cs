@@ -20,6 +20,11 @@ namespace Dekofar.HyperConnect.Domain.Entities
         /// </summary>
         public string? HashedPin { get; set; }
 
+        /// <summary>
+        ///     Timestamp when the user's PIN was last updated.
+        /// </summary>
+        public DateTime? PinLastUpdatedAt { get; set; }
+
         public DateTime MembershipDate { get; set; }
         public bool IsOnline { get; set; }
         public DateTime? LastSeen { get; set; }
