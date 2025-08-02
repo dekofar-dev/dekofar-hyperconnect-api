@@ -7,5 +7,6 @@ namespace Dekofar.HyperConnect.Application.Interfaces
     public interface IUserService
     {
         Task<UserProfileDto?> GetProfileWithStatsAsync(Guid userId);
+        Task<ProfileSummaryDto?> GetProfileSummaryAsync(Guid userId);
     }
 }
