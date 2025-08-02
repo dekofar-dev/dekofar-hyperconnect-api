@@ -63,7 +63,7 @@ namespace Dekofar.API.Hubs
             await base.OnDisconnectedAsync(exception);
         }
 
-        public async Task SendMessage(string receiverId, string text, string? fileUrl = null)
+        public async Task SendMessage(string receiverId, string text, string? fileUrl = null, string? fileType = null, long? fileSize = null)
         {
             var senderId = Context.UserIdentifier;
             if (string.IsNullOrEmpty(senderId) || string.IsNullOrEmpty(receiverId))
@@ -78,7 +78,9 @@ namespace Dekofar.API.Hubs
                 SenderId = senderGuid,
                 ReceiverId = receiverGuid,
                 Text = text,
-                AttachmentUrl = fileUrl,
+                FileUrl = fileUrl,
+                FileType = fileType,
+                FileSize = fileSize,
                 SentAt = DateTime.UtcNow,
                 IsRead = false
             };
@@ -107,8 +109,26 @@ namespace Dekofar.API.Hubs
                     receiverId,
                     text,
                     fileUrl,
+                    fileType,
+                    fileSize,
                     sentAt = message.SentAt
                 });
+            }
+        }
+
+        public async Task NotifyRead(string receiverId, Guid readerId)
+        {
+            if (ConnectedUsers.TryGetValue(receiverId, out var connectionId))
+            {
+                await Clients.Client(connectionId).SendAsync("NotifyRead", new { readerId });
+            }
+        }
+
+        public async Task ReportUploadProgress(string receiverId, int progress)
+        {
+            if (ConnectedUsers.TryGetValue(receiverId, out var connectionId))
+            {
+                await Clients.Client(connectionId).SendAsync("UploadProgress", progress);
             }
         }
     }

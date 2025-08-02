@@ -1,10 +1,15 @@
 using System;
 using System.Threading.Tasks;
+using Dekofar.API.Authorization;
+using Dekofar.API.Hubs;
+using Dekofar.HyperConnect.Application.Common.Interfaces;
 using Dekofar.HyperConnect.Application.UserMessages.Commands;
 using Dekofar.HyperConnect.Application.UserMessages.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Dekofar.API.Controllers
 {
@@ -14,10 +19,14 @@ namespace Dekofar.API.Controllers
     public class UserMessagesController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IFileStorageService _fileStorageService;
+        private readonly IHubContext<LiveChatHub> _hubContext;
 
-        public UserMessagesController(IMediator mediator)
+        public UserMessagesController(IMediator mediator, IFileStorageService fileStorageService, IHubContext<LiveChatHub> hubContext)
         {
             _mediator = mediator;
+            _fileStorageService = fileStorageService;
+            _hubContext = hubContext;
         }
 
         [HttpGet("chat/{userId}")]
@@ -27,10 +36,25 @@ namespace Dekofar.API.Controllers
             return Ok(messages);
         }
 
+        [HttpPost("upload")]
+        [RequestSizeLimit(20_000_000)]
+        public async Task<IActionResult> UploadMessageFile([FromForm] IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest("File is empty");
+
+            var userId = User.GetUserId();
+            if (userId == null) return Unauthorized();
+
+            var fileUrl = await _fileStorageService.SaveChatAttachmentAsync(file, userId.Value);
+            return Ok(new { fileUrl, fileType = file.ContentType, fileSize = file.Length });
+        }
+
         [HttpPost("send")]
-        public async Task<IActionResult> Send([FromForm] SendUserMessageCommand command)
+        public async Task<IActionResult> Send([FromBody] SendUserMessageCommand command)
         {
             var message = await _mediator.Send(command);
+            await _hubContext.Clients.User(message.ReceiverId.ToString()).SendAsync("ReceiveMessage", message);
             return Ok(message);
         }
 
@@ -45,6 +69,11 @@ namespace Dekofar.API.Controllers
         public async Task<IActionResult> MarkAsRead(Guid chatUserId)
         {
             var updated = await _mediator.Send(new MarkMessagesAsReadCommand(chatUserId));
+            var currentUserId = User.GetUserId();
+            if (currentUserId != null)
+            {
+                await _hubContext.Clients.User(chatUserId.ToString()).SendAsync("NotifyRead", new { readerId = currentUserId });
+            }
             return Ok(updated);
         }
     }

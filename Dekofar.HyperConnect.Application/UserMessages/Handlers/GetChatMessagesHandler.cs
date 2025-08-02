@@ -39,7 +39,9 @@ namespace Dekofar.HyperConnect.Application.UserMessages.Handlers
                     SenderId = m.SenderId,
                     ReceiverId = m.ReceiverId,
                     Text = m.Text,
-                    AttachmentUrl = m.AttachmentUrl,
+                    FileUrl = m.FileUrl,
+                    FileType = m.FileType,
+                    FileSize = m.FileSize,
                     SentAt = m.SentAt,
                     IsRead = m.IsRead,
                     ReadAt = m.ReadAt
