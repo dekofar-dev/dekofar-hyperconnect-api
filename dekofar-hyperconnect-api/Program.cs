@@ -10,6 +10,7 @@ using Dekofar.HyperConnect.Integrations.NetGsm.Services;
 using Dekofar.HyperConnect.Integrations.Shopify.Interfaces;
 using Dekofar.HyperConnect.Integrations.Shopify.Services;
 using Dekofar.HyperConnect.Application; // Application servis kayıtları
+using Dekofar.HyperConnect.Application.Common.Interfaces;
 using Dekofar.HyperConnect.Infrastructure.Services;
 using Dekofar.HyperConnect.API.Authorization;
 using MediatR;
@@ -19,6 +20,7 @@ using Hangfire.MemoryStorage;
 using Dekofar.HyperConnect.Infrastructure.Jobs;
 using Microsoft.AspNetCore.Authorization;
 using Dekofar.API.Hubs;
+using Dekofar.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -72,6 +74,7 @@ builder.Services.AddHangfireServer();
 // 📬 Entegrasyon Servisleri
 builder.Services.AddScoped<INetGsmSmsService, NetGsmSmsService>();
 builder.Services.AddHttpClient<IShopifyService, ShopifyService>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
 
 // 📡 Controller & JSON Ayarları
 builder.Services.AddControllers()
@@ -136,6 +139,7 @@ app.UseAuthorization();
 app.UseHangfireDashboard();
 app.MapControllers();
 app.MapHub<LiveChatHub>("/chatHub");
+app.MapHub<NotificationHub>("/hubs/notifications");
 
 // 🚀 Seed default roles and admin user
 await SeedData.SeedDefaultsAsync(app.Services);
