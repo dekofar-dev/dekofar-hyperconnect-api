@@ -103,6 +103,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 // 🚀 Seed default roles and admin user
-await SeedData.SeedDefaultRolesAndAdminAsync(app.Services);
+await SeedData.SeedDefaultsAsync(app.Services);
 
 app.Run();
