@@ -21,5 +21,20 @@ namespace Dekofar.HyperConnect.Infrastructure.Services
 
             return $"/uploads/avatars/{userId}.jpg";
         }
+
+        public async Task<string> SaveChatAttachmentAsync(IFormFile file, Guid userId)
+        {
+            var uploadsRoot = Path.Combine(Directory.GetCurrentDirectory(), "uploads", "chat", userId.ToString());
+            Directory.CreateDirectory(uploadsRoot);
+
+            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+            var filePath = Path.Combine(uploadsRoot, fileName);
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            return $"/uploads/chat/{userId}/{fileName}";
+        }
     }
 }
