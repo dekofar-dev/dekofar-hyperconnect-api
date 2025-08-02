@@ -26,6 +26,8 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence
         public DbSet<ManualOrderItem> ManualOrderItems => Set<ManualOrderItem>();
         public DbSet<OrderCommission> OrderCommissions => Set<OrderCommission>();
         public DbSet<Discount> Discounts => Set<Discount>();
+        public DbSet<Note> Notes => Set<Note>();
+        public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
             => await base.SaveChangesAsync(cancellationToken);
@@ -103,6 +105,25 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence
                 entity.Property(e => e.CommissionRate).HasColumnType("decimal(18,4)");
                 entity.Property(e => e.EarnedAmount).HasColumnType("decimal(18,2)");
                 entity.Property(e => e.CreatedAt).IsRequired();
+            });
+
+            builder.Entity<Note>(entity =>
+            {
+                entity.ToTable("Notes");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.TargetType).IsRequired();
+                entity.Property(e => e.Text).IsRequired();
+                entity.Property(e => e.CreatedAt).IsRequired();
+            });
+
+            builder.Entity<AuditLog>(entity =>
+            {
+                entity.ToTable("AuditLogs");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Action).IsRequired();
+                entity.Property(e => e.TargetType).IsRequired();
+                entity.Property(e => e.Description);
+                entity.Property(e => e.Timestamp).IsRequired();
             });
         }
     }
