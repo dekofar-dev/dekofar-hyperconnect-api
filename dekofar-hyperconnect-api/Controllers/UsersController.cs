@@ -1,103 +1,63 @@
-using Dekofar.Domain.Entities;
-using Dekofar.HyperConnect.Domain.DTOs;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using MediatR;
 using System;
-using System.Linq;
+using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
-using Dekofar.HyperConnect.Application.Users.Commands.AssignRoles;
+using Dekofar.HyperConnect.Application.Users.Commands;
+using Dekofar.HyperConnect.Application.Users.DTOs;
+using Dekofar.HyperConnect.Application.Users.Queries;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Dekofar.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    //[Authorize] // isteğe bağlı aktif edebilirsin
     public class UsersController : ControllerBase
     {
-        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IMediator _mediator;
 
-        public UsersController(UserManager<ApplicationUser> userManager, IMediator mediator)
+        public UsersController(IMediator mediator)
         {
-            _userManager = userManager;
             _mediator = mediator;
         }
 
+        // GET /api/users
         [HttpGet]
-        public async Task<IActionResult> GetAllUsers()
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<List<UserDto>>> GetAllUsers()
         {
-            var users = await _userManager.Users
-                .Select(u => new
-                {
-                    u.Id,
-                    u.FullName,
-                    u.Email,
-                    u.UserName
-                })
-                .ToListAsync();
-
+            var users = await _mediator.Send(new GetAllUsersWithRolesQuery());
             return Ok(users);
         }
 
-        [HttpPost("{userId}/roles")]
-        public async Task<IActionResult> AssignRoles(Guid userId, [FromBody] AssignRolesRequest request)
+        // POST /api/users/{id}/roles
+        [HttpPost("{id:guid}/roles")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AssignRoles(Guid id, [FromBody] List<string> roles)
         {
-            var result = await _mediator.Send(new AssignRolesCommand(userId, request.Roles));
+            var result = await _mediator.Send(new AssignRolesToUserCommand { UserId = id, Roles = roles });
             if (result.Succeeded)
             {
-                return Ok("Roles assigned successfully");
+                return Ok();
             }
-
             return BadRequest(result.Errors);
         }
 
-        [HttpPost("change-role")]
-        public async Task<IActionResult> ChangeUserRole([FromBody] ChangeUserRoleRequest request)
+        // POST /api/users/{id}/avatar
+        [HttpPost("{id:guid}/avatar")]
+        [Authorize]
+        public async Task<IActionResult> UploadAvatar(Guid id, [FromForm] IFormFile file)
         {
-            var user = await _userManager.FindByIdAsync(request.UserId);
-            if (user == null)
-                return NotFound("Kullanıcı bulunamadı");
-
-            var currentRoles = await _userManager.GetRolesAsync(user);
-            var removeResult = await _userManager.RemoveFromRolesAsync(user, currentRoles);
-            if (!removeResult.Succeeded)
-                return BadRequest("Mevcut roller silinemedi");
-
-            var roleResult = await _userManager.AddToRoleAsync(user, request.NewRole);
-            if (!roleResult.Succeeded)
-                return BadRequest("Yeni rol atanamadı");
-
-            return Ok("Rol başarıyla güncellendi");
-        }
-
-        [HttpGet("assignable")]
-        public async Task<IActionResult> GetAssignableUsers()
-        {
-            var assignableRoles = new[] { "Admin", "PERSONEL", "DEPO", "IADE", "MUSTERI_TEM" };
-
-
-            var allUsers = await _userManager.Users.ToListAsync();
-            var result = new List<object>();
-
-            foreach (var user in allUsers)
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (currentUserId == null || currentUserId != id.ToString())
             {
-                var roles = await _userManager.GetRolesAsync(user);
-                if (roles.Any(r => assignableRoles.Contains(r)))
-                {
-                    result.Add(new
-                    {
-                        user.Id,
-                        user.FullName,
-                        user.Email,
-                        Role = roles.FirstOrDefault()
-                    });
-                }
+                return Forbid();
             }
 
-            return Ok(result);
+            var url = await _mediator.Send(new UploadProfileImageCommand { UserId = id, File = file });
+            return Ok(new { avatarUrl = url });
         }
     }
 }

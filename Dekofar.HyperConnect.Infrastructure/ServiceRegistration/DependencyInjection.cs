@@ -72,6 +72,7 @@ namespace Dekofar.HyperConnect.Infrastructure.ServiceRegistration
             });
             services.AddHttpContextAccessor(); // gerekli
             services.AddScoped<ICurrentUserService, CurrentUserService>();
+            services.AddScoped<IFileStorageService, LocalFileStorageService>();
 
             // 📞 NetGSM servisleri
             services.AddScoped<INetGsmCallService, NetGsmCallService>();
