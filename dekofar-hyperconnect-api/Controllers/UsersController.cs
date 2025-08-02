@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MediatR;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Dekofar.HyperConnect.Application.Users.Commands.AssignRoles;
 
 namespace Dekofar.API.Controllers
 {
@@ -16,10 +18,12 @@ namespace Dekofar.API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IMediator _mediator;
 
-        public UsersController(UserManager<ApplicationUser> userManager)
+        public UsersController(UserManager<ApplicationUser> userManager, IMediator mediator)
         {
             _userManager = userManager;
+            _mediator = mediator;
         }
 
         [HttpGet]
@@ -36,6 +40,18 @@ namespace Dekofar.API.Controllers
                 .ToListAsync();
 
             return Ok(users);
+        }
+
+        [HttpPost("{userId}/roles")]
+        public async Task<IActionResult> AssignRoles(Guid userId, [FromBody] AssignRolesRequest request)
+        {
+            var result = await _mediator.Send(new AssignRolesCommand(userId, request.Roles));
+            if (result.Succeeded)
+            {
+                return Ok("Roles assigned successfully");
+            }
+
+            return BadRequest(result.Errors);
         }
 
         [HttpPost("change-role")]

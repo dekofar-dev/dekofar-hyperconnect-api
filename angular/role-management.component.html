@@ -1,0 +1,27 @@
+<div class="role-management">
+  <h2>Role Management</h2>
+
+  <div>
+    <input [(ngModel)]="newRole" placeholder="New role" />
+    <button (click)="createRole()">Add Role</button>
+  </div>
+
+  <div>
+    <h3>Existing Roles</h3>
+    <ul>
+      <li *ngFor="let role of roles">{{ role }}</li>
+    </ul>
+  </div>
+
+  <div>
+    <h3>Assign Roles to User</h3>
+    <input [(ngModel)]="selectedUserId" placeholder="User ID" />
+    <div *ngFor="let role of roles">
+      <label>
+        <input type="checkbox" [value]="role" (change)="onRoleChange($event)" />
+        {{ role }}
+      </label>
+    </div>
+    <button (click)="assignRoles()">Assign</button>
+  </div>
+</div>

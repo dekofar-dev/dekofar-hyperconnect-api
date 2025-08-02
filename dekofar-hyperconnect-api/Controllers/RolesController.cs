@@ -1,6 +1,8 @@
-﻿using Dekofar.HyperConnect.Application.Users.Commands.AssignRole;
+using Dekofar.HyperConnect.Application.Roles.Commands.CreateRole;
+using Dekofar.HyperConnect.Application.Roles.Queries.GetRoles;
+using Dekofar.HyperConnect.Domain.DTOs;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -11,29 +13,37 @@ namespace Dekofar.API.Controllers
     [Route("api/[controller]")]
     public class RolesController : ControllerBase
     {
-        private readonly RoleManager<IdentityRole<Guid>> _roleManager;
+        private readonly IMediator _mediator;
 
-        public RolesController(RoleManager<IdentityRole<Guid>> roleManager)
+        public RolesController(IMediator mediator)
         {
-            _roleManager = roleManager;
+            _mediator = mediator;
         }
 
         [HttpPost]
-        [Authorize(Roles = "ADMIN")] // sadece adminler rol ekleyebilir
-        public async Task<IActionResult> CreateRole([FromBody] RoleRequest request)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> CreateRole([FromBody] CreateRoleRequest request)
         {
             if (string.IsNullOrWhiteSpace(request.RoleName))
-                return BadRequest("Rol adı boş olamaz.");
+            {
+                return BadRequest("Role name cannot be empty.");
+            }
 
-            var roleExists = await _roleManager.RoleExistsAsync(request.RoleName);
-            if (roleExists)
-                return Conflict("Bu rol zaten mevcut.");
-
-            var result = await _roleManager.CreateAsync(new IdentityRole<Guid>(request.RoleName));
+            var result = await _mediator.Send(new CreateRoleCommand(request.RoleName));
             if (result.Succeeded)
-                return Ok($"'{request.RoleName}' rolü başarıyla oluşturuldu.");
+            {
+                return Ok($"'{request.RoleName}' role created successfully.");
+            }
 
             return BadRequest(result.Errors);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetRoles()
+        {
+            var roles = await _mediator.Send(new GetRolesQuery());
+            return Ok(roles);
         }
     }
 }
