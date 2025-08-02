@@ -121,6 +121,7 @@ namespace Dekofar.API.Controllers
             if (user == null) return NotFound();
 
             user.HashedPin = _userManager.PasswordHasher.HashPassword(user, request.Pin);
+            user.PinLastUpdatedAt = DateTime.UtcNow;
             await _userManager.UpdateAsync(user);
             return Ok();
         }
@@ -152,6 +153,7 @@ namespace Dekofar.API.Controllers
             var user = await _userManager.FindByIdAsync(id.ToString());
             if (user == null) return NotFound();
             user.HashedPin = null;
+            user.PinLastUpdatedAt = null;
             await _userManager.UpdateAsync(user);
             return Ok();
         }
