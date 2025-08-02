@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-
 namespace Dekofar.HyperConnect.Domain.Entities
 {
     public class SupportCategory
@@ -9,8 +7,9 @@ namespace Dekofar.HyperConnect.Domain.Entities
         public Guid Id { get; set; }
         public string Name { get; set; } = default!;
         public string? Description { get; set; }
-        public List<string> RelatedRoles { get; set; } = new();
+        public DateTime CreatedAt { get; set; }
 
+        public ICollection<SupportCategoryRole> Roles { get; set; } = new List<SupportCategoryRole>();
         public ICollection<SupportTicket> Tickets { get; set; } = new List<SupportTicket>();
     }
 }

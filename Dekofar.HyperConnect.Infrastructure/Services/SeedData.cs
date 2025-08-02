@@ -58,7 +58,8 @@ namespace Dekofar.HyperConnect.Infrastructure.Services
                 {
                     Id = Guid.NewGuid(),
                     Name = "General",
-                    Description = "General support"
+                    Description = "General support",
+                    CreatedAt = DateTime.UtcNow
                 };
                 context.SupportCategories.Add(generalCategory);
                 await context.SaveChangesAsync();
