@@ -36,7 +36,7 @@ namespace Dekofar.HyperConnect.API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin,CanManageDiscounts")]
+        [Authorize(Policy = "CanManageDiscounts")]
         public async Task<IActionResult> Create([FromBody] CreateDiscountCommand command)
         {
             var id = await _mediator.Send(command);
@@ -44,7 +44,7 @@ namespace Dekofar.HyperConnect.API.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin,CanManageDiscounts")]
+        [Authorize(Policy = "CanManageDiscounts")]
         public async Task<IActionResult> Update(Guid id, [FromBody] UpdateDiscountCommand command)
         {
             if (id != command.Id) return BadRequest();
@@ -53,7 +53,7 @@ namespace Dekofar.HyperConnect.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin,CanManageDiscounts")]
+        [Authorize(Policy = "CanManageDiscounts")]
         public async Task<IActionResult> Delete(Guid id)
         {
             await _mediator.Send(new DeleteDiscountCommand(id));

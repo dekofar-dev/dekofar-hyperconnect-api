@@ -83,6 +83,39 @@ namespace Dekofar.HyperConnect.Infrastructure.Services
                 context.SupportTickets.Add(ticket);
                 await context.SaveChangesAsync();
             }
+
+            var defaultPermissions = new[]
+            {
+                new Permission { Id = Guid.NewGuid(), Name = "CanAssignTicket", Description = "Assign support tickets" },
+                new Permission { Id = Guid.NewGuid(), Name = "CanManageDiscounts", Description = "Manage discounts" },
+                new Permission { Id = Guid.NewGuid(), Name = "CanEditDueDate", Description = "Edit ticket due dates" }
+            };
+
+            foreach (var perm in defaultPermissions)
+            {
+                if (!await context.Permissions.AnyAsync(p => p.Name == perm.Name))
+                {
+                    context.Permissions.Add(perm);
+                }
+            }
+            await context.SaveChangesAsync();
+
+            var adminRoleName = "Admin";
+            var adminPermissions = await context.Permissions.ToListAsync();
+
+            foreach (var perm in adminPermissions)
+            {
+                if (!await context.RolePermissions.AnyAsync(rp => rp.RoleName == adminRoleName && rp.PermissionId == perm.Id))
+                {
+                    context.RolePermissions.Add(new RolePermission
+                    {
+                        Id = Guid.NewGuid(),
+                        RoleName = adminRoleName,
+                        PermissionId = perm.Id
+                    });
+                }
+            }
+            await context.SaveChangesAsync();
         }
     }
 }

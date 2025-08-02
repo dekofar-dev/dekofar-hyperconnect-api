@@ -28,6 +28,8 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence
         public DbSet<Discount> Discounts => Set<Discount>();
         public DbSet<Note> Notes => Set<Note>();
         public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
+        public DbSet<Permission> Permissions => Set<Permission>();
+        public DbSet<RolePermission> RolePermissions => Set<RolePermission>();
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
             => await base.SaveChangesAsync(cancellationToken);
@@ -124,6 +126,25 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence
                 entity.Property(e => e.TargetType).IsRequired();
                 entity.Property(e => e.Description);
                 entity.Property(e => e.Timestamp).IsRequired();
+            });
+
+            builder.Entity<Permission>(entity =>
+            {
+                entity.ToTable("Permissions");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
+                entity.Property(e => e.Description).HasMaxLength(250);
+            });
+
+            builder.Entity<RolePermission>(entity =>
+            {
+                entity.ToTable("RolePermissions");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.RoleName).IsRequired().HasMaxLength(100);
+                entity.HasOne(rp => rp.Permission)
+                      .WithMany(p => p.RolePermissions)
+                      .HasForeignKey(rp => rp.PermissionId)
+                      .OnDelete(DeleteBehavior.Cascade);
             });
         }
     }
