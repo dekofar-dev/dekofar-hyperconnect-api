@@ -21,6 +21,8 @@ namespace Dekofar.HyperConnect.Application.Common.Interfaces
         DbSet<ApplicationUser> Users { get; }
         DbSet<IdentityUserRole<Guid>> UserRoles { get; }
         DbSet<IdentityRole<Guid>> Roles { get; }
+        DbSet<Permission> Permissions { get; }
+        DbSet<RolePermission> RolePermissions { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }

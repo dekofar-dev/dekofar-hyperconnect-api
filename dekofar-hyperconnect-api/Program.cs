@@ -11,11 +11,13 @@ using Dekofar.HyperConnect.Integrations.Shopify.Interfaces;
 using Dekofar.HyperConnect.Integrations.Shopify.Services;
 using Dekofar.HyperConnect.Application; // Application servis kayıtları
 using Dekofar.HyperConnect.Infrastructure.Services;
+using Dekofar.HyperConnect.API.Authorization;
 using MediatR;
 using Dekofar.HyperConnect.Infrastructure.ServiceRegistration;
 using Hangfire;
 using Hangfire.MemoryStorage;
 using Dekofar.HyperConnect.Infrastructure.Jobs;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +42,18 @@ builder.Services.AddCors(options =>
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddMemoryCache();
 builder.Services.AddApplication();
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("CanAssignTicket", policy =>
+        policy.Requirements.Add(new PermissionRequirement("CanAssignTicket")));
+    options.AddPolicy("CanManageDiscounts", policy =>
+        policy.Requirements.Add(new PermissionRequirement("CanManageDiscounts")));
+    options.AddPolicy("CanEditDueDate", policy =>
+        policy.Requirements.Add(new PermissionRequirement("CanEditDueDate")));
+});
+
+builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
 builder.Services.AddHangfire(config =>
 {

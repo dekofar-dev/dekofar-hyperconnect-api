@@ -44,7 +44,7 @@ namespace Dekofar.HyperConnect.API.Controllers
         }
 
         [HttpPost("{id}/assign")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Policy = "CanAssignTicket")]
         public async Task<IActionResult> Assign(Guid id, [FromBody] AssignSupportTicketCommand command)
         {
             if (id != command.TicketId) return BadRequest();
