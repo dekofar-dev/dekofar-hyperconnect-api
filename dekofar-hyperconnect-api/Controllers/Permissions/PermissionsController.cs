@@ -9,22 +9,26 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dekofar.HyperConnect.API.Controllers
+namespace Dekofar.API.Controllers
 {
     [ApiController]
     [Route("api")]
+    // Yetki ve izin yönetimini sağlayan controller
     public class PermissionsController : ControllerBase
     {
+        // Veritabanı erişimi için uygulama bağlamı
         private readonly IApplicationDbContext _context;
+        // Rol yönetimi için Identity RoleManager servisi
         private readonly RoleManager<IdentityRole<Guid>> _roleManager;
 
+        // Bağımlılıkları alan kurucu metot
         public PermissionsController(IApplicationDbContext context, RoleManager<IdentityRole<Guid>> roleManager)
         {
             _context = context;
             _roleManager = roleManager;
         }
 
-        // Returns every permission defined in the system
+        // Sistemde tanımlı tüm izinleri döner
         [HttpGet("permissions")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAll()
@@ -33,7 +37,7 @@ namespace Dekofar.HyperConnect.API.Controllers
             return Ok(permissions);
         }
 
-        // Replaces a role's permissions with the supplied list
+        // Bir rolün izinlerini verilen liste ile değiştirir
         [HttpPost("roles/{role}/permissions")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AssignToRole(string role, [FromBody] List<Guid> permissionIds)
@@ -42,7 +46,7 @@ namespace Dekofar.HyperConnect.API.Controllers
             if (roleEntity == null)
                 return NotFound();
 
-            // Remove existing assignments and insert the new set
+            // Mevcut atamaları kaldır ve yenilerini ekle
             var existing = _context.RolePermissions.Where(rp => rp.RoleName == role);
             _context.RolePermissions.RemoveRange(existing);
 

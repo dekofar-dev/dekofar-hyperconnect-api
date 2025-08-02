@@ -11,15 +11,19 @@ namespace Dekofar.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    // Sistem rolleri ile ilgili işlemleri yöneten controller
     public class RolesController : ControllerBase
     {
+        // MediatR aracısı
         private readonly IMediator _mediator;
 
+        // MediatR'ı alan kurucu
         public RolesController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
+        // Yeni rol oluşturur
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> CreateRole([FromBody] CreateRoleRequest request)
@@ -38,6 +42,7 @@ namespace Dekofar.API.Controllers
             return BadRequest(result.Errors);
         }
 
+        // Var olan rolleri listeler
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> GetRoles()

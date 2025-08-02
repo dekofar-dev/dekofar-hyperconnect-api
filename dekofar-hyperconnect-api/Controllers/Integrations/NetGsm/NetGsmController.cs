@@ -3,24 +3,26 @@ using Dekofar.HyperConnect.Integrations.NetGsm.Models;
 using Dekofar.HyperConnect.Integrations.NetGsm.Models.Dto;
 using Microsoft.AspNetCore.Mvc;
 
-namespace dekofar_hyperconnect_api.Controllers.Integrations.NetGsm
+namespace Dekofar.API.Controllers.Integrations
 {
     [ApiController]
     [Route("api/[controller]")]
+    // NetGSM servisleri ile haberleşen controller
     public class NetGsmController : ControllerBase
     {
+        // SMS gönderimi ve alımı için servis
         private readonly INetGsmSmsService _smsService;
+        // Arama kayıtlarına erişim servisi
         private readonly INetGsmCallService _callService;
 
+        // Servis bağımlılıklarını alan kurucu
         public NetGsmController(INetGsmSmsService smsService, INetGsmCallService callService)
         {
             _smsService = smsService;
             _callService = callService;
         }
 
-        /// <summary>
-        /// Gelen SMS kutusunu getirir (NetGSM inbox)
-        /// </summary>
+        // Gelen SMS kutusunu getirir (NetGSM inbox)
         [HttpPost("sms-inbox")]
         public async Task<IActionResult> GetSmsInbox([FromBody] SmsInboxRequest request)
         {
@@ -35,12 +37,7 @@ namespace dekofar_hyperconnect_api.Controllers.Integrations.NetGsm
             }
         }
 
-
-
-
-        /// <summary>
-        /// Belirtilen tarih ve yöne göre çağrı kayıtlarını getirir (NetGSM voice report)
-        /// </summary>
+        // Belirtilen tarih ve yöne göre çağrı kayıtlarını getirir (NetGSM voice report)
         [HttpPost("call-logs")]
         public async Task<IActionResult> GetCallLogs([FromBody] CallLogRequest request)
         {

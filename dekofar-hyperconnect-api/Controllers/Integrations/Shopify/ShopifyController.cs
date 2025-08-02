@@ -5,19 +5,23 @@ using Dekofar.HyperConnect.Integrations.Shopify.Models.Shopify.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace Dekofar.HyperConnect.API.Controllers.Shopify
+namespace Dekofar.API.Controllers.Integrations
 {
     [ApiController]
     [Route("api/[controller]")]
+    // Shopify entegrasyonu için kullanılan controller
     public class ShopifyController : ControllerBase
     {
+        // Shopify servisleri ile iletişim kuran servis
         private readonly IShopifyService _shopifyService;
 
+        // Servis bağımlılığını alan kurucu
         public ShopifyController(IShopifyService shopifyService)
         {
             _shopifyService = shopifyService;
         }
 
+        // Shopify API bağlantısını test eder
         [HttpGet("test-connection")]
         public async Task<IActionResult> TestConnection(CancellationToken ct)
         {
@@ -25,6 +29,7 @@ namespace Dekofar.HyperConnect.API.Controllers.Shopify
             return Ok(result);
         }
 
+        // Sayfalama ile siparişleri listeler
         [HttpGet("orders-paged")]
         public async Task<IActionResult> GetOrdersPaged([FromQuery] string? pageInfo, [FromQuery] int limit = 10, CancellationToken ct = default)
         {
@@ -32,6 +37,7 @@ namespace Dekofar.HyperConnect.API.Controllers.Shopify
             return Ok(result);
         }
 
+        // Belirli bir siparişi ID ile getirir
         [HttpGet("orders/{orderId:long}")]
         public async Task<IActionResult> GetOrderById(long orderId, CancellationToken ct)
         {
@@ -41,6 +47,7 @@ namespace Dekofar.HyperConnect.API.Controllers.Shopify
             return Ok(order);
         }
 
+        // Sipariş detayını ürün görselleri ile birlikte getirir
         [HttpGet("order-detail/{orderId:long}")]
         public async Task<IActionResult> GetOrderDetailWithImages(long orderId, CancellationToken ct)
         {
@@ -50,6 +57,7 @@ namespace Dekofar.HyperConnect.API.Controllers.Shopify
             return Ok(detail);
         }
 
+        // Tüm ürünleri listeler
         [HttpGet("products")]
         public async Task<IActionResult> GetAllProducts(CancellationToken ct)
         {
@@ -57,6 +65,7 @@ namespace Dekofar.HyperConnect.API.Controllers.Shopify
             return Ok(products);
         }
 
+        // Belirli bir ürünü ID ile getirir
         [HttpGet("products/{productId:long}")]
         public async Task<IActionResult> GetProductById(long productId, CancellationToken ct)
         {
@@ -66,6 +75,7 @@ namespace Dekofar.HyperConnect.API.Controllers.Shopify
             return Ok(product);
         }
 
+        // Ürünleri isim veya terime göre arar
         [HttpGet("products/search")]
         public async Task<IActionResult> SearchProducts([FromQuery] string query, CancellationToken ct)
         {
@@ -73,6 +83,7 @@ namespace Dekofar.HyperConnect.API.Controllers.Shopify
             return Ok(result);
         }
 
+        // Variant bilgilerini ID ile getirir
         [HttpGet("variants/{variantId:long}")]
         public async Task<IActionResult> GetVariantById(long variantId, CancellationToken ct)
         {
@@ -82,6 +93,7 @@ namespace Dekofar.HyperConnect.API.Controllers.Shopify
             return Ok(variant);
         }
 
+        // Bir ürüne ait tüm variantları listeler
         [HttpGet("products/{productId:long}/variants")]
         public async Task<IActionResult> GetVariantsByProductId(long productId, CancellationToken ct)
         {
@@ -89,6 +101,7 @@ namespace Dekofar.HyperConnect.API.Controllers.Shopify
             return Ok(variants);
         }
 
+        // Stok seviyesi düşük ürünleri listeler
         [HttpGet("products/low-stock")]
         public async Task<IActionResult> GetLowStockProducts([FromQuery] int threshold = 5, CancellationToken ct = default)
         {
@@ -96,6 +109,7 @@ namespace Dekofar.HyperConnect.API.Controllers.Shopify
             return Ok(products);
         }
 
+        // Ürünün etiketlerini günceller
         [HttpPut("products/{productId:long}/tags")]
         public async Task<IActionResult> AddOrUpdateProductTags(long productId, [FromQuery] string tags, CancellationToken ct)
         {
@@ -105,6 +119,7 @@ namespace Dekofar.HyperConnect.API.Controllers.Shopify
             return BadRequest(new { message = "Etiket güncelleme başarısız oldu." });
         }
 
+        // Sipariş etiketlerini günceller
         [HttpPost("order/update-tags")]
         public async Task<IActionResult> UpdateOrderTags([FromBody] UpdateOrderTagsRequest request, CancellationToken ct)
         {
@@ -112,6 +127,7 @@ namespace Dekofar.HyperConnect.API.Controllers.Shopify
             return ok ? Ok() : BadRequest();
         }
 
+        // Sipariş notunu günceller
         [HttpPost("order/update-note")]
         public async Task<IActionResult> UpdateOrderNote([FromBody] UpdateOrderNoteRequest request, CancellationToken ct)
         {
@@ -119,6 +135,7 @@ namespace Dekofar.HyperConnect.API.Controllers.Shopify
             return ok ? Ok() : BadRequest();
         }
 
+        // Müşteri bilgilerini ID ile getirir
         [HttpGet("customer/{customerId:long}")]
         public async Task<IActionResult> GetCustomer(long customerId, CancellationToken ct)
         {
@@ -127,6 +144,7 @@ namespace Dekofar.HyperConnect.API.Controllers.Shopify
             return Ok(customer);
         }
 
+        // Yeni bir sipariş oluşturur
         [HttpPost("order")]
         public async Task<IActionResult> CreateOrder([FromBody] Order order, CancellationToken ct)
         {
@@ -134,6 +152,7 @@ namespace Dekofar.HyperConnect.API.Controllers.Shopify
             return result != null ? Ok(result) : BadRequest();
         }
 
+        // Sipariş için teslimat (fulfillment) oluşturur
         [HttpPost("fulfillment")]
         public async Task<IActionResult> CreateFulfillment([FromBody] FulfillmentCreateRequest request, CancellationToken ct)
         {
@@ -141,6 +160,7 @@ namespace Dekofar.HyperConnect.API.Controllers.Shopify
             return Ok(resp);
         }
 
+        // Siparişlerde arama yapar
         [HttpGet("orders/search")]
         public async Task<IActionResult> SearchOrders([FromQuery] string query, CancellationToken ct)
         {
@@ -148,12 +168,15 @@ namespace Dekofar.HyperConnect.API.Controllers.Shopify
             return Ok(result);
         }
 
+        // Açık siparişleri cursor bazlı olarak getirir
         [HttpGet("orders-open-cursor")]
         public async Task<IActionResult> GetOpenOrdersWithCursor([FromQuery] string? pageInfo, [FromQuery] int limit = 20, CancellationToken ct = default)
         {
             var result = await _shopifyService.GetOpenOrdersWithCursorAsync(pageInfo, limit, ct);
             return Ok(result);
         }
+
+        // Shopify sipariş cache'ini temizler
         [HttpPost("orders/clear-cache")]
         public IActionResult ClearOrderCache([FromServices] IMemoryCache memoryCache)
         {
