@@ -9,8 +9,8 @@ namespace Dekofar.HyperConnect.Application.Users.DTOs
         public string? AvatarUrl { get; set; }
         public string Email { get; set; } = default!;
         public int UnreadMessageCount { get; set; }
-        public DateTime? LastMessageAt { get; set; }
-        public DateTime? LastSupportInteractionAt { get; set; }
+        public DateTime? LastMessageDate { get; set; }
+        public DateTime? LastSupportActivityAt { get; set; }
         public bool IsOnline { get; set; }
     }
 }

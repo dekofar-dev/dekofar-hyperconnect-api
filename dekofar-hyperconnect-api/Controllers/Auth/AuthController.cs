@@ -1,5 +1,4 @@
-﻿using Dekofar.Domain.Entities;
-using Dekofar.HyperConnect.Application.Auth;
+﻿using Dekofar.HyperConnect.Application.Auth;
 using Dekofar.HyperConnect.Application.Interfaces;
 using Dekofar.HyperConnect.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;

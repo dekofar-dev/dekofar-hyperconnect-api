@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Dekofar.Domain.Entities;
+using Dekofar.HyperConnect.Domain.Entities;
 using Dekofar.HyperConnect.Application.Users.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Identity;

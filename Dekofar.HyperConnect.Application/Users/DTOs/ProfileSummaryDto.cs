@@ -14,8 +14,8 @@ namespace Dekofar.HyperConnect.Application.Users.DTOs
         public DateTime? LastSupportActivityAt { get; set; }
 
         public int TotalMessagesSent { get; set; }
-        public int UnreadMessagesCount { get; set; }
-        public DateTime? LastMessageAt { get; set; }
+        public int UnreadMessageCount { get; set; }
+        public DateTime? LastMessageDate { get; set; }
 
         public decimal TotalSalesAmount { get; set; }
         public decimal TotalCommission { get; set; }

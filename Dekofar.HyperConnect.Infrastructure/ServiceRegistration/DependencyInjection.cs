@@ -2,7 +2,6 @@
 using Dekofar.HyperConnect.Application.Common.Interfaces;
 using Dekofar.HyperConnect.Application.Interfaces;
 using Dekofar.HyperConnect.Domain.Entities;
-using Dekofar.Domain.Entities;
 using Dekofar.HyperConnect.Infrastructure.Persistence;
 using Dekofar.HyperConnect.Infrastructure.Services;
 using Dekofar.HyperConnect.Infrastructure.Jobs;
