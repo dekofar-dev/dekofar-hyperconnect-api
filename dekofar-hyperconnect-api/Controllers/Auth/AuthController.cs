@@ -1,5 +1,6 @@
 ﻿using Dekofar.HyperConnect.Application.Auth;
 using Dekofar.HyperConnect.Application.Interfaces;
+using Dekofar.HyperConnect.Application.Common.Interfaces;
 using Dekofar.HyperConnect.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -21,16 +22,22 @@ namespace Dekofar.API.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         // JWT token üretimi için servis
         private readonly ITokenService _tokenService;
+        private readonly IActivityLogger _activityLogger;
+        private readonly IBadgeService _badgeService;
 
         // Gerekli bağımlılıkları enjekte eden kurucu metot
         public AuthController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            ITokenService tokenService)
+            ITokenService tokenService,
+            IActivityLogger activityLogger,
+            IBadgeService badgeService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenService = tokenService;
+            _activityLogger = activityLogger;
+            _badgeService = badgeService;
         }
 
         // Birden fazla kullanıcıyı rol bilgisiyle birlikte oluşturur
@@ -140,6 +147,9 @@ namespace Dekofar.API.Controllers
             var roles = await _userManager.GetRolesAsync(user);
             var token = _tokenService.GenerateToken(user.Id.ToString(), user.Email!, roles);
 
+            await _activityLogger.LogAsync(user.Id, "Login", null, HttpContext.Connection.RemoteIpAddress?.ToString());
+            await _badgeService.EvaluateAsync(user.Id);
+
             return Ok(new
             {
                 token,
@@ -180,6 +190,9 @@ namespace Dekofar.API.Controllers
 
             var roles = await _userManager.GetRolesAsync(user);
             var token = _tokenService.GenerateToken(user.Id.ToString(), user.Email!, roles);
+
+            await _activityLogger.LogAsync(user.Id, "Login", null, HttpContext.Connection.RemoteIpAddress?.ToString());
+            await _badgeService.EvaluateAsync(user.Id);
 
             return Ok(new
             {

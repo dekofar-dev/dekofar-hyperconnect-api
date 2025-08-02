@@ -90,6 +90,9 @@ namespace Dekofar.HyperConnect.Infrastructure.ServiceRegistration
             services.AddHttpContextAccessor(); // gerekli
             services.AddScoped<ICurrentUserService, CurrentUserService>();
             services.AddScoped<IFileStorageService, LocalFileStorageService>();
+            services.AddScoped<IActivityLogger, ActivityLogger>();
+            services.AddScoped<IUserNotificationService, UserNotificationService>();
+            services.AddScoped<IBadgeService, BadgeService>();
 
             services.AddScoped<SupportTicketJobService>();
 

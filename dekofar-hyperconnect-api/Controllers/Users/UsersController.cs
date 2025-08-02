@@ -9,6 +9,7 @@ using Dekofar.HyperConnect.Application.Users.Queries;
 using Dekofar.HyperConnect.Application.Interfaces;
 using Dekofar.API.Authorization;
 using Dekofar.HyperConnect.Domain.Entities;
+using Dekofar.HyperConnect.Application.Common.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -26,13 +27,15 @@ namespace Dekofar.API.Controllers
         private readonly IMediator _mediator;
         private readonly IUserService _userService;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IActivityLogger _activityLogger;
 
         // MediatR bağımlılığını alan kurucu
-        public UsersController(IMediator mediator, IUserService userService, UserManager<ApplicationUser> userManager)
+        public UsersController(IMediator mediator, IUserService userService, UserManager<ApplicationUser> userManager, IActivityLogger activityLogger)
         {
             _mediator = mediator;
             _userService = userService;
             _userManager = userManager;
+            _activityLogger = activityLogger;
         }
 
         // Sistemdeki tüm kullanıcıları döner
@@ -140,9 +143,10 @@ namespace Dekofar.API.Controllers
             var result = _userManager.PasswordHasher.VerifyHashedPassword(user, user.HashedPin, request.Pin);
             if (result == PasswordVerificationResult.Success)
             {
+                await _activityLogger.LogAsync(user.Id, "PinSuccess", null, HttpContext.Connection.RemoteIpAddress?.ToString());
                 return Ok();
             }
-
+            await _activityLogger.LogAsync(user.Id, "PinFailed", new { request.Pin }, HttpContext.Connection.RemoteIpAddress?.ToString());
             return Unauthorized();
         }
 

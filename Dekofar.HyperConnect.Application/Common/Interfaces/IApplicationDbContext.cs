@@ -19,6 +19,9 @@ namespace Dekofar.HyperConnect.Application.Common.Interfaces
         DbSet<Discount> Discounts { get; }
         DbSet<Note> Notes { get; }
         DbSet<AuditLog> AuditLogs { get; }
+        DbSet<ActivityLog> ActivityLogs { get; }
+        DbSet<UserNotification> UserNotifications { get; }
+        DbSet<UserBadge> UserBadges { get; }
         DbSet<ApplicationUser> Users { get; }
         DbSet<IdentityUserRole<Guid>> UserRoles { get; }
         DbSet<IdentityRole<Guid>> Roles { get; }
