@@ -11,11 +11,13 @@ namespace Dekofar.HyperConnect.Application.OrderCommissions.Handlers
     public class CreateOrderCommissionHandler : IRequestHandler<CreateOrderCommissionCommand, Guid>
     {
         private readonly IApplicationDbContext _context;
+        private readonly INotificationService _notificationService;
         private const decimal CommissionRate = 0.05m;
 
-        public CreateOrderCommissionHandler(IApplicationDbContext context)
+        public CreateOrderCommissionHandler(IApplicationDbContext context, INotificationService notificationService)
         {
             _context = context;
+            _notificationService = notificationService;
         }
 
         public async Task<Guid> Handle(CreateOrderCommissionCommand request, CancellationToken cancellationToken)
@@ -32,6 +34,13 @@ namespace Dekofar.HyperConnect.Application.OrderCommissions.Handlers
 
             await _context.OrderCommissions.AddAsync(commission, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
+
+            await _notificationService.SendToUserAsync(request.UserId, "CommissionCreated", new
+            {
+                orderId = request.OrderId,
+                amount = commission.EarnedAmount,
+                createdAt = commission.CreatedAt
+            }, cancellationToken);
 
             return commission.Id;
         }
