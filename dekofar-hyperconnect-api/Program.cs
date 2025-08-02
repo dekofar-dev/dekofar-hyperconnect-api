@@ -13,6 +13,9 @@ using Dekofar.HyperConnect.Application; // Application servis kayıtları
 using Dekofar.HyperConnect.Infrastructure.Services;
 using MediatR;
 using Dekofar.HyperConnect.Infrastructure.ServiceRegistration;
+using Hangfire;
+using Hangfire.MemoryStorage;
+using Dekofar.HyperConnect.Infrastructure.Jobs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +40,12 @@ builder.Services.AddCors(options =>
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddMemoryCache();
 builder.Services.AddApplication();
+
+builder.Services.AddHangfire(config =>
+{
+    config.UseMemoryStorage();
+});
+builder.Services.AddHangfireServer();
 
 // 📬 Entegrasyon Servisleri
 builder.Services.AddScoped<INetGsmSmsService, NetGsmSmsService>();
@@ -100,9 +109,25 @@ app.UseCors(MyAllowSpecificOrigins);
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseHangfireDashboard();
 app.MapControllers();
 
 // 🚀 Seed default roles and admin user
 await SeedData.SeedDefaultsAsync(app.Services);
+
+using (var scope = app.Services.CreateScope())
+{
+    var recurringJobManager = scope.ServiceProvider.GetRequiredService<IRecurringJobManager>();
+
+    recurringJobManager.AddOrUpdate<SupportTicketJobService>(
+        "CloseStaleTickets",
+        x => x.CloseOldTickets(),
+        Cron.Daily);
+
+    recurringJobManager.AddOrUpdate<SupportTicketJobService>(
+        "NotifyUnassignedTickets",
+        x => x.NotifyAdminOfUnassignedTickets(),
+        Cron.Daily);
+}
 
 app.Run();
