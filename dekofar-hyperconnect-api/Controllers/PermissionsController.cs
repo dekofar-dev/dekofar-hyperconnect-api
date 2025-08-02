@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Dekofar.HyperConnect.API.Controllers
 {
     [ApiController]
+    [Route("api")]
     public class PermissionsController : ControllerBase
     {
         private readonly IApplicationDbContext _context;
@@ -23,7 +24,8 @@ namespace Dekofar.HyperConnect.API.Controllers
             _roleManager = roleManager;
         }
 
-        [HttpGet("api/permissions")]
+        // Returns every permission defined in the system
+        [HttpGet("permissions")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAll()
         {
@@ -31,7 +33,8 @@ namespace Dekofar.HyperConnect.API.Controllers
             return Ok(permissions);
         }
 
-        [HttpPost("api/roles/{role}/permissions")]
+        // Replaces a role's permissions with the supplied list
+        [HttpPost("roles/{role}/permissions")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AssignToRole(string role, [FromBody] List<Guid> permissionIds)
         {
@@ -39,6 +42,7 @@ namespace Dekofar.HyperConnect.API.Controllers
             if (roleEntity == null)
                 return NotFound();
 
+            // Remove existing assignments and insert the new set
             var existing = _context.RolePermissions.Where(rp => rp.RoleName == role);
             _context.RolePermissions.RemoveRange(existing);
 

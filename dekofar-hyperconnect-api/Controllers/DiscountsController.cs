@@ -39,6 +39,7 @@ namespace Dekofar.HyperConnect.API.Controllers
         [Authorize(Policy = "CanManageDiscounts")]
         public async Task<IActionResult> Create([FromBody] CreateDiscountCommand command)
         {
+            // Only users with the manage discounts permission can create
             var id = await _mediator.Send(command);
             return Ok(id);
         }
@@ -47,6 +48,7 @@ namespace Dekofar.HyperConnect.API.Controllers
         [Authorize(Policy = "CanManageDiscounts")]
         public async Task<IActionResult> Update(Guid id, [FromBody] UpdateDiscountCommand command)
         {
+            // Policy prevents unauthorized modifications
             if (id != command.Id) return BadRequest();
             await _mediator.Send(command);
             return Ok();
@@ -56,6 +58,7 @@ namespace Dekofar.HyperConnect.API.Controllers
         [Authorize(Policy = "CanManageDiscounts")]
         public async Task<IActionResult> Delete(Guid id)
         {
+            // Policy ensures only authorized users can delete
             await _mediator.Send(new DeleteDiscountCommand(id));
             return Ok();
         }
