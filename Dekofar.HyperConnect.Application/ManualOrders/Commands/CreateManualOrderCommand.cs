@@ -1,4 +1,5 @@
 using MediatR;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Dekofar.HyperConnect.Application.ManualOrders.Commands
@@ -22,9 +23,8 @@ namespace Dekofar.HyperConnect.Application.ManualOrders.Commands
         [Required]
         public string PaymentType { get; set; } = default!;
         public string? OrderNote { get; set; }
+        public Guid? DiscountId { get; set; }
         public string? DiscountName { get; set; }
-        public string? DiscountType { get; set; }
-        public decimal DiscountValue { get; set; }
 
         [MinLength(1)]
         public List<CreateManualOrderItemDto> Items { get; set; } = new();

@@ -24,6 +24,7 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence
         public DbSet<OrderTag> OrderTags => Set<OrderTag>();
         public DbSet<ManualOrder> ManualOrders => Set<ManualOrder>();
         public DbSet<ManualOrderItem> ManualOrderItems => Set<ManualOrderItem>();
+        public DbSet<Discount> Discounts => Set<Discount>();
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
             => await base.SaveChangesAsync(cancellationToken);
@@ -80,6 +81,18 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence
                 entity.Property(e => e.PaymentType).HasMaxLength(50);
                 entity.Property(e => e.OrderNote).HasMaxLength(500);
                 entity.Property(e => e.TotalAmount).HasColumnType("decimal(18,2)");
+            });
+
+            builder.Entity<Discount>(entity =>
+            {
+                entity.ToTable("Discounts");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
+                entity.Property(e => e.Type).IsRequired();
+                entity.Property(e => e.Value).HasColumnType("decimal(18,2)");
+                entity.Property(e => e.IsActive).IsRequired();
+                entity.Property(e => e.CreatedByUserId).IsRequired();
+                entity.Property(e => e.CreatedAt).IsRequired();
             });
         }
     }

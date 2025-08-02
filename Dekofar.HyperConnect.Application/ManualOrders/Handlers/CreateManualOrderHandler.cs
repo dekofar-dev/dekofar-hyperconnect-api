@@ -2,6 +2,7 @@ using Dekofar.HyperConnect.Application.Common.Interfaces;
 using Dekofar.HyperConnect.Application.ManualOrders.Commands;
 using Dekofar.HyperConnect.Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
@@ -36,10 +37,7 @@ namespace Dekofar.HyperConnect.Application.ManualOrders.Handlers
                 OrderNote = request.OrderNote,
                 CreatedByUserId = _currentUser.UserId.Value,
                 CreatedAt = DateTime.UtcNow,
-                Status = ManualOrderStatus.Pending,
-                DiscountName = request.DiscountName,
-                DiscountType = request.DiscountType,
-                DiscountValue = request.DiscountValue
+                Status = ManualOrderStatus.Pending
             };
 
             foreach (var item in request.Items)
@@ -55,20 +53,35 @@ namespace Dekofar.HyperConnect.Application.ManualOrders.Handlers
             }
 
             var subTotal = order.Items.Sum(i => i.Total);
-            decimal discount = 0m;
-            if (!string.IsNullOrEmpty(request.DiscountType))
+
+            decimal discountAmount = 0m;
+            if (request.DiscountId.HasValue || !string.IsNullOrEmpty(request.DiscountName))
             {
-                if (request.DiscountType.Equals("Percentage", StringComparison.OrdinalIgnoreCase))
+                Discount? discount = null;
+                if (request.DiscountId.HasValue)
                 {
-                    discount = subTotal * request.DiscountValue / 100m;
+                    discount = await _context.Discounts.FindAsync(new object?[] { request.DiscountId.Value }, cancellationToken);
                 }
-                else
+                else if (!string.IsNullOrEmpty(request.DiscountName))
                 {
-                    discount = request.DiscountValue;
+                    discount = await _context.Discounts.FirstOrDefaultAsync(d => d.Name == request.DiscountName, cancellationToken);
+                }
+
+                if (discount != null && discount.IsActive &&
+                    (!discount.ValidFrom.HasValue || discount.ValidFrom <= DateTime.UtcNow) &&
+                    (!discount.ValidTo.HasValue || discount.ValidTo >= DateTime.UtcNow))
+                {
+                    order.DiscountName = discount.Name;
+                    order.DiscountType = discount.Type.ToString();
+                    order.DiscountValue = discount.Value;
+
+                    discountAmount = discount.Type == DiscountType.Percentage
+                        ? subTotal * discount.Value / 100m
+                        : discount.Value;
                 }
             }
 
-            order.TotalAmount = subTotal - discount;
+            order.TotalAmount = subTotal - discountAmount;
             order.BonusAmount = order.TotalAmount * 0.1m; // simple commission calculation
 
             await _context.ManualOrders.AddAsync(order, cancellationToken);
