@@ -1,48 +1,68 @@
-## Build results
+##########################################
+## 🔧 Build & Compiled Files
+##########################################
 bin/
 obj/
 [Bb]uild/
 [Ll]ogs/
 *.log
+artifacts/
 
-## Visual Studio
+##########################################
+## 💻 Visual Studio / VS Code
+##########################################
 .vscode/
 .vs/
-*.user
 *.suo
+*.user
 *.userosscache
 *.sln.docstates
 
-## .NET Core
+##########################################
+## ⚙️ .NET Core / EF Core
+##########################################
 project.lock.json
 project.fragment.lock.json
-artifacts/
 *.dbmdl
+*.sqlite
+*.sqlite3
+__EFMigrationsHistory/
 
-## Rider
+##########################################
+## 🌐 Rider IDE
+##########################################
 .idea/
 
-## OS Files
+##########################################
+## 🖥️ Operating System
+##########################################
 .DS_Store
 Thumbs.db
 
-## npm / yarn
+##########################################
+## 📦 Node.js / npm / yarn (Frontend)
+##########################################
 node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-## Others
+##########################################
+## 🔐 Secrets and Certificates
+##########################################
 .env
-*.sqlite
-*.sqlite3
 *.p12
 *.pem
 *.crt
 *.key
 
-# Publish files
+##########################################
+## 🚀 Publish Files
+##########################################
 .publish/
-
-# Azure deployment
 .publishxml
+
+##########################################
+## 📦 Others
+##########################################
+*.swp

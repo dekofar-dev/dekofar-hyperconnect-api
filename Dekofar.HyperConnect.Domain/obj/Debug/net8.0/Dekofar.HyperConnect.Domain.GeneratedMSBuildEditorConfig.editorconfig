@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Dekofar.HyperConnect.Domain
-build_property.ProjectDir = C:\Users\recep\OneDrive\Masaüstü\DekofarHyperConnect\dekofar-hyperconnect-api\Dekofar.HyperConnect.Domain\
+build_property.ProjectDir = D:\DekofarHyperConnect\dekofar-hyperconnect-api\Dekofar.HyperConnect.Domain\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
