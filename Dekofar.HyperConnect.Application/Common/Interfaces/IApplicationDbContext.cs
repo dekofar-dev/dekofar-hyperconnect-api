@@ -1,6 +1,7 @@
 ﻿using Dekofar.Domain.Entities;
 using Dekofar.HyperConnect.Domain.Entities.support;
 using Dekofar.HyperConnect.Domain.Entities.Support;
+using Dekofar.HyperConnect.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
@@ -16,6 +17,9 @@ namespace Dekofar.HyperConnect.Application.Common.Interfaces
         DbSet<TicketLog> TicketLogs { get; }
         DbSet<TicketAttachment> TicketAttachments { get; }
         DbSet<SupportTicketHistory> SupportTicketHistories { get; }
+
+        DbSet<ManualOrder> ManualOrders { get; }
+        DbSet<ManualOrderItem> ManualOrderItems { get; }
 
         // Bildirim sistemi
         DbSet<AppNotification> AppNotifications { get; }

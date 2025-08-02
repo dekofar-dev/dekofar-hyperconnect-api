@@ -27,6 +27,8 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence
 
         public DbSet<Tag> Tags { get; set; }
         public DbSet<OrderTag> OrderTags => Set<OrderTag>();
+        public DbSet<ManualOrder> ManualOrders => Set<ManualOrder>();
+        public DbSet<ManualOrderItem> ManualOrderItems => Set<ManualOrderItem>();
 
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -138,6 +140,45 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence
                       .WithMany(t => t.History)
                       .HasForeignKey(h => h.TicketId)
                       .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            // ManualOrder
+            builder.Entity<ManualOrder>(entity =>
+            {
+                entity.ToTable("ManualOrders");
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.CustomerName).IsRequired().HasMaxLength(100);
+                entity.Property(e => e.CustomerSurname).IsRequired().HasMaxLength(100);
+                entity.Property(e => e.Phone).HasMaxLength(50);
+                entity.Property(e => e.Email).HasMaxLength(100);
+                entity.Property(e => e.Address).IsRequired().HasMaxLength(500);
+                entity.Property(e => e.City).HasMaxLength(100);
+                entity.Property(e => e.District).HasMaxLength(100);
+                entity.Property(e => e.PaymentType).HasMaxLength(50);
+                entity.Property(e => e.OrderNote).HasMaxLength(500);
+                entity.Property(e => e.TotalAmount).HasColumnType("decimal(18,2)");
+                entity.Property(e => e.DiscountName).HasMaxLength(100);
+                entity.Property(e => e.DiscountType).HasMaxLength(50);
+                entity.Property(e => e.DiscountValue).HasColumnType("decimal(18,2)");
+                entity.Property(e => e.BonusAmount).HasColumnType("decimal(18,2)");
+
+                entity.HasMany(e => e.Items)
+                      .WithOne(i => i.ManualOrder)
+                      .HasForeignKey(i => i.ManualOrderId)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            builder.Entity<ManualOrderItem>(entity =>
+            {
+                entity.ToTable("ManualOrderItems");
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.ProductId).IsRequired().HasMaxLength(100);
+                entity.Property(e => e.ProductName).IsRequired().HasMaxLength(200);
+                entity.Property(e => e.Quantity).IsRequired();
+                entity.Property(e => e.Price).HasColumnType("decimal(18,2)");
+                entity.Property(e => e.Total).HasColumnType("decimal(18,2)");
             });
 
             // AppNotification
