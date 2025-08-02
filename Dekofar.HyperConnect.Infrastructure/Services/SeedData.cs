@@ -1,18 +1,22 @@
 using System;
 using System.Threading.Tasks;
 using Dekofar.Domain.Entities;
+using Dekofar.HyperConnect.Domain.Entities.Support;
+using Dekofar.HyperConnect.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Dekofar.HyperConnect.Infrastructure.Services
 {
     public static class SeedData
     {
-        public static async Task SeedDefaultRolesAndAdminAsync(IServiceProvider serviceProvider)
+        public static async Task SeedDefaultsAsync(IServiceProvider serviceProvider)
         {
             using var scope = serviceProvider.CreateScope();
             var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
             var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
             string[] roles = new[] { "Admin", "Support", "Warehouse", "Returns", "Finance" };
 
@@ -45,6 +49,24 @@ namespace Dekofar.HyperConnect.Infrastructure.Services
             if (!await userManager.IsInRoleAsync(adminUser, "Admin"))
             {
                 await userManager.AddToRoleAsync(adminUser, "Admin");
+            }
+
+            if (!await context.SupportTickets.AnyAsync())
+            {
+                var ticket = new SupportTicket
+                {
+                    TicketNumber = "TICKET-0001",
+                    Subject = "Test ticket",
+                    Description = "This is a seeded support ticket",
+                    Category = SupportCategory.GenelBilgi,
+                    Priority = SupportPriority.Orta,
+                    CreatedBy = adminUser.Id,
+                    CreatedAt = DateTime.UtcNow,
+                    Status = SupportStatus.Bekliyor
+                };
+
+                context.SupportTickets.Add(ticket);
+                await context.SaveChangesAsync();
             }
         }
     }
