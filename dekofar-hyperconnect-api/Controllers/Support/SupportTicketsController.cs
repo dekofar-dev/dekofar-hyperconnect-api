@@ -60,6 +60,8 @@ namespace Dekofar.API.Controllers
         public async Task<IActionResult> Assign(Guid id, [FromBody] AssignSupportTicketCommand command)
         {
             if (id != command.TicketId) return BadRequest();
+            // Policy based authorization ensures only users with the
+            // CanAssignTicket permission can reach this point.
             await _mediator.Send(command);
             return Ok();
         }
@@ -69,6 +71,8 @@ namespace Dekofar.API.Controllers
         public async Task<IActionResult> UpdateStatus(Guid id, [FromBody] UpdateSupportTicketStatusCommand command)
         {
             if (id != command.TicketId) return BadRequest();
+            // The command encapsulates business rules to move between
+            // Open -> InProgress -> Closed states.
             await _mediator.Send(command);
             return Ok();
         }

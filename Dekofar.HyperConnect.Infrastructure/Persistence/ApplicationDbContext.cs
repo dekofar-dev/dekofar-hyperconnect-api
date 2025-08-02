@@ -73,6 +73,7 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence
                 entity.Property(e => e.Title).IsRequired().HasMaxLength(200);
                 entity.Property(e => e.Description).IsRequired();
                 entity.Property(e => e.FilePath).HasMaxLength(500);
+                entity.Property(e => e.UnreadReplyCount).HasDefaultValue(0);
                 entity.HasOne(e => e.Category)
                       .WithMany(c => c.Tickets)
                       .HasForeignKey(e => e.CategoryId)

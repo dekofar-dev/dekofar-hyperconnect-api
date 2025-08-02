@@ -146,5 +146,42 @@ namespace Dekofar.HyperConnect.Application.Services
 
             return result;
         }
+
+        public Task<int> GetTotalUsersAsync()
+        {
+            return _context.Users.CountAsync();
+        }
+
+        public async Task<int> GetTotalOrdersAsync()
+        {
+            var orderCount = await _context.Orders.CountAsync();
+            var manualCount = await _context.ManualOrders.CountAsync();
+            return orderCount + manualCount;
+        }
+
+        public Task<int> GetTotalSupportTicketsAsync()
+        {
+            return _context.SupportTickets.CountAsync();
+        }
+
+        /// <summary>
+        /// Aggregates commission payouts by month for the last <paramref name="months"/> months.
+        /// Used by the admin dashboard to build earnings charts.
+        /// </summary>
+        public async Task<List<MonthlyCommissionDto>> GetMonthlyCommissionsAsync(int months)
+        {
+            var start = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, 1).AddMonths(-months + 1);
+            return await _context.Commissions
+                .Where(c => c.CreatedAt >= start)
+                .GroupBy(c => new { c.CreatedAt.Year, c.CreatedAt.Month })
+                .Select(g => new MonthlyCommissionDto
+                {
+                    Year = g.Key.Year,
+                    Month = g.Key.Month,
+                    Total = g.Sum(x => x.Amount)
+                })
+                .OrderBy(g => g.Year).ThenBy(g => g.Month)
+                .ToListAsync();
+        }
     }
 }
