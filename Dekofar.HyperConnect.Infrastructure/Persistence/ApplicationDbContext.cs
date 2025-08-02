@@ -124,9 +124,14 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence
                 entity.ToTable("Orders");
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.TotalAmount).HasColumnType("decimal(18,2)");
+                entity.Property(e => e.Status).HasConversion<int>();
                 entity.HasOne(e => e.Seller)
                       .WithMany(u => u.Orders)
                       .HasForeignKey(e => e.SellerId)
+                      .OnDelete(DeleteBehavior.SetNull);
+                entity.HasOne(e => e.Customer)
+                      .WithMany()
+                      .HasForeignKey(e => e.CustomerId)
                       .OnDelete(DeleteBehavior.SetNull);
             });
 
