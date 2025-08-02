@@ -1,4 +1,4 @@
-using Dekofar.Domain.Entities;
+﻿using Dekofar.Domain.Entities;
 using Dekofar.HyperConnect.Application.Common.Interfaces;
 using Dekofar.HyperConnect.Domain.Entities;
 using Dekofar.HyperConnect.Domain.Entities.Orders;
@@ -38,13 +38,7 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<ApplicationUser>().ToTable("AspNetUsers", t => t.ExcludeFromMigrations());
-            builder.Entity<IdentityRole<Guid>>().ToTable("AspNetRoles", t => t.ExcludeFromMigrations());
-            builder.Entity<IdentityUserRole<Guid>>().ToTable("AspNetUserRoles", t => t.ExcludeFromMigrations());
-            builder.Entity<IdentityUserClaim<Guid>>().ToTable("AspNetUserClaims", t => t.ExcludeFromMigrations());
-            builder.Entity<IdentityUserLogin<Guid>>().ToTable("AspNetUserLogins", t => t.ExcludeFromMigrations());
-            builder.Entity<IdentityUserToken<Guid>>().ToTable("AspNetUserTokens", t => t.ExcludeFromMigrations());
-            builder.Entity<IdentityRoleClaim<Guid>>().ToTable("AspNetRoleClaims", t => t.ExcludeFromMigrations());
+            // ⚠️ Identity tabloları için ExcludeFromMigrations kaldırıldı
 
             builder.Entity<SupportCategory>(entity =>
             {
@@ -83,7 +77,6 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence
             {
                 entity.ToTable("ManualOrders");
                 entity.HasKey(e => e.Id);
-
                 entity.Property(e => e.CustomerName).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.CustomerSurname).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.Phone).HasMaxLength(50);
