@@ -21,7 +21,7 @@ namespace Dekofar.API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<IActionResult> CreateRole([FromBody] CreateRoleRequest request)
         {
             if (string.IsNullOrWhiteSpace(request.RoleName))
@@ -39,7 +39,7 @@ namespace Dekofar.API.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<IActionResult> GetRoles()
         {
             var roles = await _mediator.Send(new GetRolesQuery());

@@ -1,14 +1,10 @@
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
-using Dekofar.Domain.Entities;
-using Dekofar.HyperConnect.Domain.Entities;
-using Dekofar.HyperConnect.Infrastructure.Persistence;
 using Dekofar.HyperConnect.Integrations.NetGsm.Interfaces;
 using Dekofar.HyperConnect.Integrations.NetGsm.Services;
 using Dekofar.HyperConnect.Integrations.Shopify.Interfaces;
@@ -106,11 +102,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 
-// 🚀 Uygulama Başlarken Roller Oluştur
-using (var scope = app.Services.CreateScope())
-{
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
-    await RoleSeeder.SeedAsync(roleManager);
-}
+// 🚀 Seed default roles and admin user
+await SeedData.SeedDefaultRolesAndAdminAsync(app.Services);
 
 app.Run();
