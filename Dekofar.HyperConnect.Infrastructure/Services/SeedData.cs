@@ -37,7 +37,8 @@ namespace Dekofar.HyperConnect.Infrastructure.Services
                 adminUser = new ApplicationUser
                 {
                     UserName = adminEmail,
-                    Email = adminEmail
+                    Email = adminEmail,
+                    MembershipDate = DateTime.UtcNow
                 };
                 var createUserResult = await userManager.CreateAsync(adminUser, adminPassword);
                 if (!createUserResult.Succeeded)
