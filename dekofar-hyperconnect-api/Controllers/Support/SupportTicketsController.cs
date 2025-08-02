@@ -1,8 +1,10 @@
 using Dekofar.HyperConnect.Application.SupportTickets.Commands;
 using Dekofar.HyperConnect.Application.SupportTickets.Queries;
+using Dekofar.API.Hubs;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Threading.Tasks;
 
@@ -16,11 +18,13 @@ namespace Dekofar.API.Controllers
     {
         // MediatR aracısı
         private readonly IMediator _mediator;
+        private readonly IHubContext<SupportHub> _hubContext;
 
         // MediatR bağımlılığını alan kurucu
-        public SupportTicketsController(IMediator mediator)
+        public SupportTicketsController(IMediator mediator, IHubContext<SupportHub> hubContext)
         {
             _mediator = mediator;
+            _hubContext = hubContext;
         }
 
         // Yeni destek talebi oluşturur
@@ -29,6 +33,7 @@ namespace Dekofar.API.Controllers
         public async Task<IActionResult> Create([FromForm] CreateSupportTicketCommand command)
         {
             var id = await _mediator.Send(command);
+            await _hubContext.Clients.Group("SupportAgents").SendAsync("OnSupportTicketCreated", new { ticketId = id });
             return Ok(id);
         }
 
@@ -66,6 +71,26 @@ namespace Dekofar.API.Controllers
             if (id != command.TicketId) return BadRequest();
             await _mediator.Send(command);
             return Ok();
+        }
+
+        // Talebe yanıt ekler
+        [HttpPost("{id}/reply")]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> Reply(Guid id, [FromForm] ReplySupportTicketCommand command)
+        {
+            if (id != command.TicketId) return BadRequest();
+            var reply = await _mediator.Send(command);
+
+            if (User.IsInRole("Admin") || User.IsInRole("Support"))
+            {
+                await _hubContext.Clients.Group($"user-{reply.TicketOwnerId}").SendAsync("OnSupportTicketReplied", reply);
+            }
+            else
+            {
+                await _hubContext.Clients.Group("SupportAgents").SendAsync("OnSupportTicketReplied", reply);
+            }
+
+            return Ok(reply);
         }
     }
 }

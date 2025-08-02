@@ -35,6 +35,7 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence
         public DbSet<Permission> Permissions => Set<Permission>();
         public DbSet<RolePermission> RolePermissions => Set<RolePermission>();
         public DbSet<UserMessage> UserMessages => Set<UserMessage>();
+        public DbSet<SupportTicketReply> SupportTicketReplies => Set<SupportTicketReply>();
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
             => await base.SaveChangesAsync(cancellationToken);
@@ -190,6 +191,21 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence
                 entity.HasOne(e => e.Receiver)
                       .WithMany()
                       .HasForeignKey(e => e.ReceiverId)
+                      .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            builder.Entity<SupportTicketReply>(entity =>
+            {
+                entity.ToTable("SupportTicketReplies");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Message).IsRequired();
+                entity.HasOne(e => e.Ticket)
+                      .WithMany()
+                      .HasForeignKey(e => e.TicketId)
+                      .OnDelete(DeleteBehavior.Cascade);
+                entity.HasOne(e => e.User)
+                      .WithMany()
+                      .HasForeignKey(e => e.UserId)
                       .OnDelete(DeleteBehavior.Restrict);
             });
         }

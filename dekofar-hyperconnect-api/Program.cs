@@ -140,6 +140,7 @@ app.UseHangfireDashboard();
 app.MapControllers();
 app.MapHub<LiveChatHub>("/chatHub");
 app.MapHub<NotificationHub>("/hubs/notifications");
+app.MapHub<SupportHub>("/supportHub");
 
 // 🚀 Seed default roles and admin user
 await SeedData.SeedDefaultsAsync(app.Services);
