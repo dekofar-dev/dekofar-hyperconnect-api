@@ -31,6 +31,9 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence
         public DbSet<Discount> Discounts => Set<Discount>();
         public DbSet<Note> Notes => Set<Note>();
         public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
+        public DbSet<ActivityLog> ActivityLogs => Set<ActivityLog>();
+        public DbSet<UserNotification> UserNotifications => Set<UserNotification>();
+        public DbSet<UserBadge> UserBadges => Set<UserBadge>();
         public DbSet<Permission> Permissions => Set<Permission>();
         public DbSet<RolePermission> RolePermissions => Set<RolePermission>();
         public DbSet<UserMessage> UserMessages => Set<UserMessage>();
@@ -207,6 +210,31 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence
                       .WithMany()
                       .HasForeignKey(e => e.UserId)
                       .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            builder.Entity<UserNotification>(entity =>
+            {
+                entity.ToTable("UserNotifications");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Title).IsRequired().HasMaxLength(200);
+                entity.Property(e => e.Type).HasMaxLength(50);
+                entity.Property(e => e.CreatedAt).IsRequired();
+            });
+
+            builder.Entity<UserBadge>(entity =>
+            {
+                entity.ToTable("UserBadges");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Badge).IsRequired().HasMaxLength(100);
+                entity.Property(e => e.AwardedAt).IsRequired();
+            });
+
+            builder.Entity<ActivityLog>(entity =>
+            {
+                entity.ToTable("ActivityLogs");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.ActionType).IsRequired().HasMaxLength(100);
+                entity.Property(e => e.CreatedAt).IsRequired();
             });
         }
     }
