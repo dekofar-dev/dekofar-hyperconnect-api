@@ -15,6 +15,11 @@ namespace Dekofar.HyperConnect.Domain.Entities
         /// </summary>
         public string? AvatarUrl { get; set; }
 
+        /// <summary>
+        ///     Stored hashed representation of the user's 4-digit PIN.
+        /// </summary>
+        public string? HashedPin { get; set; }
+
         public DateTime MembershipDate { get; set; }
         public bool IsOnline { get; set; }
         public DateTime? LastSeen { get; set; }

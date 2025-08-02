@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Dekofar.HyperConnect.Application.Users.Commands;
@@ -7,9 +8,11 @@ using Dekofar.HyperConnect.Application.Users.DTOs;
 using Dekofar.HyperConnect.Application.Users.Queries;
 using Dekofar.HyperConnect.Application.Interfaces;
 using Dekofar.API.Authorization;
+using Dekofar.HyperConnect.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dekofar.API.Controllers
@@ -22,12 +25,14 @@ namespace Dekofar.API.Controllers
         // MediatR aracısı
         private readonly IMediator _mediator;
         private readonly IUserService _userService;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         // MediatR bağımlılığını alan kurucu
-        public UsersController(IMediator mediator, IUserService userService)
+        public UsersController(IMediator mediator, IUserService userService, UserManager<ApplicationUser> userManager)
         {
             _mediator = mediator;
             _userService = userService;
+            _userManager = userManager;
         }
 
         // Sistemdeki tüm kullanıcıları döner
@@ -95,6 +100,60 @@ namespace Dekofar.API.Controllers
             var summary = await _userService.GetSalesSummaryAsync(id);
             if (summary == null) return NotFound();
             return Ok(summary);
+        }
+
+        public class PinRequest
+        {
+            public string Pin { get; set; } = string.Empty;
+        }
+
+        [HttpPost("set-pin")]
+        [Authorize]
+        public async Task<IActionResult> SetPin([FromBody] PinRequest request)
+        {
+            if (string.IsNullOrWhiteSpace(request.Pin) || request.Pin.Length != 4 || !request.Pin.All(char.IsDigit))
+                return BadRequest("PIN must be exactly 4 digits.");
+
+            var userId = User.GetUserId();
+            if (userId == null) return Unauthorized();
+
+            var user = await _userManager.FindByIdAsync(userId.Value.ToString());
+            if (user == null) return NotFound();
+
+            user.HashedPin = _userManager.PasswordHasher.HashPassword(user, request.Pin);
+            await _userManager.UpdateAsync(user);
+            return Ok();
+        }
+
+        [HttpPost("verify-pin")]
+        [Authorize]
+        public async Task<IActionResult> VerifyPin([FromBody] PinRequest request)
+        {
+            var userId = User.GetUserId();
+            if (userId == null) return Unauthorized();
+
+            var user = await _userManager.FindByIdAsync(userId.Value.ToString());
+            if (user == null || string.IsNullOrEmpty(user.HashedPin))
+                return Unauthorized();
+
+            var result = _userManager.PasswordHasher.VerifyHashedPassword(user, user.HashedPin, request.Pin);
+            if (result == PasswordVerificationResult.Success)
+            {
+                return Ok();
+            }
+
+            return Unauthorized();
+        }
+
+        [HttpPost("{id:guid}/reset-pin")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> ResetPin(Guid id)
+        {
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            if (user == null) return NotFound();
+            user.HashedPin = null;
+            await _userManager.UpdateAsync(user);
+            return Ok();
         }
     }
 }
