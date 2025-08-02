@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Dekofar.HyperConnect.Application.Interfaces;
 using Dekofar.HyperConnect.Application.Users.DTOs;
 using Dekofar.HyperConnect.Application.Common.Interfaces;
+using Dekofar.HyperConnect.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dekofar.HyperConnect.Infrastructure.Services
@@ -43,6 +44,46 @@ namespace Dekofar.HyperConnect.Infrastructure.Services
                 .FirstOrDefaultAsync();
 
             return user;
+        }
+
+        public async Task<ProfileSummaryDto?> GetProfileSummaryAsync(Guid userId)
+        {
+            var summary = await _dbContext.Users
+                .Where(u => u.Id == userId)
+                .Select(u => new ProfileSummaryDto
+                {
+                    FullName = u.FullName ?? string.Empty,
+                    AvatarUrl = u.AvatarUrl,
+                    JoinedAt = u.MembershipDate,
+                    TotalSupportTickets = _dbContext.SupportTickets.Count(t => t.CreatedByUserId == u.Id),
+                    OpenSupportTickets = _dbContext.SupportTickets.Count(t => t.CreatedByUserId == u.Id && t.Status != SupportTicketStatus.Closed),
+                    ClosedSupportTickets = _dbContext.SupportTickets.Count(t => t.CreatedByUserId == u.Id && t.Status == SupportTicketStatus.Closed),
+                    LastSupportActivityAt = _dbContext.SupportTickets
+                        .Where(t => t.CreatedByUserId == u.Id)
+                        .OrderByDescending(t => t.LastUpdatedAt)
+                        .Select(t => (DateTime?)t.LastUpdatedAt)
+                        .FirstOrDefault(),
+                    TotalMessagesSent = _dbContext.UserMessages.Count(m => m.SenderId == u.Id),
+                    UnreadMessagesCount = _dbContext.UserMessages.Count(m => m.ReceiverId == u.Id && !m.IsRead),
+                    LastMessageAt = _dbContext.UserMessages
+                        .Where(m => m.SenderId == u.Id || m.ReceiverId == u.Id)
+                        .OrderByDescending(m => m.SentAt)
+                        .Select(m => (DateTime?)m.SentAt)
+                        .FirstOrDefault(),
+                    TotalSalesAmount = _dbContext.ManualOrders
+                        .Where(o => o.CreatedByUserId == u.Id)
+                        .Sum(o => (decimal?)o.TotalAmount) ?? 0,
+                    TotalCommission = _dbContext.OrderCommissions
+                        .Where(c => c.UserId == u.Id)
+                        .Sum(c => (decimal?)c.EarnedAmount) ?? 0,
+                    Roles = (from ur in _dbContext.UserRoles
+                             join r in _dbContext.Roles on ur.RoleId equals r.Id
+                             where ur.UserId == u.Id
+                             select r.Name!).ToArray()
+                })
+                .FirstOrDefaultAsync();
+
+            return summary;
         }
     }
 }

@@ -76,5 +76,16 @@ namespace Dekofar.API.Controllers
             var profile = await _userService.GetProfileWithStatsAsync(userId.Value);
             return Ok(profile);
         }
+
+        [HttpGet("me/summary")]
+        [Authorize]
+        public async Task<ActionResult<ProfileSummaryDto>> GetProfileSummary()
+        {
+            var userId = User.GetUserId();
+            if (userId == null) return Unauthorized();
+            var summary = await _userService.GetProfileSummaryAsync(userId.Value);
+            if (summary == null) return NotFound();
+            return Ok(summary);
+        }
     }
 }

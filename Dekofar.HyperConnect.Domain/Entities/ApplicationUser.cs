@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dekofar.Domain.Entities
 {
@@ -23,5 +24,24 @@ namespace Dekofar.Domain.Entities
         public DateTime? LastMessageDate { get; set; }
         public DateTime? LastSupportActivity { get; set; }
 
+        [NotMapped]
+        public int TotalSupportTickets
+        {
+            get => TotalSupportRequestCount;
+            set => TotalSupportRequestCount = value;
+        }
+
+        [NotMapped]
+        public int OpenSupportTickets { get; set; }
+
+        [NotMapped]
+        public int ClosedSupportTickets { get; set; }
+
+        [NotMapped]
+        public DateTime? LastSupportActivityAt
+        {
+            get => LastSupportActivity;
+            set => LastSupportActivity = value;
+        }
     }
 }
