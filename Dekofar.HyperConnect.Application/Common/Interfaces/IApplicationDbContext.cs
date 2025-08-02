@@ -14,6 +14,7 @@ namespace Dekofar.HyperConnect.Application.Common.Interfaces
         DbSet<SupportCategoryRole> SupportCategoryRoles { get; }
         DbSet<ManualOrder> ManualOrders { get; }
         DbSet<ManualOrderItem> ManualOrderItems { get; }
+        DbSet<OrderCommission> OrderCommissions { get; }
         DbSet<Discount> Discounts { get; }
         DbSet<ApplicationUser> Users { get; }
         DbSet<IdentityUserRole<Guid>> UserRoles { get; }

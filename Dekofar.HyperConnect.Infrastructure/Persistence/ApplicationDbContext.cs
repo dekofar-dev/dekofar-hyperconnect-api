@@ -24,6 +24,7 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence
         public DbSet<OrderTag> OrderTags => Set<OrderTag>();
         public DbSet<ManualOrder> ManualOrders => Set<ManualOrder>();
         public DbSet<ManualOrderItem> ManualOrderItems => Set<ManualOrderItem>();
+        public DbSet<OrderCommission> OrderCommissions => Set<OrderCommission>();
         public DbSet<Discount> Discounts => Set<Discount>();
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -92,6 +93,15 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence
                 entity.Property(e => e.Value).HasColumnType("decimal(18,2)");
                 entity.Property(e => e.IsActive).IsRequired();
                 entity.Property(e => e.CreatedByUserId).IsRequired();
+                entity.Property(e => e.CreatedAt).IsRequired();
+            });
+
+            builder.Entity<OrderCommission>(entity =>
+            {
+                entity.ToTable("OrderCommissions");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.CommissionRate).HasColumnType("decimal(18,4)");
+                entity.Property(e => e.EarnedAmount).HasColumnType("decimal(18,2)");
                 entity.Property(e => e.CreatedAt).IsRequired();
             });
         }

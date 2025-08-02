@@ -1,5 +1,6 @@
 using Dekofar.HyperConnect.Application.Common.Interfaces;
 using Dekofar.HyperConnect.Application.ManualOrders.Commands;
+using Dekofar.HyperConnect.Application.OrderCommissions.Commands;
 using Dekofar.HyperConnect.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -12,11 +13,13 @@ namespace Dekofar.HyperConnect.Application.ManualOrders.Handlers
     {
         private readonly IApplicationDbContext _context;
         private readonly ICurrentUserService _currentUser;
+        private readonly IMediator _mediator;
 
-        public CreateManualOrderHandler(IApplicationDbContext context, ICurrentUserService currentUser)
+        public CreateManualOrderHandler(IApplicationDbContext context, ICurrentUserService currentUser, IMediator mediator)
         {
             _context = context;
             _currentUser = currentUser;
+            _mediator = mediator;
         }
 
         public async Task<Guid> Handle(CreateManualOrderCommand request, CancellationToken cancellationToken)
@@ -86,6 +89,8 @@ namespace Dekofar.HyperConnect.Application.ManualOrders.Handlers
 
             await _context.ManualOrders.AddAsync(order, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
+
+            await _mediator.Send(new CreateOrderCommissionCommand(order.Id, order.CreatedByUserId, order.TotalAmount), cancellationToken);
 
             return order.Id;
         }
