@@ -7,5 +7,6 @@ namespace Dekofar.HyperConnect.Application.Common.Interfaces
     public interface IFileStorageService
     {
         Task<string> SaveProfileImageAsync(IFormFile file, Guid userId);
+        Task<string> SaveChatAttachmentAsync(IFormFile file, Guid userId);
     }
 }

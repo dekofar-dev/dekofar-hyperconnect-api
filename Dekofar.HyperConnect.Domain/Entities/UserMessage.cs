@@ -1,0 +1,26 @@
+using System;
+using Dekofar.Domain.Entities;
+
+namespace Dekofar.HyperConnect.Domain.Entities
+{
+    public class UserMessage
+    {
+        public Guid Id { get; set; }
+
+        public Guid SenderId { get; set; }
+        public ApplicationUser Sender { get; set; } = default!;
+
+        public Guid ReceiverId { get; set; }
+        public ApplicationUser Receiver { get; set; } = default!;
+
+        public string? Text { get; set; }
+
+        public string? AttachmentUrl { get; set; }
+
+        public DateTime SentAt { get; set; }
+
+        public bool IsRead { get; set; } = false;
+
+        public DateTime? ReadAt { get; set; }
+    }
+}

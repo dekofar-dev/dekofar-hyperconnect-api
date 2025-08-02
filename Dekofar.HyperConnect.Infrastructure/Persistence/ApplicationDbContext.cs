@@ -30,6 +30,7 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence
         public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
         public DbSet<Permission> Permissions => Set<Permission>();
         public DbSet<RolePermission> RolePermissions => Set<RolePermission>();
+        public DbSet<UserMessage> UserMessages => Set<UserMessage>();
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
             => await base.SaveChangesAsync(cancellationToken);
@@ -146,6 +147,20 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence
                       .WithMany(p => p.RolePermissions)
                       .HasForeignKey(rp => rp.PermissionId)
                       .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            builder.Entity<UserMessage>(entity =>
+            {
+                entity.ToTable("UserMessages");
+                entity.HasKey(e => e.Id);
+                entity.HasOne(e => e.Sender)
+                      .WithMany()
+                      .HasForeignKey(e => e.SenderId)
+                      .OnDelete(DeleteBehavior.Restrict);
+                entity.HasOne(e => e.Receiver)
+                      .WithMany()
+                      .HasForeignKey(e => e.ReceiverId)
+                      .OnDelete(DeleteBehavior.Restrict);
             });
         }
     }
