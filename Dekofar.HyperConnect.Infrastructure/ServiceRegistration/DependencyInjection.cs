@@ -18,6 +18,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Reflection.Metadata;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Dekofar.HyperConnect.Infrastructure.ServiceRegistration
 {
@@ -69,6 +70,19 @@ namespace Dekofar.HyperConnect.Infrastructure.ServiceRegistration
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ClockSkew = TimeSpan.Zero,
                     RoleClaimType = ClaimTypes.Role
+                };
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        var accessToken = context.Request.Query["access_token"];
+                        var path = context.HttpContext.Request.Path;
+                        if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/chatHub"))
+                        {
+                            context.Token = accessToken;
+                        }
+                        return Task.CompletedTask;
+                    }
                 };
             });
             services.AddHttpContextAccessor(); // gerekli
