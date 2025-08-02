@@ -85,5 +85,25 @@ namespace Dekofar.HyperConnect.Infrastructure.Services
 
             return summary;
         }
+
+        public async Task<SalesSummaryDto?> GetSalesSummaryAsync(Guid userId)
+        {
+            var summary = await _dbContext.Users
+                .Where(u => u.Id == userId)
+                .Select(u => new SalesSummaryDto
+                {
+                    TotalSalesAmount = _dbContext.Orders
+                        .Where(o => o.SellerId == u.Id)
+                        .Sum(o => (decimal?)o.TotalAmount) ?? 0,
+                    TotalCommissionAmount = _dbContext.Commissions
+                        .Where(c => c.UserId == u.Id)
+                        .Sum(c => (decimal?)c.Amount) ?? 0,
+                    OrdersCount = _dbContext.Orders.Count(o => o.SellerId == u.Id),
+                    CommissionCount = _dbContext.Commissions.Count(c => c.UserId == u.Id)
+                })
+                .FirstOrDefaultAsync();
+
+            return summary;
+        }
     }
 }

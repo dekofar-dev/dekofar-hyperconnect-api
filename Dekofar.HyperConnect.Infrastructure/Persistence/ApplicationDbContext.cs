@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
+using DomainOrder = Dekofar.HyperConnect.Domain.Entities.Order;
+using DomainCommission = Dekofar.HyperConnect.Domain.Entities.Commission;
 
 namespace Dekofar.HyperConnect.Infrastructure.Persistence
 {
@@ -25,6 +27,8 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence
         public DbSet<ManualOrder> ManualOrders => Set<ManualOrder>();
         public DbSet<ManualOrderItem> ManualOrderItems => Set<ManualOrderItem>();
         public DbSet<OrderCommission> OrderCommissions => Set<OrderCommission>();
+        public DbSet<DomainOrder> Orders => Set<DomainOrder>();
+        public DbSet<DomainCommission> Commissions => Set<DomainCommission>();
         public DbSet<Discount> Discounts => Set<Discount>();
         public DbSet<Note> Notes => Set<Note>();
         public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
@@ -109,6 +113,32 @@ namespace Dekofar.HyperConnect.Infrastructure.Persistence
                 entity.Property(e => e.CommissionRate).HasColumnType("decimal(18,4)");
                 entity.Property(e => e.EarnedAmount).HasColumnType("decimal(18,2)");
                 entity.Property(e => e.CreatedAt).IsRequired();
+            });
+
+            builder.Entity<DomainOrder>(entity =>
+            {
+                entity.ToTable("Orders");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.TotalAmount).HasColumnType("decimal(18,2)");
+                entity.HasOne(e => e.Seller)
+                      .WithMany(u => u.Orders)
+                      .HasForeignKey(e => e.SellerId)
+                      .OnDelete(DeleteBehavior.SetNull);
+            });
+
+            builder.Entity<DomainCommission>(entity =>
+            {
+                entity.ToTable("Commissions");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Amount).HasColumnType("decimal(18,2)");
+                entity.HasOne(c => c.User)
+                      .WithMany(u => u.Commissions)
+                      .HasForeignKey(c => c.UserId)
+                      .OnDelete(DeleteBehavior.Cascade);
+                entity.HasOne(c => c.Order)
+                      .WithMany()
+                      .HasForeignKey(c => c.OrderId)
+                      .OnDelete(DeleteBehavior.SetNull);
             });
 
             builder.Entity<Note>(entity =>
