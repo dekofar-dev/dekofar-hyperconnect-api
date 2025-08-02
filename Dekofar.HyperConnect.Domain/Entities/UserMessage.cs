@@ -1,5 +1,4 @@
 using System;
-using Dekofar.Domain.Entities;
 
 namespace Dekofar.HyperConnect.Domain.Entities
 {

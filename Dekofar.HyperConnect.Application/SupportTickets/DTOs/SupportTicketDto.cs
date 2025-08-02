@@ -18,5 +18,6 @@ namespace Dekofar.HyperConnect.Application.SupportTickets.DTOs
         public string? FilePath { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime LastUpdatedAt { get; set; }
+        public int UnreadReplyCount { get; set; }
     }
 }

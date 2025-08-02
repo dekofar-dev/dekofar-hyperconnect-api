@@ -1,5 +1,4 @@
-﻿using Dekofar.Domain.Entities;
-using Dekofar.HyperConnect.Application.Common.Interfaces;
+﻿using Dekofar.HyperConnect.Application.Common.Interfaces;
 using Dekofar.HyperConnect.Domain.Entities;
 using Dekofar.HyperConnect.Domain.Entities.Orders;
 using Microsoft.AspNetCore.Identity;

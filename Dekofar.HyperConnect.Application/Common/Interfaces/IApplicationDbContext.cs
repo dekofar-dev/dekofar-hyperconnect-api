@@ -1,4 +1,3 @@
-using Dekofar.Domain.Entities;
 using Dekofar.HyperConnect.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

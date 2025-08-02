@@ -22,7 +22,7 @@ namespace Dekofar.HyperConnect.Tests.Services
         public async Task GetSummaryAsync_ReturnsCorrectCounts()
         {
             using var context = CreateContext();
-            context.Users.Add(new Dekofar.Domain.Entities.ApplicationUser { Id = Guid.NewGuid(), LastSeen = DateTime.UtcNow });
+            context.Users.Add(new ApplicationUser { Id = Guid.NewGuid(), LastSeen = DateTime.UtcNow });
             context.Orders.Add(new Dekofar.HyperConnect.Domain.Entities.Order { Id = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, TotalAmount = 100 });
             context.SupportTickets.Add(new SupportTicket { Id = Guid.NewGuid(), Title = "t", Description = "d", CreatedByUserId = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, LastUpdatedAt = DateTime.UtcNow, Status = SupportTicketStatus.Open });
             context.Commissions.Add(new Commission { Id = Guid.NewGuid(), UserId = Guid.NewGuid(), Amount = 10, CreatedAt = DateTime.UtcNow });

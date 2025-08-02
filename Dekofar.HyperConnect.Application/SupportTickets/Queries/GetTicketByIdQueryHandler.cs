@@ -38,7 +38,8 @@ namespace Dekofar.HyperConnect.Application.SupportTickets.Queries
                 DueDate = ticket.DueDate,
                 FilePath = ticket.FilePath,
                 CreatedAt = ticket.CreatedAt,
-                LastUpdatedAt = ticket.LastUpdatedAt
+                LastUpdatedAt = ticket.LastUpdatedAt,
+                UnreadReplyCount = ticket.UnreadReplyCount
             };
         }
     }

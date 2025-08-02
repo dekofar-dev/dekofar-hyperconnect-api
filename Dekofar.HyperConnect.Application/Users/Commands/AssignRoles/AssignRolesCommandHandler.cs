@@ -1,4 +1,4 @@
-using Dekofar.Domain.Entities;
+using Dekofar.HyperConnect.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using System;

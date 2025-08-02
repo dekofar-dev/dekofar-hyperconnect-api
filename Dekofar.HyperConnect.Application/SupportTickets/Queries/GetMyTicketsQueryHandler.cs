@@ -42,7 +42,8 @@ namespace Dekofar.HyperConnect.Application.SupportTickets.Queries
                     DueDate = t.DueDate,
                     FilePath = t.FilePath,
                     CreatedAt = t.CreatedAt,
-                    LastUpdatedAt = t.LastUpdatedAt
+                    LastUpdatedAt = t.LastUpdatedAt,
+                    UnreadReplyCount = t.UnreadReplyCount
                 })
                 .ToListAsync(cancellationToken);
         }

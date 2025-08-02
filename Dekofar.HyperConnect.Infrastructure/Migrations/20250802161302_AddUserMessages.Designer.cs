@@ -25,7 +25,7 @@ namespace Dekofar.HyperConnect.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Dekofar.Domain.Entities.ApplicationUser", b =>
+            modelBuilder.Entity("Dekofar.HyperConnect.Domain.Entities.ApplicationUser", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -770,13 +770,13 @@ namespace Dekofar.HyperConnect.Infrastructure.Migrations
 
             modelBuilder.Entity("Dekofar.HyperConnect.Domain.Entities.UserMessage", b =>
                 {
-                    b.HasOne("Dekofar.Domain.Entities.ApplicationUser", "Receiver")
+                    b.HasOne("Dekofar.HyperConnect.Domain.Entities.ApplicationUser", "Receiver")
                         .WithMany()
                         .HasForeignKey("ReceiverId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Dekofar.Domain.Entities.ApplicationUser", "Sender")
+                    b.HasOne("Dekofar.HyperConnect.Domain.Entities.ApplicationUser", "Sender")
                         .WithMany()
                         .HasForeignKey("SenderId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -798,7 +798,7 @@ namespace Dekofar.HyperConnect.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
-                    b.HasOne("Dekofar.Domain.Entities.ApplicationUser", null)
+                    b.HasOne("Dekofar.HyperConnect.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -807,7 +807,7 @@ namespace Dekofar.HyperConnect.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.HasOne("Dekofar.Domain.Entities.ApplicationUser", null)
+                    b.HasOne("Dekofar.HyperConnect.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -822,7 +822,7 @@ namespace Dekofar.HyperConnect.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dekofar.Domain.Entities.ApplicationUser", null)
+                    b.HasOne("Dekofar.HyperConnect.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -831,7 +831,7 @@ namespace Dekofar.HyperConnect.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.HasOne("Dekofar.Domain.Entities.ApplicationUser", null)
+                    b.HasOne("Dekofar.HyperConnect.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

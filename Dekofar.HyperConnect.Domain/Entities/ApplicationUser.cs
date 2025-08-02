@@ -2,9 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using Dekofar.HyperConnect.Domain.Entities;
 
-namespace Dekofar.Domain.Entities
+namespace Dekofar.HyperConnect.Domain.Entities
 {
     public class ApplicationUser : IdentityUser<Guid>
     {

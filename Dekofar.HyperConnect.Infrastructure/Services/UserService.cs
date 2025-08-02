@@ -29,12 +29,12 @@ namespace Dekofar.HyperConnect.Infrastructure.Services
                     Email = u.Email!,
                     AvatarUrl = u.AvatarUrl,
                     UnreadMessageCount = _dbContext.UserMessages.Count(m => m.ReceiverId == u.Id && !m.IsRead),
-                    LastMessageAt = _dbContext.UserMessages
+                    LastMessageDate = _dbContext.UserMessages
                         .Where(m => m.SenderId == u.Id || m.ReceiverId == u.Id)
                         .OrderByDescending(m => m.SentAt)
                         .Select(m => m.SentAt)
                         .FirstOrDefault(),
-                    LastSupportInteractionAt = _dbContext.SupportTickets
+                    LastSupportActivityAt = _dbContext.SupportTickets
                         .Where(t => t.CreatedByUserId == u.Id || t.AssignedUserId == u.Id)
                         .OrderByDescending(t => t.LastUpdatedAt)
                         .Select(t => t.LastUpdatedAt)
@@ -64,8 +64,8 @@ namespace Dekofar.HyperConnect.Infrastructure.Services
                         .Select(t => (DateTime?)t.LastUpdatedAt)
                         .FirstOrDefault(),
                     TotalMessagesSent = _dbContext.UserMessages.Count(m => m.SenderId == u.Id),
-                    UnreadMessagesCount = _dbContext.UserMessages.Count(m => m.ReceiverId == u.Id && !m.IsRead),
-                    LastMessageAt = _dbContext.UserMessages
+                    UnreadMessageCount = _dbContext.UserMessages.Count(m => m.ReceiverId == u.Id && !m.IsRead),
+                    LastMessageDate = _dbContext.UserMessages
                         .Where(m => m.SenderId == u.Id || m.ReceiverId == u.Id)
                         .OrderByDescending(m => m.SentAt)
                         .Select(m => (DateTime?)m.SentAt)

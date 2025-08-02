@@ -1,7 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Dekofar.Domain.Entities;
+using Dekofar.HyperConnect.Domain.Entities;
 using Dekofar.HyperConnect.Application.Common.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Http;

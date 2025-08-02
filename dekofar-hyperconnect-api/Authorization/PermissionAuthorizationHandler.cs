@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Dekofar.Domain.Entities;
+using Dekofar.HyperConnect.Domain.Entities;
 using Dekofar.HyperConnect.Application.Common.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
